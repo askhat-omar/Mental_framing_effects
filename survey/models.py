@@ -31,7 +31,7 @@ class Player(BasePlayer):
     )
     major = models.StringField(
         choices=['Science, technology, engineering and mathematics',
-                 'Social sciences',
+                 'Social sciences, business and finance',
                  'Art and humanities'
                  ]
     )

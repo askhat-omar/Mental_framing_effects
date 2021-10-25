@@ -26,6 +26,7 @@
 
 {% block scripts %}
 
+    <!--Автор оставил неепонятную ссылку, откуда он берет элементы интерфейса -->
     <script src="https://d3js.org/d3.v5.min.js"></script>
 
     <script>
@@ -34,8 +35,12 @@
             .attr("align","center");
 
 
+        <!--Здесь описана логика того как рисуется интерфейс, в частности ячейки бииномиального дерева -->
+
         var T = {{subsession.num_periods|json}};
+        <!-- Т+1 потому что первая ячейка считается как нулевая -->
         var num_periods = T+1;
+        <!-- 2^Т это количество ячеек (nodes) в периоде Т -->
         var num_termnodes = 2**T;
         var horizontal_margin = 20;
         var vertical_margin = 20;
@@ -54,7 +59,7 @@
 
         var prices = JSON.parse({{subsession.dyn_prices|json}});
 
-        <!--DEFINING ARROW MARKERS-->
+        <!--Далее рисуются стрелки-->
 
         svgContainer.append("svg:defs").append("svg:marker")
             .attr("id", "triangle")
@@ -68,7 +73,10 @@
             .attr("d", "M 0 0 12 6 0 12 3 6")
             .style("fill", "black");
 
-        <!--TERMINAL NODES-->
+
+
+        <!--Терминальные (в последнем периоде t=T) ячейки-->
+        <!--На них есть только информация о финальном богатстве и цене акции, респондент не может ничего более выбирать-->
         targetX = horizontal_margin + (box_width + box_horizontal_space)*T;
 
         for(i=1; i<num_termnodes+1; i++){
@@ -109,8 +117,10 @@
                 .attr("type","number");
         }
 
-        <!--NON-TERMINAL NODES-->
 
+
+        <!--Промежуточные ячейки (t<T) -->
+        <!--Разница в том, что в промежуточных респондент может выбрать сколько денег инвестировать в акции -->
         for(k=1; k<T+1; k++){
 
             var num_nodes = 2**(T-k);
@@ -210,6 +220,8 @@
 
     </script>
 
+    <!--Здесь прописана логика расчета богатства следующего периода в зависимости от того сколько респондент инвестирует
+     в акции в текущем периоде. И прочая математика-->
     <script>
     $("input").on("keydown keyup", function() {
         var T = {{subsession.num_periods|json}};
@@ -240,7 +252,8 @@
                     var current_s_id = "#s_" + t + "_" + i;
                     var current_s = parseInt($(current_s_id).val());
                     var current_b_id = "#b_" + t + "_" + i;
-                    var current_b = current_w - current_s;
+                    var current_b = current_w - current_s;  <!-- Инвестиции в облигации = разница между богатством и
+                    инвестициями в акции -->
                     if(!isNaN(current_b)){
                         $(current_b_id).val(current_b);
                     };
@@ -251,7 +264,7 @@
                         bond_string = bond_string + ', ';
                     };
                 };
-                if(current_w<0 && error==0){
+                if(current_w<0 && error==0){  <!-- Ошибка если в следующем периоде богатство <0 -->
                     $(current_w_id).attr("min",0);
                     error = 1
                 } else {

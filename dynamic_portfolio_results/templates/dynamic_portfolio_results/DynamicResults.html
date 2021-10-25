@@ -55,7 +55,7 @@
         var states = JSON.parse({{realized_states|json}});
         var prices = JSON.parse({{prices|json}});
 
-        <!--DEFINING ARROW MARKERS-->
+        <!--Рисовка стрелок между ячейками-->
 
         svgContainer.append("svg:defs").append("svg:marker")
             .attr("id", "tip")
@@ -148,6 +148,8 @@
 
                 targetY = top_offset + (i-1) * (box_height + box_vertical_distance);
 
+                <!--Здесь прописаны условия как выбраются ячейки и стрелки для закрашивания в красный
+                (итоговый результат) -->
                 if(i==states[(T-k).toString()]){
                     var box_color = "red";
                     if(states[(T-k+1).toString()]%2==0){

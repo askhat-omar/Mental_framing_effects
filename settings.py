@@ -16,6 +16,7 @@ SESSION_CONFIGS = [
         'name': 'DynPort',
         'display_name': "Experiment",
         'num_demo_participants': 1,
+        # Здесь, думаю, понятно - перечисляются приложения по очереди отображения
         'app_sequence': ['introduction',
                          'dynamic_portfolio_instructions',
                          'dynamic_portfolio_practice',
@@ -30,6 +31,7 @@ SESSION_CONFIGS = [
                          'crt',
                          'survey',
                          'finalpage'],
+        # Эти значения далее будут исаользоваться в dynamic_portfolio и static_portfolio
         'round1_T': 3,
         'round2_T': 4
     },
