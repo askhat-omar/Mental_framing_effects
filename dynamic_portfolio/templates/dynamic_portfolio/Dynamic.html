@@ -252,8 +252,7 @@
                     var current_s_id = "#s_" + t + "_" + i;
                     var current_s = parseInt($(current_s_id).val());
                     var current_b_id = "#b_" + t + "_" + i;
-                    var current_b = current_w - current_s;  <!-- Инвестиции в облигации = разница между богатством и
-                    инвестициями в акции -->
+                    var current_b = current_w - current_s;
                     if(!isNaN(current_b)){
                         $(current_b_id).val(current_b);
                     };

@@ -17,20 +17,9 @@ SESSION_CONFIGS = [
         'display_name': "Experiment",
         'num_demo_participants': 1,
         # Здесь, думаю, понятно - перечисляются приложения по очереди отображения
-        'app_sequence': ['introduction',
-                         'dynamic_portfolio_instructions',
-                         'dynamic_portfolio_practice',
-                         'dynamic_portfolio_quiz',
-                         'dynamic_portfolio',
-                         'static_portfolio_instructions',
-                         'static_portfolio_practice',
-                         'static_portfolio_quiz',
-                         'static_portfolio',
+        'app_sequence': ['dynamic_portfolio',
                          'dynamic_portfolio_results',
-                         'static_portfolio_results',
-                         'crt',
-                         'survey',
-                         'finalpage'],
+                         'static_portfolio'],
         # Эти значения далее будут исаользоваться в dynamic_portfolio и static_portfolio
         'round1_T': 3,
         'round2_T': 4

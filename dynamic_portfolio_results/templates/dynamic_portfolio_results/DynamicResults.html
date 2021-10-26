@@ -81,7 +81,7 @@
             .attr("d", "M 0 0 12 6 0 12 3 6")
             .style("fill", "red");
 
-        <!--TERMINAL NODES-->
+        <!--Окончательные ячейки-->
         targetX = horizontal_margin + (box_width + box_horizontal_space)*T;
 
         for(i=1; i<num_termnodes+1; i++){
@@ -128,7 +128,7 @@
                 .attr("value",wealth[wealth_label]);
         }
 
-        <!--NON-TERMINAL NODES-->
+        <!--Промежуточные ячейки-->
 
         for(k=1; k<T+1; k++){
 
@@ -148,8 +148,6 @@
 
                 targetY = top_offset + (i-1) * (box_height + box_vertical_distance);
 
-                <!--Здесь прописаны условия как выбраются ячейки и стрелки для закрашивания в красный
-                (итоговый результат) -->
                 if(i==states[(T-k).toString()]){
                     var box_color = "red";
                     if(states[(T-k+1).toString()]%2==0){
