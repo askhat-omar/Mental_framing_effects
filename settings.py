@@ -19,7 +19,8 @@ SESSION_CONFIGS = [
         # Здесь, думаю, понятно - перечисляются приложения по очереди отображения
         'app_sequence': ['dynamic_portfolio',
                          'dynamic_portfolio_results',
-                         'static_portfolio'],
+                         'static_portfolio',
+                         'static_portfolio_chp'],
         # Эти значения далее будут исаользоваться в dynamic_portfolio и static_portfolio
         'round1_T': 3,
         'round2_T': 4
