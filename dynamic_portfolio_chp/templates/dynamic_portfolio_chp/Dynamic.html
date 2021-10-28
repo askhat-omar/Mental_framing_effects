@@ -58,6 +58,7 @@
         var svgContainer = d3.select("#chart").append("svg").attr("width",total_width).attr("height",total_height);
 
         var prices = JSON.parse({{subsession.dyn_prices|json}});
+        var uptick_probs = JSON.parse({{subsession.uptick_probs|json}});
 
         <!--Далее рисуются стрелки-->
 
@@ -200,6 +201,13 @@
                     .attr("stroke-width", 1)
                     .attr("stroke", "black")
                     .attr("marker-end", "url(#triangle)");
+
+                console.log(T-k, i)
+
+                svgContainer.append("text").html(uptick_probs[T-k][i-1])
+                    .attr("x", (line_start_X + line_end_X) / 2 - 30)
+                    .attr("y", (line_start_Y + upline_end_Y) / 2 - 15);
+
                 svgContainer.append("line")
                     .attr("x1",line_start_X)
                     .attr("y1",line_start_Y)
@@ -208,6 +216,10 @@
                     .attr("stroke-width", 1)
                     .attr("stroke", "black")
                     .attr("marker-end", "url(#triangle)");
+
+                svgContainer.append("text").html(parseFloat((1-uptick_probs[T-k][i-1]).toFixed(3)))
+                    .attr("x", (line_start_X + line_end_X) / 2 - 30)
+                    .attr("y", (line_start_Y + downline_end_Y) / 2 + 25);
 
             };
 

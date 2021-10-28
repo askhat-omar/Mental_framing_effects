@@ -28,11 +28,16 @@ class Constants(BaseConstants):
     # Эти двое не меняются, это коэффициенты роста цены акции
     up_tick = 2
     down_tick = 0.5
-
+    uptick_probs = [
+        [0.5],
+        [0.667, 0.5],
+        [0.333, 0.333, 0.333, 0.5]
+    ]
 
 class Subsession(BaseSubsession):
     num_periods = models.IntegerField()
     dyn_prices = models.StringField()
+    uptick_probs = models.StringField()
 
 # Здесь прописывается логика того, как меняется цена акции и как в зависимости от этого меняется богатство респондента
     def creating_session(self):
@@ -54,6 +59,7 @@ class Subsession(BaseSubsession):
                             current_price = previous_price * Constants.up_tick
                         dyn_prices_list[price_label.format(s, i)] = current_price
                 self.in_round(r).dyn_prices = json.dumps(dyn_prices_list)
+                self.in_round(r).uptick_probs = json.dumps(Constants.uptick_probs)
                 self.session.vars["dyn_num_periods_round{}".format(r)] = self.in_round(r).num_periods
                 self.session.vars["dyn_prices_round{}".format(r)] = self.in_round(r).dyn_prices
 
@@ -74,15 +80,13 @@ class Player(BasePlayer):
 # то же самое, кроме того, что результат вычисляется и показывается респонденту сразу и пошагово (в dynamic_portfolio это
 # делается в конце эксперимента)
     def dyn_get_outcome(self):
-        upticks = numpy.random.binomial(1, Constants.up_prob, size=self.subsession.num_periods)
-        downticks = 1 - upticks
-        downticks = downticks.tolist()  # type: numpy.ndarray
         realized_states = {"0": 1}
+        state = 1
         for t in range(1, self.subsession.num_periods+1, 1):
-            state = 1
-            for s in range(t):
-                state = state + downticks[s] * 2**(t-s-1)
-                realized_states[str(t)] = state
+            uptick = numpy.random.binomial(1, Constants.uptick_probs[t-1][state-1])
+            downtick = 1 - uptick
+            state = state * 2 + downtick - 1
+            realized_states[str(t)] = state
         self.dyn_realized_states = json.dumps(realized_states)
         wealth_list = json.loads(self.dyn_wealth)
         wealth_label = "w_{}_{}"
