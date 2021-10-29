@@ -57,6 +57,10 @@ class Subsession(BaseSubsession):
                 self.session.vars["dyn_num_periods_round{}".format(r)] = self.in_round(r).num_periods
                 self.session.vars["dyn_prices_round{}".format(r)] = self.in_round(r).dyn_prices
 
+    def calculate_path(self):
+        t = self.session.config['round{}_T'.format(self.round_number)]
+        return json.dumps((1 - numpy.random.binomial(1, 0.5, size=t)).tolist())
+
 
 class Group(BaseGroup):
     pass
@@ -69,21 +73,9 @@ class Player(BasePlayer):
     dyn_realized_states = models.StringField()
     dyn_realized_wealth = models.FloatField()
 
-# Здесь случайным образом выбираются результаты. Для dynamic_portfolio с одинаковыми вероятностями ничего не меняется,
-# но для версии с меняющимися вероятностями возможно нужно через if поменять. Для dynamic_iterative нужно будет сделать
-# то же самое, кроме того, что результат вычисляется и показывается респонденту сразу и пошагово (в dynamic_portfolio это
-# делается в конце эксперимента)
+# Читается результаты
     def dyn_get_outcome(self):
-        upticks = numpy.random.binomial(1, Constants.up_prob, size=self.subsession.num_periods)
-        downticks = 1 - upticks
-        downticks = downticks.tolist()  # type: numpy.ndarray
-        realized_states = {"0": 1}
-        for t in range(1, self.subsession.num_periods+1, 1):
-            state = 1
-            for s in range(t):
-                state = state + downticks[s] * 2**(t-s-1)
-                realized_states[str(t)] = state
-        self.dyn_realized_states = json.dumps(realized_states)
+        realized_states = json.loads(self.dyn_realized_states)
         wealth_list = json.loads(self.dyn_wealth)
         wealth_label = "w_{}_{}"
         final_t = self.subsession.num_periods
