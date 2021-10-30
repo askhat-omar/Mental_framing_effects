@@ -1,4 +1,5 @@
 from os import environ
+import random
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
 # in SESSION_CONFIGS, except those that explicitly override it.
@@ -17,10 +18,10 @@ SESSION_CONFIGS = [
         'display_name': "Experiment",
         'num_demo_participants': 1,
         # Здесь, думаю, понятно - перечисляются приложения по очереди отображения
-        'app_sequence': ['dynamic_iterative',
-                         # 'dynamic_portfolio_results',
-                         'static_portfolio',
-                         'static_portfolio_chp'],
+        'app_sequence': ['dynamic_portfolio',
+                         'dynamic_portfolio_results',
+                         'dynamic_iterative',
+                         'static_portfolio'],
         # Эти значения далее будут исаользоваться в dynamic_portfolio и static_portfolio
         'round1_T': 3,
         'round2_T': 4

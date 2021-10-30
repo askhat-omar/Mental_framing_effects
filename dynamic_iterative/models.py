@@ -83,8 +83,8 @@ class Player(BasePlayer):
         self.dyn_realized_wealth = wealth_list[wealth_label.format(final_t, final_state)]
         self.payoff = self.dyn_realized_wealth
         r = self.round_number
-        self.participant.vars["dyn_wealth_round{}".format(r)] = self.dyn_wealth
-        self.participant.vars["dyn_stock_round{}".format(r)] = self.dyn_stock
-        self.participant.vars["dyn_bond_round{}".format(r)] = self.dyn_bond
-        self.participant.vars["dyn_realized_states_round{}".format(r)] = self.dyn_realized_states
-        self.participant.vars["dyn_realized_wealth_round{}".format(r)] = self.dyn_realized_wealth
+        # self.participant.vars["dyn_wealth_round{}".format(r)] = self.dyn_wealth
+        # self.participant.vars["dyn_stock_round{}".format(r)] = self.dyn_stock
+        # self.participant.vars["dyn_bond_round{}".format(r)] = self.dyn_bond
+        # self.participant.vars["dyn_realized_states_round{}".format(r)] = self.dyn_realized_states
+        # self.participant.vars["dyn_realized_wealth_round{}".format(r)] = self.dyn_realized_wealth
