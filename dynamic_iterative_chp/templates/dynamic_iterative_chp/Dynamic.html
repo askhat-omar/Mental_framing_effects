@@ -14,13 +14,15 @@
 
     <div id="chart" align="center"></div>
 
-    {% next_button %}
+    <p><button class="otree-btn-next-iterative btn btn-primary" type="submit">Next</button></p>
     <input type="hidden" name="dyn_stock" id="id_stock"/>
     {{ form.dyn_stock.errors }}
     <input type="hidden" name="dyn_bond" id="id_bond"/>
     {{ form.dyn_bond.errors }}
     <input type="hidden" name="dyn_wealth" id="id_wealth"/>
     {{ form.dyn_wealth.errors }}
+    <input type="hidden" name="dyn_realized_states" id="id_realized_states"/>
+    {{ form.dyn_realized_states.errors }}
 
 {% endblock %}
 
@@ -30,14 +32,61 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
 
     <script>
+        var T = {{subsession.num_periods|json}};
+        var downticks = {% subsession.calculate_path() %};
+
+        var currT = 0
+        var currS = 1
+        var realizedStates = {"0": 1}
+        function processStep() {
+            currT += 1
+            currS = currS * 2 + downticks[currT-1]-1;
+            realizedStates[currT.toString()] = currS
+
+            var sId = `#s_${currT}_${currS}`;
+            $(sId).attr("required", "required");
+            $(sId).removeAttr("disabled");
+
+            function paint_grey(t, s) {
+                if (t > T) return;
+                var rectId = `#r_${t}_${s}`;
+                $(rectId).css("fill", "grey");
+                $(rectId).next().css("display", "none");
+                paint_grey(t+1, s*2-1);
+                paint_grey(t+1, s*2);
+            }
+            paint_grey(currT, currS + (downticks[currT-1] === 1 ? -1 : 1));
+
+            var lineId = `#l_${currT}_${currS}`;
+            $(lineId).attr("stroke", "red")
+                     .attr("marker-end", "url(#red-triangle)");
+        }
+
+        $('#form').submit(function () {
+            var currRound = {{session.vars.num_rounds|json}};
+            if (currRound === 1 && currT < T) {
+                processStep()
+                return false;
+            }
+            $("#id_realized_states").val(JSON.stringify(realizedStates));
+
+            $('.otree-btn-next-iterative').each(function () {
+                var nextButton = this;
+                var originalState = nextButton.disabled;
+                nextButton.disabled = true;
+                setTimeout(function () {
+                    // restore original state.
+                    // it's possible the button was disabled in the first place?
+                    nextButton.disabled = originalState;
+                }, 15000);
+            });
+        });
 
         d3.select("#chart")
             .attr("align","center");
 
 
         <!--Здесь описана логика того как рисуется интерфейс, в частности ячейки бииномиального дерева -->
-
-        var T = {{subsession.num_periods|json}};
         <!-- Т+1 потому что первая ячейка считается как нулевая -->
         var num_periods = T+1;
         <!-- 2^Т это количество ячеек (nodes) в периоде Т -->
@@ -58,6 +107,7 @@
         var svgContainer = d3.select("#chart").append("svg").attr("width",total_width).attr("height",total_height);
 
         var prices = JSON.parse({{subsession.dyn_prices|json}});
+        var uptick_probs = JSON.parse({{subsession.uptick_probs|json}});
 
         <!--Далее рисуются стрелки-->
 
@@ -73,6 +123,17 @@
             .attr("d", "M 0 0 12 6 0 12 3 6")
             .style("fill", "black");
 
+        svgContainer.append("svg:defs").append("svg:marker")
+            .attr("id", "red-triangle")
+            .attr("refX", 6)
+            .attr("refY", 6)
+            .attr("markerWidth", 30)
+            .attr("markerHeight", 30)
+            .attr("markerUnits","userSpaceOnUse")
+            .attr("orient", "auto")
+            .append("path")
+            .attr("d", "M 0 0 12 6 0 12 3 6")
+            .style("fill", "red");
 
 
         <!--Терминальные (в последнем периоде t=T) ячейки-->
@@ -86,6 +147,7 @@
             price_label = "x_" + T + "_" + i;
 
             svgContainer.append("rect")
+                .attr("id", `r_${T}_${i}`)
                 .attr("x",targetX)
                 .attr("y",targetY)
                 .attr("width",termbox_width)
@@ -140,6 +202,7 @@
                 targetY = top_offset + (i-1) * (box_height + box_vertical_distance);
 
                 svgContainer.append("rect")
+                    .attr("id", `r_${T-k}_${i}`)
                     .attr("x",targetX)
                     .attr("y",targetY)
                     .attr("width",box_width)
@@ -167,7 +230,7 @@
                     .attr("id",stock_label)
                     .attr("type","number")
                     .attr("step","1")
-                    .attr("required","required");
+                    .attr("disabled", "disabled")
                 var row2 = tab.append("tr");
                 row2.append("td").html("Wealth:");
                 row2.append("td").append("xhtml:input")
@@ -193,6 +256,7 @@
                     var downline_end_Y = line_start_Y + 0.5 * (box_height + nextbox_vertical_distance);
                 };
                 svgContainer.append("line")
+                    .attr("id", `l_${T-k+1}_${i*2-1}`)
                     .attr("x1",line_start_X)
                     .attr("y1",line_start_Y)
                     .attr("x2",line_end_X)
@@ -201,11 +265,12 @@
                     .attr("stroke", "black")
                     .attr("marker-end", "url(#triangle)");
 
-                svgContainer.append("text").html(0.5)
+                svgContainer.append("text").html(uptick_probs[T-k][i-1])
                     .attr("x", (line_start_X + line_end_X) / 2 - 30)
                     .attr("y", (line_start_Y + upline_end_Y) / 2 - 15);
 
                 svgContainer.append("line")
+                    .attr("id", `l_${T-k+1}_${i*2}`)
                     .attr("x1",line_start_X)
                     .attr("y1",line_start_Y)
                     .attr("x2",line_end_X)
@@ -214,11 +279,13 @@
                     .attr("stroke", "black")
                     .attr("marker-end", "url(#triangle)");
 
-                svgContainer.append("text").html(0.5)
+                svgContainer.append("text").html(parseFloat((1-uptick_probs[T-k][i-1]).toFixed(3)))
                     .attr("x", (line_start_X + line_end_X) / 2 - 30)
                     .attr("y", (line_start_Y + downline_end_Y) / 2 + 25);
 
             };
+            $('#s_0_1').attr("required", "required");
+            $('#s_0_1').removeAttr("disabled");
 
         };
 
@@ -244,16 +311,17 @@
                     current_w_id = "#w_0_1";
                     current_w = {{Constants.initial_wealth|json}};
                 } else {
+                    var current_w_id = "#w_" + t + "_" + i;
                     var prev_node_index = Math.floor((i+1)/2);
                     var prev_s_id = "#s_" + (t-1) + "_" + prev_node_index;
                     var prev_b_id = "#b_" + (t-1) + "_" + prev_node_index;
                     var prev_s =  parseInt($(prev_s_id).val());
                     var prev_b =  parseInt($(prev_b_id).val());
                     var up_dummy = i % 2 ;
+
                     var current_w = (up_dummy * {{Constants.up_tick}} + (1 - up_dummy) * {{Constants.down_tick}}) * prev_s + prev_b;
                     current_w = Math.round(current_w);
                     if(!isNaN(current_w)) {
-                        var current_w_id = "#w_" + t + "_" + i;
                         $(current_w_id).val(current_w);
                     };
                 };

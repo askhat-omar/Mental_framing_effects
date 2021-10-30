@@ -17,7 +17,7 @@ SESSION_CONFIGS = [
         'display_name': "Experiment",
         'num_demo_participants': 1,
         # Здесь, думаю, понятно - перечисляются приложения по очереди отображения
-        'app_sequence': ['dynamic_iterative',
+        'app_sequence': ['dynamic_iterative_chp',
                          # 'dynamic_portfolio_results',
                          'static_portfolio',
                          'static_portfolio_chp'],
