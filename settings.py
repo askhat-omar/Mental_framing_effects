@@ -12,19 +12,74 @@ SESSION_CONFIG_DEFAULTS = {
 }
 
 SESSION_CONFIGS = [
-    {
-        'name': 'DynPort',
-        'display_name': "Experiment",
-        'num_demo_participants': 1,
-        # Здесь, думаю, понятно - перечисляются приложения по очереди отображения
-        'app_sequence': ['dynamic_portfolio_chp',
-                         'dynamic_portfolio_results',
-                         'dynamic_iterative_chp',
-                         'static_portfolio_chp'],
-        # Эти значения далее будут исаользоваться в dynamic_portfolio и static_portfolio
-        'round1_T': 3,
-        'round2_T': 4
-    },
+    dict(
+        name='DynPortBlue',
+        display_name="Changing Probabilities Portfolio First",
+        num_demo_participants=1,
+        app_sequence=['introduction',
+                      'dynamic_portfolio_instructions',
+                      'dynamic_portfolio_chp',
+                      'dynamic_iterative_chp',
+                      'dynamic_portfolio_results',
+                      'static_portfolio_chp',
+                      'crt',
+                      'survey',
+                      'finalpage'],
+        round1_T=3,
+        round2_T=4,
+        color='blue'
+    ),
+    dict(
+        name='DynPortRed',
+        display_name="Changing Probs Iterative First",
+        num_demo_participants=1,
+        app_sequence=['introduction',
+                      'dynamic_portfolio_instructions',
+                      'dynamic_iterative_chp',
+                      'dynamic_portfolio_chp',
+                      'dynamic_portfolio_results',
+                      'static_portfolio_chp',
+                      'crt',
+                      'survey',
+                      'finalpage'],
+        round1_T=3,
+        round2_T=4,
+        color='red'
+    ),
+    dict(
+        name='DynPortGreen',
+        display_name="IID Portfolio First",
+        num_demo_participants=1,
+        app_sequence=['introduction',
+                      'dynamic_portfolio_instructions',
+                      'dynamic_portfolio',
+                      'dynamic_iterative',
+                      'dynamic_portfolio_results',
+                      'static_portfolio',
+                      'crt',
+                      'survey',
+                      'finalpage'],
+        round1_T=3,
+        round2_T=4,
+        color='green'
+    ),
+    dict(
+        name='DynPortYellow',
+        display_name="IID Iterative First",
+        num_demo_participants=1,
+        app_sequence=['introduction',
+                      'dynamic_portfolio_instructions',
+                      'dynamic_iterative',
+                      'dynamic_portfolio',
+                      'dynamic_portfolio_results',
+                      'static_portfolio',
+                      'crt',
+                      'survey',
+                      'finalpage'],
+        round1_T=3,
+        round2_T=4,
+        color='yellow'
+    ),
 ]
 
 
