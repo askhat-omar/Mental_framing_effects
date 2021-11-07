@@ -15,8 +15,8 @@ Your app description
 class Constants(BaseConstants):
     name_in_url = 'dynamic_portfolio_practice'
     players_per_group = None
-    num_rounds = 4
-    initial_wealth_list = [120, 80, 200, 50]
+    num_rounds = 2
+    initial_wealth_list = [120, 80]
     initial_stock_price = 8
     up_prob = 0.5
     up_tick = 2

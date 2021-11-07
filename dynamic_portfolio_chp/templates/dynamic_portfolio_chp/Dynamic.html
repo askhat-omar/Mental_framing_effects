@@ -106,13 +106,13 @@
 
             var tab = fo.append("xhtml:table");
             var row1 = tab.append("tr");
-            row1.append("td").html("Price_A: ");
+            row1.append("td").html("Price_S: ");
             row1.append("td").append("xhtml:input")
                 .attr("size",3)
                 .attr("value",prices[price_label])
                 .attr("readonly","readonly");
             var row2 = tab.append("tr");
-            row2.append("td").html("Wealth: ");
+            row2.append("td").html("Money: ");
             row2.append("td").append("xhtml:input")
                 .attr("size",3)
                 .attr("id",wealth_label)
@@ -159,12 +159,12 @@
                     .attr("height",box_height-5);
                 var tab = fo.append("xhtml:table");
                 var row1 = tab.append("tr");
-                row1.append("td").html("Price_A: ");
+                row1.append("td").html("Price_S: ");
                 row1.append("td").append("xhtml:input")
                     .attr("size",3)
                     .attr("value",prices[price_label])
                     .attr("readonly","readonly");
-                row1.append("td").html("A: ");
+                row1.append("td").html("$S: ");
                 row1.append("td").append("xhtml:input")
                     .attr("size",1)
                     .attr("id",stock_label)
@@ -172,13 +172,13 @@
                     .attr("step","1")
                     .attr("required","required");
                 var row2 = tab.append("tr");
-                row2.append("td").html("Wealth:");
+                row2.append("td").html("Money:");
                 row2.append("td").append("xhtml:input")
                     .attr("size",3)
                     .attr("id",wealth_label)
                     .attr("class","wealth")
                     .attr("type","number");
-                row2.append("td").html("B: ");
+                row2.append("td").html("$C: ");
                 row2.append("td").append("xhtml:input")
                     .attr("size",3)
                     .attr("id",bond_label)
