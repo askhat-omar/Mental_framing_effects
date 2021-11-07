@@ -6,9 +6,9 @@
 {% endblock %}
 
 {% block content %}
-    <p>Table below shows three alternative lotteries. Each lottery has 4 states and each state has its own probability of
+    <p>Table below shows three alternative lotteries. Price of each lottery is 100 units. Each lottery has 4 states and each state has its own probability of
     realization. In case of realization each state grants you a certain payoff indicated in the table. You are required
-    to choose the lottery that you prefer the most.</p> <br>
+    to choose the lottery that you prefer the most. Note that lottery "D" means that you choose not to invest and keep the money.</p> <br>
 
 <html>
 <style>
@@ -24,6 +24,7 @@ table, th, td {
     <th>A</th>
     <th>B</th>
     <th>C</th>
+    <th>D</th>
   </tr>
   <tr>
     <td>1</td>
@@ -31,6 +32,7 @@ table, th, td {
     <td>139.99</td>
     <td>{{ w_1 }}</td>
     <td>337.50</td>
+    <td>100.00</td>
   </tr>
   <tr>
     <td>2</td>
@@ -38,6 +40,7 @@ table, th, td {
     <td>117.71</td>
     <td>{{ w_2 }}</td>
     <td>168.75</td>
+    <td>100.00</td>
   </tr>
   <tr>
     <td>3</td>
@@ -45,6 +48,7 @@ table, th, td {
     <td>98.99</td>
     <td>{{ w_3 }}</td>
     <td>84.38</td>
+    <td>100.00</td>
   </tr>
   <tr>
     <td>4</td>
@@ -52,6 +56,7 @@ table, th, td {
     <td>83.24</td>
     <td>{{ w_4 }}</td>
     <td>42.19</td>
+    <td>100.00</td>
   </tr>
 </table>
 

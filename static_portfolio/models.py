@@ -28,5 +28,5 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     lottery = models.StringField(
-        choices=['I prefer lottery A', 'I prefer lottery B', 'I prefer lottery C']
+        choices=['I prefer lottery A', 'I prefer lottery B', 'I prefer lottery C', 'I prefer lottery D (not to invest)']
     )
