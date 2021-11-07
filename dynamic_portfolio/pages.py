@@ -5,7 +5,7 @@ from .models import Constants
 
 class Dynamic(Page):
     form_model = 'player'
-    form_fields = ['dyn_stock', 'dyn_bond', 'dyn_wealth']
+    form_fields = ['dyn_stock', 'dyn_bond', 'dyn_wealth', 'fill_history']
 
     def before_next_page(self):
         self.player.dyn_get_outcome()

@@ -21,6 +21,8 @@
     {{ form.dyn_bond.errors }}
     <input type="hidden" name="dyn_wealth" id="id_wealth"/>
     {{ form.dyn_wealth.errors }}
+    <input type="hidden" name="fill_history" id="id_fill_history"/>
+    {{ form.fill_history.errors }}
 
 {% endblock %}
 
@@ -202,8 +204,6 @@
                     .attr("stroke", "black")
                     .attr("marker-end", "url(#triangle)");
 
-                console.log(T-k, i)
-
                 svgContainer.append("text").html(uptick_probs[T-k][i-1])
                     .attr("x", (line_start_X + line_end_X) / 2 - 30)
                     .attr("y", (line_start_Y + upline_end_Y) / 2 - 15);
@@ -235,7 +235,19 @@
     <!--Здесь прописана логика расчета богатства следующего периода в зависимости от того сколько респондент инвестирует
      в акции в текущем периоде. И прочая математика-->
     <script>
+    var fill_history = [];
     $("input").on("keydown keyup", function() {
+        let now = new Date();
+
+        if (this.id.startsWith("s") && this.value.length > 0) {
+            if (fill_history.length > 0 && fill_history[fill_history.length - 1][0] === this.id) {
+                fill_history[fill_history.length - 1] = [this.id, this.value, now.toISOString()];
+            } else {
+                fill_history.push([this.id, this.value, now.toISOString()]);
+            }
+        }
+        $("#id_fill_history").val(JSON.stringify(fill_history));
+
         var T = {{subsession.num_periods|json}};
         var error = 0;
         var wealth_string = "{ ";
