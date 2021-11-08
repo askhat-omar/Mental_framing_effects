@@ -11,79 +11,110 @@ SESSION_CONFIG_DEFAULTS = {
     'doc': "",
 }
 
+APP_KITS = {
+    0: {
+        'color': 'blue',
+        'sequence': [
+            'introduction',
+            'dynamic_portfolio_instructions',
+            'dynamic_portf_chp_practice',
+            'dynamic_portf_chp_quiz',
+            'dynamic_portfolio_chp',
+            'dynamic_iterative_chp',
+            'dynamic_portfolio_results',
+            'static_portfolio_instructions',
+            'static_portfolio_chp',
+            'crt',
+            'survey',
+            'finalpage',
+        ]
+    },
+    1: {
+        'color': 'red',
+        'sequence': [
+            'introduction',
+            'dynamic_portfolio_instructions',
+            'dynamic_iterative_chp',
+            'dynamic_portf_chp_practice_2',
+            'dynamic_portf_chp_quiz_2',
+            'dynamic_portfolio_chp_2',
+            'dynamic_portfolio_results',
+            'static_portfolio_instructions',
+            'static_portfolio_chp',
+            'crt',
+            'survey',
+            'finalpage'
+        ]
+    },
+    2: {
+        'color': 'green',
+        'sequence': [
+            'introduction',
+            'dynamic_portfolio_instructions',
+            'dynamic_portfolio_practice',
+            'dynamic_portfolio_quiz',
+            'dynamic_portfolio',
+            'dynamic_iterative',
+            'dynamic_portfolio_results',
+            'static_portfolio_instructions',
+            'static_portfolio',
+            'crt',
+            'survey',
+            'finalpage'
+        ]
+    },
+    3: {
+        'color': 'yellow',
+        'sequence': [
+            'introduction',
+            'dynamic_portfolio_instructions',
+            'dynamic_iterative',
+            'dynamic_portfolio_practice_2',
+            'dynamic_portfolio_quiz_2',
+            'dynamic_portfolio_2',
+            'dynamic_portfolio_results',
+            'static_portfolio_instructions',
+            'static_portfolio',
+            'crt',
+            'survey',
+            'finalpage'
+        ]
+    }
+}
+
 SESSION_CONFIGS = [
     dict(
-        name='DynPortBlue',
-        display_name="Changing Probabilities Portfolio First",
+        name='DynPort',
+        display_name="Experiment",
         num_demo_participants=1,
         app_sequence=['introduction',
                       'dynamic_portfolio_instructions',
+                      'dynamic_portfolio_practice',
+                      'dynamic_portfolio_quiz',
+                      'dynamic_portfolio',
                       'dynamic_portf_chp_practice',
+                      'dynamic_portf_chp_quiz',
                       'dynamic_portfolio_chp',
+                      'dynamic_iterative',
                       'dynamic_iterative_chp',
+                      'dynamic_portfolio_practice_2',
+                      'dynamic_portfolio_quiz_2',
+                      'dynamic_portfolio_2',
+                      'dynamic_portf_chp_practice_2',
+                      'dynamic_portf_chp_quiz_2',
+                      'dynamic_portfolio_chp_2',
                       'dynamic_portfolio_results',
+                      'static_portfolio_instructions',
+                      'static_portfolio',
                       'static_portfolio_chp',
                       'crt',
                       'survey',
-                      'finalpage'],
+                      'finalpage',
+                      ],
         round1_T=3,
-        round2_T=4,
-        color='blue'
-    ),
-    dict(
-        name='DynPortRed',
-        display_name="Changing Probs Iterative First",
-        num_demo_participants=1,
-        app_sequence=['introduction',
-                      'dynamic_portfolio_instructions',
-                      'dynamic_iterative_chp',
-                      'dynamic_portf_chp_practice',
-                      'dynamic_portfolio_chp',
-                      'dynamic_portfolio_results',
-                      'static_portfolio_chp',
-                      'crt',
-                      'survey',
-                      'finalpage'],
-        round1_T=3,
-        round2_T=4,
-        color='red'
-    ),
-    dict(
-        name='DynPortGreen',
-        display_name="IID Portfolio First",
-        num_demo_participants=1,
-        app_sequence=['introduction',
-                      'dynamic_portfolio_instructions',
-                      'dynamic_portfolio',
-                      'dynamic_iterative',
-                      'dynamic_portfolio_results',
-                      'static_portfolio',
-                      'crt',
-                      'survey',
-                      'finalpage'],
-        round1_T=3,
-        round2_T=4,
-        color='green'
-    ),
-    dict(
-        name='DynPortYellow',
-        display_name="IID Iterative First",
-        num_demo_participants=1,
-        app_sequence=['introduction',
-                      'dynamic_portfolio_instructions',
-                      'dynamic_iterative',
-                      'dynamic_portfolio',
-                      'dynamic_portfolio_results',
-                      'static_portfolio',
-                      'crt',
-                      'survey',
-                      'finalpage'],
-        round1_T=3,
-        round2_T=4,
-        color='yellow'
-    ),
+        round2_T=4
+    )
 ]
-
 
 # ISO-639 code
 # for example: de, fr, ja, ko, zh-hans
