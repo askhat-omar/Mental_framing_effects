@@ -27,7 +27,7 @@ APP_KITS = {
             'static_portfolio_chp',
             'crt',
             'survey',
-            'finalpage',
+            'finalpage'
         ]
     },
     1: {
@@ -115,7 +115,7 @@ SESSION_CONFIGS = [
                       'static_portfolio_chp',
                       'crt',
                       'survey',
-                      'finalpage',
+                      'finalpage'
                       ],
         round1_T=3,
         round2_T=4
