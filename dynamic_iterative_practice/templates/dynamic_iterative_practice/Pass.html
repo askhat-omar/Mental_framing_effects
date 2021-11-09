@@ -1,0 +1,27 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Practice Round: Iterative Dynamic Results
+{% endblock %}
+
+{% block content %}
+    <p>Your points in this practice round are {{player.dyn_realized_wealth}} (these will not count towards your earnings).</p>
+
+    <div id="chart" align="center"></div>
+
+    {% next_button %}
+
+{% endblock %}
+
+{% block styles %}
+    <style>
+        input, body {
+          font-family: 'Helvetica', Arial, Lucida Grande, sans-serif;
+          font-size: 14px;
+        }
+        input{
+            width: 40px;
+        }
+    </style>
+{% endblock %}
