@@ -12,18 +12,23 @@ class Dynamic(Page):
     def before_next_page(self):
         self.player.dyn_get_outcome()
 
-    def app_after_this_page(player, upcoming_apps):
-        player.participant.vars["step"] += 1
-        return get_next_app(app_index=player.participant.vars["app_id"],
-                            step=player.participant.vars["step"])
 
 
 class Intro(Page):
     def is_displayed(self):
         return self.round_number == 1
 
+class Pass(Page):
+    def is_displayed(self):
+        return self.round_number == 1
+    def app_after_this_page(player, upcoming_apps):
+        player.participant.vars["step"] += 1
+        return get_next_app(app_index=player.participant.vars["app_id"],
+                            step=player.participant.vars["step"])
+
 
 page_sequence = [
     Intro,
-    Dynamic
+    Dynamic,
+    Pass
 ]

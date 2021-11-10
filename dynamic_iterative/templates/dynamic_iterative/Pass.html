@@ -2,15 +2,17 @@
 {% load otree static %}
 
 {% block title %}
-    Iterative Dynamic Task
+    Iterative Dynamic Task: Results
 {% endblock %}
 
 {% block content %}
-    <p>You will now play one round game. The points you earn in this round will contribute to your final payment.</p>
-    <p>We will show your results step by step as you progress through this task.</p>
-{% next_button %}
-{% endblock %}
+    <p>Your points in this task are {{player.dyn_realized_wealth}}.</p>
 
+    <div id="chart" align="center"></div>
+
+    {% next_button %}
+
+{% endblock %}
 
 {% block styles %}
     <style>
@@ -18,6 +20,8 @@
           font-family: 'Helvetica', Arial, Lucida Grande, sans-serif;
           font-size: 14px;
         }
+        input{
+            width: 40px;
+        }
     </style>
 {% endblock %}
-
