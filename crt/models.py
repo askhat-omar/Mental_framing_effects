@@ -40,4 +40,4 @@ class Player(BasePlayer):
         if self.answer3 == 4:
             k = k + 1
         self.num_correct = k
-        self.payoff = k * 2
+        self.payoff = k * 25
