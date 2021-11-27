@@ -28,5 +28,5 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     lottery = models.StringField(
-        choices=['I prefer asset A', 'I prefer asset B', 'I prefer asset C', 'I prefer asset D (not to invest)']
+        choices=[[1,'I prefer asset A'], [2, 'I prefer asset B'], [3, 'I prefer asset C'], [4, 'I prefer asset D (not to invest)']]
     )
