@@ -351,8 +351,5 @@ page_sequence = [
     Question4,
     Question5,
     Question6,
-    Question10,
-    Question7,
-    Question8,
-    Question9
+    Question10
 ]

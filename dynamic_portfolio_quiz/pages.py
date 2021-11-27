@@ -304,10 +304,7 @@ class Question9(Page):
             'bond': json.dumps(bond_list),
             'realized_states': json.dumps(states_list)
         }
-    def app_after_this_page(player, upcoming_apps):
-        player.participant.vars["step"] += 1
-        return get_next_app(app_index=player.participant.vars["app_id"],
-                            step=player.participant.vars["step"])
+
 
 
 class Question10(Page):
@@ -341,6 +338,10 @@ class Question10(Page):
             'bond': json.dumps(bond_list),
             'realized_states': json.dumps(states_list)
         }
+    def app_after_this_page(player, upcoming_apps):
+        player.participant.vars["step"] += 1
+        return get_next_app(app_index=player.participant.vars["app_id"],
+                            step=player.participant.vars["step"])
 
 
 page_sequence = [
@@ -351,8 +352,5 @@ page_sequence = [
     Question4,
     Question5,
     Question6,
-    Question10,
-    Question7,
-    Question8,
-    Question9
+    Question10
 ]
