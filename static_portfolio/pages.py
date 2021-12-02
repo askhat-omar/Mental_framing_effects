@@ -28,10 +28,10 @@ class Static(Page):
         p = self.player
         p.for_payoff()
 
+class Results(Page):
     def app_after_this_page(player, upcoming_apps):
         player.participant.vars["step"] += 1
         return get_next_app(app_index=player.participant.vars["app_id"],
                             step=player.participant.vars["step"])
 
-
-page_sequence = [Static]
+page_sequence = [Static, Results]

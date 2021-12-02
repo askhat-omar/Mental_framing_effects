@@ -1,0 +1,14 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Static Task: Results
+{% endblock %}
+
+{% block content %}
+    <p>Your points in this task are {{player.payoff}}.</p>
+
+    {% next_button %}
+{% endblock %}
+
+
