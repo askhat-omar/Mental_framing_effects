@@ -3,14 +3,14 @@
 
 {% block title %}
     {% if session.vars.num_rounds == 1 %}
-         Iterative Dynamic Task
+         Practice Round: Iterative Dynamic Task
     {% else %}
-         Iterative Dynamic Task
+         Practice Round: Iterative Dynamic Task
     {% endif %}
 {% endblock %}
 
 {% block content %}
-    <p>Choose how much money to invest in $S.</p>
+    <p>Choose how much wealth to invest in $S.</p>
 
     <div id="chart" align="center"></div>
 
@@ -107,7 +107,6 @@
         var svgContainer = d3.select("#chart").append("svg").attr("width",total_width).attr("height",total_height);
 
         var prices = JSON.parse({{subsession.dyn_prices|json}});
-        var uptick_probs = JSON.parse({{subsession.uptick_probs|json}});
 
         <!--Далее рисуются стрелки-->
 
@@ -265,7 +264,7 @@
                     .attr("stroke", "black")
                     .attr("marker-end", "url(#triangle)");
 
-                svgContainer.append("text").html(uptick_probs[T-k][i-1])
+                svgContainer.append("text").html(0.5)
                     .attr("x", (line_start_X + line_end_X) / 2 - 30)
                     .attr("y", (line_start_Y + upline_end_Y) / 2 - 15);
 
@@ -279,7 +278,7 @@
                     .attr("stroke", "black")
                     .attr("marker-end", "url(#triangle)");
 
-                svgContainer.append("text").html(parseFloat((1-uptick_probs[T-k][i-1]).toFixed(3)))
+                svgContainer.append("text").html(0.5)
                     .attr("x", (line_start_X + line_end_X) / 2 - 30)
                     .attr("y", (line_start_Y + downline_end_Y) / 2 + 25);
 

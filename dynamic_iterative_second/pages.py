@@ -14,6 +14,7 @@ class Dynamic(Page):
 
 
 
+
 class Intro(Page):
     def is_displayed(self):
         return self.round_number == 1
