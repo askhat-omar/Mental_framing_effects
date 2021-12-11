@@ -3,14 +3,14 @@
 
 {% block title %}
     {% if session.vars.num_rounds == 1 %}
-         Full Dynamic Task: Results
+         Task 1: Results
     {% else %}
-         Full Dynamic Task: Results
+         Task 1: Results
     {% endif %}
 {% endblock %}
 
 {% block content %}
-    <p>The outcome of your decisions in this task is illustrated in red below.</p>
+    <p>The random final outcome (in points earned) of this task is shown in red type font below.</p>
     <p>Your points in this task are {{realized_wealth}}</p>
 
     <div id="chart" align="center"></div>
@@ -114,13 +114,13 @@
 
             var tab = fo.append("xhtml:table");
             var row1 = tab.append("tr");
-            row1.append("td").html("Price_A: ");
+            row1.append("td").html("Price_S: ");
             row1.append("td").append("xhtml:input")
                 .attr("size",3)
                 .attr("value",prices[price_label])
                 .attr("readonly","readonly");
             var row2 = tab.append("tr");
-            row2.append("td").html("Wealth: ");
+            row2.append("td").html("Money: ");
             row2.append("td").append("xhtml:input")
                 .attr("size",3)
                 .attr("id",wealth_label)
@@ -186,25 +186,25 @@
                     .attr("height",box_height-5);
                 var tab = fo.append("xhtml:table");
                 var row1 = tab.append("tr");
-                row1.append("td").html("Price_A: ");
+                row1.append("td").html("Price_S: ");
                 row1.append("td").append("xhtml:input")
                     .attr("size",3)
                     .attr("value",prices[price_label])
                     .attr("readonly","readonly");
-                row1.append("td").html("A: ");
+                row1.append("td").html("$S: ");
                 row1.append("td").append("xhtml:input")
                     .attr("size",3)
                     .attr("id",stock_label)
                     .attr("value",stock[stock_label])
                     .attr("readonly","readonly");
                 var row2 = tab.append("tr");
-                row2.append("td").html("Wealth:");
+                row2.append("td").html("Money:");
                 row2.append("td").append("xhtml:input")
                     .attr("size",3)
                     .attr("id",wealth_label)
                     .attr("readonly","readonly")
                     .attr("value",wealth[wealth_label]);
-                row2.append("td").html("B: ");
+                row2.append("td").html("$C: ");
                 row2.append("td").append("xhtml:input")
                     .attr("size",3)
                     .attr("id",bond_label)
