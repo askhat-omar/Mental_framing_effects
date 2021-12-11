@@ -27,7 +27,7 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     data_priv = models.BooleanField(
-        label="If you agree with the consent stated above please choose 'Agree' and press 'Next' button, otherwise please close the tab",
+        label="If you agree with the consent stated above, then please choose 'Agree' and press 'Next' button, otherwise please close the tab",
         choices=[
             [True, "Agree"]
         ]
