@@ -6,10 +6,10 @@
 {% endblock %}
 
 {% block content %}
-    <p>Table below shows four alternative financial assets. Each asset pay out money amounts in four possible scenarios.
-        The probability of every scenario is shown above the arrows. In case of realization each scenario grants you a
-        certain payoff indicated in the table. You are required to choose the asset that you prefer the most. Note that
-        asset "A" means that you choose not to invest and keep the money.</p> <br>
+    <p>Table below shows four alternative financial assets. The price of each asset is the same (100 units), so you can
+        buy one of the four assets using your budget. Each asset pays off money amounts in four random scenarios and
+        each scenario has a known probability of occuring. You are asked to choose the asset that you like the most.
+        Choosing asset "A" means that you do not invest in a risky asset and you keep the 100 units without risk.</p> <br>
 
 <html>
 <style>
@@ -93,37 +93,42 @@ left: 0px}
 
     <table style="width:350px">
         <tr>
-        <th colspan="4">FINANCIAL ASSETS</th>
+        <th colspan="5">FINANCIAL ASSETS</th>
         </tr>
         <tr>
-        <th>Asset A</th>
-        <th>Asset B</th>
-        <th>Asset C</th>
-        <th>Asset D</th>
+            <th>Scenarios</th>
+            <th>Asset A</th>
+            <th>Asset B</th>
+            <th>Asset C</th>
+            <th>Asset D</th>
         </tr>
         <tr style="height:110px">
-        <td>139.99</td>
-        <td>{{ w_1 }}</td>
-        <td>337.50</td>
-        <td>100.00</td>
+            <td><strong>Scenario 1</strong></td>
+            <td>100.00</td>
+            <td>139.99</td>
+            <td>{{ w_1 }}</td>
+            <td>337.50</td>
         </tr>
         <tr style="height:110px">
-        <td>117.71</td>
-        <td>{{ w_2 }}</td>
-        <td>168.75</td>
-        <td>100.00</td>
+            <td><strong>Scenario 2</strong></td>
+            <td>100.00</td>
+            <td>117.71</td>
+            <td>{{ w_2 }}</td>
+            <td>168.75</td>
         </tr>
         <tr style="height:110px">
-        <td>98.99</td>
-        <td>{{ w_3 }}</td>
-        <td>84.38</td>
-        <td>100.00</td>
+            <td><strong>Scenario 3</strong></td>
+            <td>100.00</td>
+            <td>98.99</td>
+            <td>{{ w_3 }}</td>
+            <td>84.38</td>
         </tr>
         <tr style="height:110px">
-        <td>83.24</td>
-        <td>{{ w_4 }}</td>
-        <td>42.19</td>
-        <td>100.00</td>
+            <td><strong>Scenario 4</strong></td>
+            <td>100.00</td>
+            <td>83.24</td>
+            <td>{{ w_4 }}</td>
+            <td>42.19</td>
         </tr>
     </table>
     <div class="child">
