@@ -32,7 +32,7 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     lottery_chp = models.StringField(
-        choices=[[1,'I prefer asset A (not to invest)'], [2, 'I prefer asset B'], [3, 'I prefer asset C'], [4, 'I prefer asset D']]
+        choices=[[1,'I prefer asset A (not to invest)'], [2, 'I prefer asset B'], [3, 'I prefer asset C'], [4, 'I prefer asset D']], widget=widgets.RadioSelect
     )
 
     w_1 = models.StringField()
