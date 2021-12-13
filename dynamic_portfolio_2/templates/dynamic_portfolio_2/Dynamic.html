@@ -10,8 +10,8 @@
 {% endblock %}
 
 {% block content %}
-    <p>Please make sure that you press Next only after filling the entire tree</p>
-    <p>Please choose a money amount $S to invest in stocks.</p>
+    <p>Please make sure that you press Next only after filling the <strong>entire tree</strong></p>
+    <p>Please choose a money amount S to invest in stocks.</p>
 
     <div id="chart" align="center"></div>
 
@@ -164,7 +164,7 @@
                     .attr("size",3)
                     .attr("value",prices[price_label])
                     .attr("readonly","readonly");
-                row1.append("td").html("$S: ");
+                row1.append("td").html("S: ");
                 row1.append("td").append("xhtml:input")
                     .attr("size",1)
                     .attr("id",stock_label)
@@ -178,7 +178,7 @@
                     .attr("id",wealth_label)
                     .attr("class","wealth")
                     .attr("type","number");
-                row2.append("td").html("$C: ");
+                row2.append("td").html("C: ");
                 row2.append("td").append("xhtml:input")
                     .attr("size",3)
                     .attr("id",bond_label)

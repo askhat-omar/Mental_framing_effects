@@ -26,7 +26,6 @@ APP_KITS = {
             'dynamic_iterative_chp_2',
             'static_portfolio_chp',
             'crt',
-            'survey',
             'finalpage'
         ]
     },
@@ -44,7 +43,6 @@ APP_KITS = {
             'dynamic_portfolio_results_second',
             'static_portfolio_chp',
             'crt',
-            'survey',
             'finalpage'
         ]
     },
@@ -62,7 +60,6 @@ APP_KITS = {
             'dynamic_iterative_second',
             'static_portfolio',
             'crt',
-            'survey',
             'finalpage'
         ]
     },
@@ -80,7 +77,6 @@ APP_KITS = {
             'dynamic_portfolio_results_second',
             'static_portfolio',
             'crt',
-            'survey',
             'finalpage'
         ]
     }
@@ -123,7 +119,6 @@ SESSION_CONFIGS = [
                       'static_portfolio',
                       'static_portfolio_chp',
                       'crt',
-                      'survey',
                       'finalpage'
                       ],
         round1_T=3,
