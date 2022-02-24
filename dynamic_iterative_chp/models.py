@@ -69,7 +69,7 @@ class Subsession(BaseSubsession):
         downticks = []
         state = 1
         for t in range(1, num_periods + 1, 1):
-            uptick = 1-numpy.random.binomial(1, Constants.uptick_probs[t-1][state-1])
+            uptick = numpy.random.binomial(1, Constants.uptick_probs[t-1][state-1])
             downtick = 1 - uptick
             downticks.append(downtick)
             state = state * 2 + downtick - 1
