@@ -17,8 +17,8 @@ class Constants(BaseConstants):
     name_in_url = 'static_portfolio_chp'
     players_per_group = None
     num_rounds = 1
-    b = [139.99, 117.71, 98.99, 83.24]
-    d = [337.50, 168.75, 84.38, 42.19]
+    b = [136.71, 123.69, 101.83, 83.72]
+    d = [300.00, 222.12, 93.43, 42.19]
     p = [0.111, 0.361, 0.403, 0.125]
 
 
