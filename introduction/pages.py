@@ -17,13 +17,13 @@ class Page1(Page):
         # generate and initialize step
         iid_probs = np.random.binomial(n = 1, p = 0.5, size = 1)
         full_first = np.random.binomial(n = 1, p = 0.5, size = 1)
-        if (full_first == 1) & (iid_probs == 1):
+        if (iid_probs == 1) & (full_first == 1):
             player.participant.vars["app_id"] = 2
-        elif (full_first == 1) & (iid_probs == 0):
-            player.participant.vars["app_id"] = 0
-        elif (full_first == 0) & (iid_probs == 1):
+        elif (iid_probs == 1) & (full_first == 0):
             player.participant.vars["app_id"] = 3
-        elif (full_first == 0) & (iid_probs == 0):
+        elif (iid_probs == 0) & (full_first == 1):
+            player.participant.vars["app_id"] = 0
+        elif (iid_probs == 0) & (full_first == 0):
             player.participant.vars["app_id"] = 1
 
         player.participant.vars["step"] = 0
