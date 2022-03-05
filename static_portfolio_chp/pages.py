@@ -16,8 +16,8 @@ class MyPage(Page):
         p = self.player
         wealth = json.loads(p.participant.vars["dyn_wealth_round{}".format(r)])
         p.set_wealth(FORMAT_FLOAT.format(wealth["w_3_1"]),
-                     FORMAT_FLOAT.format((wealth["w_3_2"] + wealth["w_3_3"] + wealth["w_3_5"]) / 3),
-                     FORMAT_FLOAT.format((wealth["w_3_4"] + wealth["w_3_6"] + wealth["w_3_7"]) / 3),
+                     FORMAT_FLOAT.format(wealth["w_3_2"] * 0.615 + wealth["w_3_3"] * 0.154 + wealth["w_3_5"] * 0.231),
+                     FORMAT_FLOAT.format(wealth["w_3_4"] * 0.276 + wealth["w_3_6"] * 0.414 + wealth["w_3_7"] * 0.310),
                      FORMAT_FLOAT.format(wealth["w_3_8"]))
         return {
             'w_1': p.w_1,
