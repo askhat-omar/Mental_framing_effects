@@ -10,7 +10,12 @@
     <p>If you see a blank page please reload the page (Ctrl+R for PC, Command+R for Mac) until you see the PDF with instructions</p>
     <br>
 
- <iframe src="https://docs.google.com/gview?url=https://raw.github.com/askhat-omar/Instructions/master/DP_CHP_first.pdf&embedded=true" frameborder="0"></iframe>
+{% if player.iid_probs == 1 %}
+    <iframe src="https://docs.google.com/gview?url=https://raw.github.com/askhat-omar/Instructions/master/DP_first.pdf&embedded=true" frameborder="0"></iframe>
+{% else %}
+    <iframe src="https://docs.google.com/gview?url=https://raw.github.com/askhat-omar/Instructions/master/DP_CHP_first.pdf&embedded=true" frameborder="0"></iframe>
+{% endif %}
+
     {% next_button %}
 {% endblock %}
 
