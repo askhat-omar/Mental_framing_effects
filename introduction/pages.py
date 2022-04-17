@@ -13,10 +13,13 @@ class Page1(Page):
     form_model = 'player'
     form_fields = ['data_priv']
 
+    def before_next_page(self):
+        self.player.get_booleans()
+
     def app_after_this_page(player, upcoming_apps):
         # generate and initialize step
-        iid_probs = np.random.binomial(n = 1, p = 0.5, size = 1)
-        full_first = np.random.binomial(n = 1, p = 0.5, size = 1)
+        iid_probs = player.participant.vars["iid_probs"]
+        full_first = player.participant.vars["full_first"]
         if (iid_probs == 1) & (full_first == 1):
             player.participant.vars["app_id"] = 2
         elif (iid_probs == 1) & (full_first == 0):

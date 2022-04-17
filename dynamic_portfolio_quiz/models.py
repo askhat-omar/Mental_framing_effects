@@ -125,10 +125,10 @@ class Player(BasePlayer):
 
     answer8 = models.IntegerField(
         choices=[
-            [1, '1/8'],
-            [2, '2/8'],
-            [3, '4/8'],
-            [4, '6/8']
+            [1, '0.055'],
+            [2, '0.125'],
+            [3, '0.488'],
+            [4, '0.213']
         ],
         widget=widgets.RadioSelect
     )

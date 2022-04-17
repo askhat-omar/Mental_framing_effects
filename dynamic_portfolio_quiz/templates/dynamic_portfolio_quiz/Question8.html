@@ -2,7 +2,7 @@
 {% load otree static %}
 
 {% block title %}
-    Quiz. Question 9
+    Quiz. Question 7
 {% endblock %}
 
 {% block content %}
@@ -51,6 +51,7 @@
         var bond = JSON.parse({{bond|json}});
         var states = JSON.parse({{realized_states|json}});
         var prices = JSON.parse({{prices|json}});
+        var uptick_probs = JSON.parse({{uptick_probs|json}});
 
         <!--DEFINING ARROW MARKERS-->
 
@@ -227,6 +228,11 @@
                     .attr("stroke-width", 1)
                     .attr("stroke", upline_color)
                     .attr("marker-end", upline_marker);
+
+                svgContainer.append("text").html(uptick_probs[T-k][i-1])
+                    .attr("x", (line_start_X + line_end_X) / 2 - 30)
+                    .attr("y", (line_start_Y + upline_end_Y) / 2 - 15);
+
                 svgContainer.append("line")
                     .attr("x1",line_start_X)
                     .attr("y1",line_start_Y)
@@ -235,6 +241,10 @@
                     .attr("stroke-width", 1)
                     .attr("stroke", downline_color)
                     .attr("marker-end", downline_marker);
+
+                svgContainer.append("text").html(parseFloat((1-uptick_probs[T-k][i-1]).toFixed(3)))
+                    .attr("x", (line_start_X + line_end_X) / 2 - 30)
+                    .attr("y", (line_start_Y + downline_end_Y) / 2 + 25);
 
             };
 

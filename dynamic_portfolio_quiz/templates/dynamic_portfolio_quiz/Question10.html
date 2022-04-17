@@ -2,7 +2,11 @@
 {% load otree static %}
 
 {% block title %}
-    Quiz. Question 7
+    {% if iid_probs == 0 %}
+        Quiz. Question 8
+    {% else %}
+        Quiz. Question 7
+    {% endif %}
 {% endblock %}
 
 {% block content %}
@@ -51,6 +55,7 @@
         var bond = JSON.parse({{bond|json}});
         var states = JSON.parse({{realized_states|json}});
         var prices = JSON.parse({{prices|json}});
+        var iid_probs = JSON.parse({{iid_probs|json}})
 
         <!--DEFINING ARROW MARKERS-->
 
@@ -227,6 +232,7 @@
                     .attr("stroke-width", 1)
                     .attr("stroke", upline_color)
                     .attr("marker-end", upline_marker);
+
                 svgContainer.append("line")
                     .attr("x1",line_start_X)
                     .attr("y1",line_start_Y)

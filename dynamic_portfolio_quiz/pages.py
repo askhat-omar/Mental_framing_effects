@@ -244,6 +244,10 @@ class Question8(Page):
     form_model = 'player'
     form_fields = ['answer8']
 
+    def is_displayed(self):
+        player = self.player
+        return player.participant.vars["iid_probs"] == 0
+
     def vars_for_template(self):
         prices_list = {"x_0_1": 8, "x_1_1": 16, "x_1_2": 4, "x_2_1": 32,
                        "x_2_2": 8, "x_2_3": 8, "x_2_4": 2, "x_3_1": 64,
@@ -262,6 +266,11 @@ class Question8(Page):
                      "b_2_2": 100, "b_2_3": 60, "b_2_4": 75
                      }
         states_list = {"0": 1, "1": 1, "2": 2, "3": 3}
+        uptick_probs = [
+            [0.5],
+            [0.667, 0.5],
+            [0.333, 0.333, 0.333, 0.5]
+        ]
 
         return {
             'num_periods': 3,
@@ -269,13 +278,15 @@ class Question8(Page):
             'wealth': json.dumps(wealth_list),
             'stock': json.dumps(stock_list),
             'bond': json.dumps(bond_list),
-            'realized_states': json.dumps(states_list)
+            'realized_states': json.dumps(states_list),
+            'uptick_probs': json.dumps(uptick_probs)
         }
 
 
 class Question9(Page):
     form_model = 'player'
     form_fields = ['answer9']
+
 
     def vars_for_template(self):
         prices_list = {"x_0_1": 8, "x_1_1": 16, "x_1_2": 4, "x_2_1": 32,
@@ -328,7 +339,10 @@ class Question10(Page):
         bond_list = {"b_0_1": 20, "b_1_1": 200, "b_1_2": 30, "b_2_1": 100,
                      "b_2_2": 100, "b_2_3": 60, "b_2_4": 75
                      }
-        states_list = {"0": "", "1": "", "2": "", "3": ""}
+        states_list = {"0": "", "1": "", "2": "", "3": ""
+                       }
+        p = self.player
+        iid_probs = p.participant.vars["iid_probs"]
 
         return {
             'num_periods': 3,
@@ -336,7 +350,8 @@ class Question10(Page):
             'wealth': json.dumps(wealth_list),
             'stock': json.dumps(stock_list),
             'bond': json.dumps(bond_list),
-            'realized_states': json.dumps(states_list)
+            'realized_states': json.dumps(states_list),
+            'iid_probs': json.dumps(iid_probs)
         }
     def app_after_this_page(player, upcoming_apps):
         player.participant.vars["step"] += 1
@@ -352,5 +367,6 @@ page_sequence = [
     Question4,
     Question5,
     Question6,
+    Question8,
     Question10
 ]
