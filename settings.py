@@ -16,6 +16,7 @@ APP_KITS = {
         'color': 'blue',
         'sequence': [
             'introduction',
+            'new_task2',
             'dyn_portf_chp_instructions',
             'dynamic_portf_chp_practice',
             'dynamic_portfolio_quiz',
@@ -33,6 +34,7 @@ APP_KITS = {
         'color': 'red',
         'sequence': [
             'introduction',
+            'new_task2',
             'dyn_iter_chp_instructions',
             'dynamic_iterative_chp_practice',
             'dynamic_portf_chp_quiz',
@@ -50,6 +52,7 @@ APP_KITS = {
         'color': 'green',
         'sequence': [
             'introduction',
+            'new_task2',
             'dyn_portf_chp_instructions',
             'dynamic_portfolio_practice',
             'dynamic_portfolio_quiz',
@@ -67,6 +70,7 @@ APP_KITS = {
         'color': 'yellow',
         'sequence': [
             'introduction',
+            'new_task2',
             'dyn_iter_chp_instructions',
             'dynamic_iterative_practice',
             'dynamic_portf_chp_quiz',
@@ -88,6 +92,7 @@ SESSION_CONFIGS = [
         display_name="Experiment",
         num_demo_participants=1,
         app_sequence=['introduction',
+                      'new_task2',
                       'dynamic_portfolio_instructions',
                       'dyn_portf_chp_instructions',
                       'dynamic_portfolio_practice',
