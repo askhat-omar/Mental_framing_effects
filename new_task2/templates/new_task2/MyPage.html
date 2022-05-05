@@ -46,6 +46,18 @@
     width: 70px;
     font-weight: bold;
 }
+#head{
+    font-weight: bold;
+}
+#bottom{
+    font-weight: bold;
+}
+#index{
+    font-weight: bold;
+}
+#probs{
+    font-weight: bold;
+}
 </style>
 </html>
 
@@ -70,7 +82,8 @@
         var payoff_AD3 = JSON.parse({{ subsession.payoff_s3|json }});
         var payoff_AD4 = JSON.parse({{ subsession.payoff_s4|json }});
         var head = table.append("thead").append("tr")
-            .attr("height", "70");
+            .attr("height", "70")
+            .attr("id", "head");
         head.append("td").html("State").attr("width", "100");
         head.append("td").html("Probability").attr("width", "100");
         head.append("td").html("Asset 1").attr("width", "100");
@@ -84,13 +97,17 @@
             weight_label = "w_" + i;
             portfolio_label = "pf_" + i;
             var row = table.append("tr").attr("height", "40");
-            row.append("td").html(i).attr("width", "100");
+            row.append("td").html(i)
+                .attr("width", "100")
+                .attr("id", "index");
             var probability = (probabilities[probability_label]);
             var payoff_1 = payoff_AD1[payoff_label];
             var payoff_2 = payoff_AD2[payoff_label];
             var payoff_3 = payoff_AD3[payoff_label];
             var payoff_4 = payoff_AD4[payoff_label];
-            row.append("td").html(probability).attr("width", "100");
+            row.append("td").html(probability)
+                .attr("width", "100")
+                .attr("id", "probs");
             row.append("td").html(payoff_1).attr("width", "100");
             row.append("td").html(payoff_2).attr("width", "100");
             row.append("td").html(payoff_3).attr("width", "100");
@@ -105,7 +122,9 @@
         };
         var mezzanine_row = table.append("tr").attr("height", "30");
         mezzanine_row.append("td").attr("colspan", "7");
-        var bottom_row = table.append("tr").attr("height", "50");
+        var bottom_row = table.append("tr")
+            .attr("height", "50")
+            .attr("id", "bottom");
         bottom_row.append("td").attr("colspan","2").html("Money amount to invest:");
         for(i=1; i<{{ num_states|json }}+1; i++){
             weight_label = "w_" + i
