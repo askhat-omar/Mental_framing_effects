@@ -19,13 +19,11 @@ class MyPage(Page):
     def before_next_page(self):
         self.player.newt2_get_outcome()
 
+
+class Results(Page):
     def app_after_this_page(player, upcoming_apps):
         player.participant.vars["step"] += 1
         return get_next_app(app_index=player.participant.vars["app_id"],
                             step=player.participant.vars["step"])
 
-
-class Results(Page):
-    pass
-
-page_sequence = [MyPage]
+page_sequence = [MyPage, Results]

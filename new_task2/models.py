@@ -18,10 +18,13 @@ class Constants(BaseConstants):
     players_per_group = None
     num_rounds = 1
     initial_wealth = 100
+    probabilities = {"pr_1": 0.125, "pr_2": 0.375, "pr_3": 0.375, "pr_4": 0.125}
     payoff_s1 = {"AD_1": 27.00, "AD_2": 0.00, "AD_3": 0.00, "AD_4": 0.00}
     payoff_s2 = {"AD_1": 0.00, "AD_2": 4.50, "AD_3": 0.00, "AD_4": 0.00}
     payoff_s3 = {"AD_1": 0.00, "AD_2": 0.00, "AD_3": 2.25, "AD_4": 0.00}
     payoff_s4 = {"AD_1": 0.00, "AD_2": 0.00, "AD_3": 0.00, "AD_4": 3.38}
+    probs_for_payoff = [0.125, 0.375, 0.375, 0.125]
+    states_for_payoff = [1, 2, 3, 4]
 
 
 class Subsession(BaseSubsession):
@@ -39,22 +42,7 @@ class Subsession(BaseSubsession):
             for r in range(1, num_rounds+1):
                 t = self.session.config['round{}_T'.format(r)]
                 self.in_round(r).num_periods = t
-                probability_label = "pr_{}"
-                probability_list = {"pr_1": 0}
-                for i in range(1, (t+1)+1, 1):
-                    num_up = 0
-                    j = i
-                    for s in range(t):
-                        if j % 2 == 1:
-                            num_up = num_up + 1
-                        j = int((j + 1)/2)
-                    num_down = t - num_up
-                    if (i == 1) or (i == 4):
-                        probability = (1 / 2) ** num_up * (1 / 2) ** num_down
-                    else:
-                        probability = (1 / 2) ** num_up * (1 / 2) ** num_down * 3
-                    probability_list[probability_label.format(i)] = round(probability, 4)
-                self.in_round(r).probabilities = json.dumps(probability_list)
+                self.in_round(r).probabilities = json.dumps(Constants.probabilities)
                 self.in_round(r).payoff_s1 = json.dumps(Constants.payoff_s1)
                 self.in_round(r).payoff_s2 = json.dumps(Constants.payoff_s2)
                 self.in_round(r).payoff_s3 = json.dumps(Constants.payoff_s3)
@@ -78,7 +66,7 @@ class Player(BasePlayer):
     newt2_realized_pay = models.FloatField()
 
     def newt2_get_outcome(self):
-        self.newt2_realized_state = np.random.randint(1, (self.subsession.num_periods+1)+1)
+        self.newt2_realized_state = int(np.random.choice(Constants.states_for_payoff, p = Constants.probs_for_payoff))
         weights_list = json.loads(self.newt2_weights)
         payoff_label = "AD_{}"
         portfolio_label = "pf_{}"

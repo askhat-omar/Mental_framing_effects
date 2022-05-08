@@ -134,7 +134,9 @@
                     .attr("id",weight_label)
                     .attr("class","residual")
                     .attr("type","number")
-                    .attr("step", "0.1");
+                    .attr("step", "1")
+                    .attr("min", 0)
+                    .attr("max", 100);
 
             } else {
                 bottom_row.append("td").append("xhtml:input")
@@ -142,7 +144,9 @@
                     .attr("id",weight_label)
                     .attr("type","number")
                     .attr("required","required")
-                    .attr("step","0.1");
+                    .attr("step","1")
+                    .attr("min", 0)
+                    .attr("max", 100);
 
             }
         };
