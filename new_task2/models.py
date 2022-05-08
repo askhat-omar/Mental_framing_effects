@@ -66,22 +66,22 @@ class Player(BasePlayer):
     newt2_realized_pay = models.FloatField()
 
     def newt2_get_outcome(self):
-        self.newt2_realized_state = int(np.random.choice(Constants.states_for_payoff, p = Constants.probs_for_payoff))
+        self.newt2_realized_state = int(np.random.choice(Constants.states_for_payoff, p=Constants.probs_for_payoff))
         weights_list = json.loads(self.newt2_weights)
         payoff_label = "AD_{}"
         portfolio_label = "pf_{}"
         portfolio_payoffs = {"pf_1": 0}
         variables = [Constants.payoff_s1, Constants.payoff_s2, Constants.payoff_s3, Constants.payoff_s4]
-        payoff_matrix = np.zeros(shape = (4, 4))
+        payoff_matrix = np.zeros(shape=(4, 4))
         for i in range(1, 5):
             for j in range(1, 5):
                 payoff_matrix[i - 1, j - 1] = variables[i - 1][payoff_label.format(j)]
         weights = np.array([weights_list["w_1"], weights_list["w_2"], weights_list["w_3"], weights_list["w_4"]])
-        result = np.zeros(shape = (4, 4))
+        result = np.zeros(shape=(4, 4))
         for n in range(4):
             for k in range(4):
                 result[n, k] = payoff_matrix[n, k] * weights[k]
-        portfolio = result.sum(axis = 1)
+        portfolio = result.sum(axis=1)
         for p in range(1, 5):
             portfolio_payoffs[portfolio_label.format(p)] = portfolio[p - 1]
         #
