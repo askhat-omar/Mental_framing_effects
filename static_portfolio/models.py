@@ -31,9 +31,6 @@ class Constants(BaseConstants):
 
 class Subsession(BaseSubsession):
     num_periods = models.IntegerField()
-    probabilities = models.StringField()
-    payoff_a = models.StringField()
-    payoff_d = models.StringField()
 
     def creating_session(self):
         num_rounds = Constants.num_rounds
@@ -42,13 +39,8 @@ class Subsession(BaseSubsession):
             for r in range(1, num_rounds+1):
                 t = self.session.config['round{}_T'.format(r)]
                 self.in_round(r).num_periods = t
-                self.in_round(r).probabilities = json.dumps(Constants.probabilities)
-                self.in_round(r).payoff_a = json.dumps(Constants.payoff_a)
-                self.in_round(r).payoff_d = json.dumps(Constants.payoff_d)
                 self.session.vars["static_num_periods_round{}".format(r)] = self.in_round(r).num_periods
-                self.session.vars["static_probabilities_round{}".format(r)] = self.in_round(r).probabilities
-                self.session.vars["static_payoff_a_round{}".format(r)] = self.in_round(r).payoff_a
-                self.session.vars["static_payoff_d_round{}".format(r)] = self.in_round(r).payoff_d
+
 
 
 class Group(BaseGroup):
@@ -72,6 +64,9 @@ class Player(BasePlayer):
     payoff_c = models.StringField()
     static_realized_state = models.IntegerField()
     static_realized_pay = models.FloatField()
+    probabilities = models.StringField()
+    payoff_a = models.StringField()
+    payoff_d = models.StringField()
 
     def set_wealth(self, w_1, w_2, w_3, w_4, pf_1, pf_2, pf_3, pf_4):
         self.w_1 = w_1
@@ -86,6 +81,9 @@ class Player(BasePlayer):
         asset_c = {"pay_1": self.w_1, "pay_2": self.w_2, "pay_3": self.w_3, "pay_4": self.w_4}
         self.payoff_b = json.dumps(asset_b)
         self.payoff_c = json.dumps(asset_c)
+        self.probabilities = json.dumps(Constants.probabilities)
+        self.payoff_a = json.dumps(Constants.payoff_a)
+        self.payoff_d = json.dumps(Constants.payoff_d)
 
     def for_payoff(self):
         self.static_realized_state = int(numpy.random.choice(Constants.states_for_payoff, p=Constants.probs_for_payoff))
@@ -104,6 +102,9 @@ class Player(BasePlayer):
         self.static_realized_pay = float(k)
         self.payoff = self.static_realized_pay
         r = self.round_number
+        self.participant.vars["static_probabilities_round{}".format(r)] = self.probabilities
+        self.participant.vars["static_payoff_a_round{}".format(r)] = self.payoff_a
+        self.participant.vars["static_payoff_d_round{}".format(r)] = self.payoff_d
         self.participant.vars["static_realized_state_round{}".format(r)] = self.static_realized_state
         self.participant.vars["static_realized_pay_round{}".format(r)] = self.static_realized_pay
         self.participant.vars["static_payoff_b_round{}".format(r)] = self.payoff_b

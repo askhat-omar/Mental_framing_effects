@@ -41,9 +41,9 @@
 
     <script>
         var table = d3.select("#table1").append("table");
-        var probabilities = JSON.parse({{subsession.probabilities|json}});
-        var payoff_a = JSON.parse({{ subsession.payoff_a|json }});
-        var payoff_d = JSON.parse({{ subsession.payoff_d|json }});
+        var probabilities = JSON.parse({{player.probabilities|json}});
+        var payoff_a = JSON.parse({{ player.payoff_a|json }});
+        var payoff_d = JSON.parse({{ player.payoff_d|json }});
         var head = table.append("thead").append("tr")
             .attr("height", "70")
             .attr("id", "head");
