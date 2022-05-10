@@ -21,6 +21,7 @@ APP_KITS = {
             'dynamic_portfolio_quiz',
             'dynamic_portfolio_chp',
             'dynamic_portfolio_results',
+            'new_task2_chp',
             'static_portfolio_chp',
             'crt',
             'finalpage'
@@ -57,6 +58,7 @@ SESSION_CONFIGS = [
                       'dynamic_portfolio_chp',
                       'dynamic_portfolio_results',
                       'new_task2',
+                      'new_task2_chp',
                       'static_portfolio',
                       'static_portfolio_chp',
                       'crt',
