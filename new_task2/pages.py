@@ -14,6 +14,8 @@ class MyPage(Page):
     form_fields = ['newt2_weights']
 
     def vars_for_template(self):
+        p = self.player
+        p.for_template()
         return {'num_states': self.subsession.num_periods + 1}
 
     def before_next_page(self):

@@ -42,17 +42,8 @@ class Subsession(BaseSubsession):
             for r in range(1, num_rounds+1):
                 t = self.session.config['round{}_T'.format(r)]
                 self.in_round(r).num_periods = t
-                self.in_round(r).probabilities = json.dumps(Constants.probabilities)
-                self.in_round(r).payoff_s1 = json.dumps(Constants.payoff_s1)
-                self.in_round(r).payoff_s2 = json.dumps(Constants.payoff_s2)
-                self.in_round(r).payoff_s3 = json.dumps(Constants.payoff_s3)
-                self.in_round(r).payoff_s4 = json.dumps(Constants.payoff_s4)
                 self.session.vars["newt2_num_periods_round{}".format(r)] = self.in_round(r).num_periods
-                self.session.vars["newt2_probabilities_round{}".format(r)] = self.in_round(r).probabilities
-                self.session.vars["newt2_payoff_s1_round{}".format(r)] = self.in_round(r).payoff_s1
-                self.session.vars["newt2_payoff_s2_round{}".format(r)] = self.in_round(r).payoff_s2
-                self.session.vars["newt2_payoff_s3_round{}".format(r)] = self.in_round(r).payoff_s3
-                self.session.vars["newt2_payoff_s4_round{}".format(r)] = self.in_round(r).payoff_s4
+
 
 
 class Group(BaseGroup):
@@ -64,6 +55,18 @@ class Player(BasePlayer):
     newt2_realized_state = models.IntegerField()
     newt2_portfolio = models.StringField()
     newt2_realized_pay = models.FloatField()
+    probabilities = models.StringField()
+    payoff_s1 = models.StringField()
+    payoff_s2 = models.StringField()
+    payoff_s3 = models.StringField()
+    payoff_s4 = models.StringField()
+
+    def for_template(self):
+        self.probabilities = json.dumps(Constants.probabilities)
+        self.payoff_s1 = json.dumps(Constants.payoff_s1)
+        self.payoff_s2 = json.dumps(Constants.payoff_s2)
+        self.payoff_s3 = json.dumps(Constants.payoff_s3)
+        self.payoff_s4 = json.dumps(Constants.payoff_s4)
 
     def newt2_get_outcome(self):
         self.newt2_realized_state = int(np.random.choice(Constants.states_for_payoff, p=Constants.probs_for_payoff))
@@ -93,3 +96,8 @@ class Player(BasePlayer):
         self.participant.vars["newt2_portfolio_round{}".format(r)] = self.newt2_portfolio
         self.participant.vars["newt2_realized_state_round{}".format(r)] = self.newt2_realized_state
         self.participant.vars["newt2_realized_pay_round{}".format(r)] = self.newt2_realized_pay
+        self.participant.vars["newt2_probabilities_round{}".format(r)] = self.probabilities
+        self.participant.vars["newt2_payoff_s1_round{}".format(r)] = self.payoff_s1
+        self.participant.vars["newt2_payoff_s2_round{}".format(r)] = self.payoff_s2
+        self.participant.vars["newt2_payoff_s3_round{}".format(r)] = self.payoff_s3
+        self.participant.vars["newt2_payoff_s4_round{}".format(r)] = self.payoff_s4

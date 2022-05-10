@@ -76,11 +76,11 @@
 
     <script>
         var table = d3.select("#table1").append("table");
-        var probabilities = JSON.parse({{subsession.probabilities|json}});
-        var payoff_AD1 = JSON.parse({{ subsession.payoff_s1|json }});
-        var payoff_AD2 = JSON.parse({{ subsession.payoff_s2|json }});
-        var payoff_AD3 = JSON.parse({{ subsession.payoff_s3|json }});
-        var payoff_AD4 = JSON.parse({{ subsession.payoff_s4|json }});
+        var probabilities = JSON.parse({{player.probabilities|json}});
+        var payoff_AD1 = JSON.parse({{player.payoff_s1|json}});
+        var payoff_AD2 = JSON.parse({{player.payoff_s2|json}});
+        var payoff_AD3 = JSON.parse({{player.payoff_s3|json}});
+        var payoff_AD4 = JSON.parse({{player.payoff_s4|json}});
         var head = table.append("thead").append("tr")
             .attr("height", "70")
             .attr("id", "head");
@@ -154,10 +154,10 @@
      </script>
 
     <script>
-        var payoff_AD1 = JSON.parse({{ subsession.payoff_s1|json }});
-        var payoff_AD2 = JSON.parse({{ subsession.payoff_s2|json }});
-        var payoff_AD3 = JSON.parse({{ subsession.payoff_s3|json }});
-        var payoff_AD4 = JSON.parse({{ subsession.payoff_s4|json }});
+        var payoff_AD1 = JSON.parse({{player.payoff_s1|json}});
+        var payoff_AD2 = JSON.parse({{player.payoff_s2|json}});
+        var payoff_AD3 = JSON.parse({{player.payoff_s3|json}});
+        var payoff_AD4 = JSON.parse({{player.payoff_s4|json}});
         $("input").on("keydown keyup", function() {
             var weights_string = "{ ";
             var tot_weights = 0;
