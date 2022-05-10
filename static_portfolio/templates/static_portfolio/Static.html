@@ -13,155 +13,19 @@
 
 <html>
 <style>
-.parent {
-    position: relative;
-    height: 50vh;
-    width: 50vw;
+#head{
+    font-weight: bold;
 }
-.child {
-    position: relative;
-    height: 60vh;
-    width: 50vw;
+#index{
+    font-weight: bold;
 }
-.grand {
-    position: absolute;
-    height: 60vh;
-    width: 50vw;
+#probs{
+    font-weight: bold;
 }
-.parent table {
-    position: absolute;
-    top: 0px;
-    left: 550px;
-    border: none;
-}
-.child table {
-    position: absolute;
-    top: 240px;
-    left: 40px;
-    border: 1px solid black;
-}
-.grand table {
-    position: absolute;
-    top: 65px;
-    left: 400px;
-    border: none;
-}
-th, td {
-    border: none
-}
-.parent svg {position: absolute;
-top: 0px;
-left: 0px}
 </style>
-<body>
-<div class="parent">
-    <svg width="600" height="500">
-        <defs>
-            <marker id="arrow" viewBox="0 -5 10 10" refX="5" refY="0" markerWidth="4" markerHeight="4" orient="auto">
-            <path class="cool" d="M0,-5L10,0L0,5" class="arrowHead"></path>
-            </marker>
-        </defs>
-    <line class="cool" x1="200" y1="269" x2="540" y2="445" stroke="black" stroke-width="1.5" marker-end="url(#arrow)"></line>
-    </svg>
+</html>
 
-    <svg width="600" height="500">
-        <defs>
-            <marker id="arrow" viewBox="0 -5 10 10" refX="5" refY="0" markerWidth="4" markerHeight="4" orient="auto">
-            <path class="cool" d="M0,-5L10,0L0,5" class="arrowHead"></path>
-            </marker>
-        </defs>
-    <line class="cool" x1="200" y1="269" x2="540" y2="335" stroke="black" stroke-width="1.5" marker-end="url(#arrow)"></line>
-    </svg>
-
-    <svg width="600" height="500">
-        <defs>
-            <marker id="arrow" viewBox="0 -5 10 10" refX="5" refY="0" markerWidth="4" markerHeight="4" orient="auto">
-            <path class="cool" d="M0,-5L10,0L0,5" class="arrowHead"></path>
-            </marker>
-        </defs>
-    <line class="cool" x1="200" y1="269" x2="540" y2="225" stroke="black" stroke-width="1.5" marker-end="url(#arrow)"></line>
-    </svg>
-
-    <svg width="600" height="500">
-        <defs>
-            <marker id="arrow" viewBox="0 -5 10 10" refX="5" refY="0" markerWidth="4" markerHeight="4" orient="auto">
-            <path class="cool" d="M0,-5L10,0L0,5" class="arrowHead"></path>
-            </marker>
-        </defs>
-        <line class="cool" x1="200" y1="269" x2="540" y2="110" stroke="black" stroke-width="1.5" marker-end="url(#arrow)"></line>
-    </svg>
-
-    <table style="width:350px">
-        <tr>
-        <th colspan="5">FINANCIAL ASSETS</th>
-        </tr>
-        <tr>
-            <th>Scenarios</th>
-            <th>Asset A</th>
-            <th>Asset B</th>
-            <th>Asset C</th>
-            <th>Asset D</th>
-        </tr>
-        <tr style="height:110px">
-            <td><strong>Scenario 1</strong></td>
-            <td>100.00</td>
-            <td>139.99</td>
-            <td>{{ w_1 }}</td>
-            <td>337.50</td>
-        </tr>
-        <tr style="height:110px">
-            <td><strong>Scenario 2</strong></td>
-            <td>100.00</td>
-            <td>117.71</td>
-            <td>{{ w_2 }}</td>
-            <td>168.75</td>
-        </tr>
-        <tr style="height:110px">
-            <td><strong>Scenario 3</strong></td>
-            <td>100.00</td>
-            <td>98.99</td>
-            <td>{{ w_3 }}</td>
-            <td>84.38</td>
-        </tr>
-        <tr style="height:110px">
-            <td><strong>Scenario 4</strong></td>
-            <td>100.00</td>
-            <td>83.24</td>
-            <td>{{ w_4 }}</td>
-            <td>42.19</td>
-        </tr>
-    </table>
-    <div class="child">
-        <table style="width:160px">
-            <tr>
-                <th>$S:</th>
-                <td>100.00</td>
-            </tr>
-            <tr>
-                <th>Money:</th>
-                <td>100.00</td>
-            </tr>
-        </table>
-        <div class="grand">
-            <table style="width:50px">
-                <tr style="height: 60px">
-                    <td>0.125</td>
-                </tr>
-                <tr style="height: 95px">
-                    <td>0.375</td>
-                </tr>
-                <tr style="height: 60px">
-                    <td>0.375</td>
-                </tr>
-                <tr style="height: 70px">
-                    <td>0.125</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-</div>
-
-
+    <div id="table1" align="center"></div>
 
     {% formfield player.lottery label="Please choose your most preferred asset" %} <br>
 
@@ -171,7 +35,49 @@ left: 0px}
 
 {% endblock %}
 
+{% block scripts %}
 
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <script>
+        var table = d3.select("#table1").append("table");
+        var probabilities = JSON.parse({{subsession.probabilities|json}});
+        var payoff_a = JSON.parse({{ subsession.payoff_a|json }});
+        var payoff_d = JSON.parse({{ subsession.payoff_d|json }});
+        var head = table.append("thead").append("tr")
+            .attr("height", "70")
+            .attr("id", "head");
+        head.append("td").html("State").attr("width", "100");
+        head.append("td").html("Probability").attr("width", "100");
+        head.append("td").html("Asset 1").attr("width", "100");
+        head.append("td").html("Asset 2").attr("width", "100");
+        head.append("td").html("Asset 3").attr("width", "100");
+        head.append("td").html("Asset 4").attr("width", "100");
+        var payoff_b = JSON.parse({{player.payoff_b|json}});
+        var payoff_c = JSON.parse({{player.payoff_c|json}});
+        for(i=1; i<{{ num_states|json }}+1; i++){
+            probability_label = "pr_" + i;
+            payoff_label = "pay_" + i;
+            portfolio_label = "pf_" + i;
+            var row = table.append("tr").attr("height", "40");
+            row.append("td").html(i)
+                .attr("width", "100");
+            var probability = (probabilities[probability_label]);
+            var asset_a = payoff_a[payoff_label];
+            var asset_b = payoff_b[portfolio_label];
+            var asset_c = payoff_c[payoff_label];
+            var asset_d = payoff_d[payoff_label];
+            row.append("td").html(probability)
+                .attr("width", "100");
+            row.append("td").html(asset_a).attr("width", "100");
+            row.append("td").html(asset_b).attr("width", "100");
+            row.append("td").html(asset_c).attr("width", "100");
+            row.append("td").html(asset_d).attr("width", "100");
+        };
+
+     </script>
+
+{% endblock %}
 
 {% block styles %}
     <style>

@@ -16,74 +16,31 @@ APP_KITS = {
         'color': 'blue',
         'sequence': [
             'introduction',
-            'new_task2',
             'dynamic_portfolio_instructions',
             'dynamic_portf_chp_practice',
             'dynamic_portfolio_quiz',
             'dynamic_portfolio_chp',
             'dynamic_portfolio_results',
-            'dyn_iter_chp_instr_second',
-            'dynamic_iterative_chp_practice_second',
-            'dynamic_iterative_chp_2',
             'static_portfolio_chp',
             'crt',
             'finalpage'
         ]
     },
     1: {
-        'color': 'red',
-        'sequence': [
-            'introduction',
-            'new_task2',
-            'dyn_iter_chp_instructions',
-            'dynamic_iterative_chp_practice',
-            'dynamic_portf_chp_quiz',
-            'dynamic_iterative_chp',
-            'dyn_portf_chp_instr_second',
-            'dynamic_portf_chp_practice_2',
-            'dynamic_portfolio_chp_2',
-            'dynamic_portfolio_results_second',
-            'static_portfolio_chp',
-            'crt',
-            'finalpage'
-        ]
-    },
-    2: {
         'color': 'green',
         'sequence': [
             'introduction',
-            'new_task2',
             'dynamic_portfolio_instructions',
             'dynamic_portfolio_practice',
             'dynamic_portfolio_quiz',
             'dynamic_portfolio',
             'dynamic_portfolio_results',
-            'dyn_iter_chp_instr_second',
-            'dynamic_iterative_practice_second',
-            'dynamic_iterative_second',
+            'new_task2',
             'static_portfolio',
             'crt',
             'finalpage'
         ]
     },
-    3: {
-        'color': 'yellow',
-        'sequence': [
-            'introduction',
-            'new_task2',
-            'dyn_iter_chp_instructions',
-            'dynamic_iterative_practice',
-            'dynamic_portf_chp_quiz',
-            'dynamic_iterative',
-            'dyn_portf_chp_instr_second',
-            'dynamic_portfolio_practice_2',
-            'dynamic_portfolio_2',
-            'dynamic_portfolio_results_second',
-            'static_portfolio',
-            'crt',
-            'finalpage'
-        ]
-    }
 }
 
 SESSION_CONFIGS = [
@@ -92,7 +49,6 @@ SESSION_CONFIGS = [
         display_name="Experiment",
         num_demo_participants=1,
         app_sequence=['introduction',
-                      'new_task2',
                       'dynamic_portfolio_instructions',
                       'dynamic_portfolio_practice',
                       'dynamic_portf_chp_practice',
@@ -100,26 +56,7 @@ SESSION_CONFIGS = [
                       'dynamic_portfolio',
                       'dynamic_portfolio_chp',
                       'dynamic_portfolio_results',
-                      'dyn_iter_instructions',
-                      'dyn_iter_chp_instructions',
-                      'dyn_iter_instr_second',
-                      'dyn_iter_chp_instr_second',
-                      'dynamic_iterative_practice',
-                      'dynamic_iterative_practice_second',
-                      'dynamic_iterative_chp_practice',
-                      'dynamic_iterative_chp_practice_second',
-                      'dynamic_portf_chp_quiz',
-                      'dynamic_iterative',
-                      'dynamic_iterative_second',
-                      'dynamic_iterative_chp',
-                      'dynamic_iterative_chp_2',
-                      'dyn_portf_instr_second',
-                      'dynamic_portfolio_practice_2',
-                      'dynamic_portfolio_2',
-                      'dyn_portf_chp_instr_second',
-                      'dynamic_portf_chp_practice_2',
-                      'dynamic_portfolio_chp_2',
-                      'dynamic_portfolio_results_second',
+                      'new_task2',
                       'static_portfolio',
                       'static_portfolio_chp',
                       'crt',

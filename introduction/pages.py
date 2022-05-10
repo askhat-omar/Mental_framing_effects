@@ -21,11 +21,11 @@ class Page1(Page):
         iid_probs = player.participant.vars["iid_probs"]
         full_first = player.participant.vars["full_first"]
         if (iid_probs == 1) & (full_first == 1):
-            player.participant.vars["app_id"] = 2
+            player.participant.vars["app_id"] = 1
         elif (iid_probs == 1) & (full_first == 0):
-            player.participant.vars["app_id"] = 3
+            player.participant.vars["app_id"] = 1
         elif (iid_probs == 0) & (full_first == 1):
-            player.participant.vars["app_id"] = 0
+            player.participant.vars["app_id"] = 1
         elif (iid_probs == 0) & (full_first == 0):
             player.participant.vars["app_id"] = 1
 
