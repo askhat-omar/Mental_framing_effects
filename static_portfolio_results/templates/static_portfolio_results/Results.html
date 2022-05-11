@@ -2,14 +2,22 @@
 {% load otree static %}
 
 {% block title %}
-       Task 3
+       Task 3: Results
 {% endblock %}
 
 {% block content %}
-    <p>Table below shows four alternative financial assets. The price of each asset is the same (100 units), so you can
-        buy one of the four assets using your budget. Each asset pays off money amounts in four random scenarios and
-        each scenario has a known probability of occuring. You are asked to choose the asset that you like the most.
-        Choosing asset "A" means that you do not invest in a risky asset and you keep the 100 units without risk.</p> <br>
+    {% if lottery == "1" %}
+        <p>You chose Asset A</p>
+    {% elif lottery == "2" %}
+        <p>You chose Asset B</p>
+    {% elif lottery == "3" %}
+        <p>You chose Asset C</p>
+    {% else %}
+        <p>You chose Asset D</p>
+    {% endif %}
+
+    <p>The selected state is: {{realized_state}}</p>
+    <p>Your payoff in this state is: {{realized_pay}}</p>
 
 <html>
 <style>
@@ -27,7 +35,8 @@
 
     <div id="table1" align="center"></div>
 
-    {% formfield player.lottery label="Please choose your most preferred asset" %} <br>
+    <br>
+    <br>
 
 
     {% next_button %}
@@ -41,9 +50,9 @@
 
     <script>
         var table = d3.select("#table1").append("table");
-        var probabilities = JSON.parse({{player.probabilities|json}});
-        var payoff_a = JSON.parse({{ player.payoff_a|json }});
-        var payoff_d = JSON.parse({{ player.payoff_d|json }});
+        var probabilities = JSON.parse({{probabilities|json}});
+        var payoff_a = JSON.parse({{ payoff_a|json }});
+        var payoff_d = JSON.parse({{ payoff_d|json }});
         var head = table.append("thead").append("tr")
             .attr("height", "70")
             .attr("id", "head");
@@ -53,13 +62,16 @@
         head.append("td").html("Asset B").attr("width", "100");
         head.append("td").html("Asset C").attr("width", "100");
         head.append("td").html("Asset D").attr("width", "100");
-        var payoff_b = JSON.parse({{player.payoff_b|json}});
-        var payoff_c = JSON.parse({{player.payoff_c|json}});
+        var payoff_b = JSON.parse({{payoff_b|json}});
+        var payoff_c = JSON.parse({{payoff_c|json}});
         for(i=1; i<{{ num_states|json }}+1; i++){
             probability_label = "pr_" + i;
             payoff_label = "pay_" + i;
             portfolio_label = "pf_" + i;
             var row = table.append("tr").attr("height", "40");
+            if(i=={{realized_state|json}}){
+                row.attr("class", "realrow");
+            };
             row.append("td").html(i)
                 .attr("width", "100");
             var probability = (probabilities[probability_label]);
@@ -85,6 +97,7 @@
             border: 1px solid black;
             text-align: center;
         }
+        tr.realrow {background-color: lightblue;}
         div {margin-top: 50px}
         input{
             width: 40px;

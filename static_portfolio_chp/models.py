@@ -102,6 +102,7 @@ class Player(BasePlayer):
         self.static_realized_pay = float(k)
         self.payoff = self.static_realized_pay
         r = self.round_number
+        self.participant.vars["static_lottery_round{}".format(r)] = self.lottery
         self.participant.vars["static_probabilities_round{}".format(r)] = self.probabilities
         self.participant.vars["static_payoff_a_round{}".format(r)] = self.payoff_a
         self.participant.vars["static_payoff_d_round{}".format(r)] = self.payoff_d

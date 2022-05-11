@@ -49,10 +49,10 @@
             .attr("id", "head");
         head.append("td").html("State").attr("width", "100");
         head.append("td").html("Probability").attr("width", "100");
-        head.append("td").html("Asset 1").attr("width", "100");
-        head.append("td").html("Asset 2").attr("width", "100");
-        head.append("td").html("Asset 3").attr("width", "100");
-        head.append("td").html("Asset 4").attr("width", "100");
+        head.append("td").html("Asset A").attr("width", "100");
+        head.append("td").html("Asset B").attr("width", "100");
+        head.append("td").html("Asset C").attr("width", "100");
+        head.append("td").html("Asset D").attr("width", "100");
         var payoff_b = JSON.parse({{player.payoff_b|json}});
         var payoff_c = JSON.parse({{player.payoff_c|json}});
         for(i=1; i<{{ num_states|json }}+1; i++){
