@@ -51,7 +51,7 @@ APP_KITS = {
         'sequence': [
             'introduction',
             'dynamic_portfolio_instructions',
-            'dynamic_portfolio_practice',
+            'dynamic_portfolio_practice_3',
             'dynamic_portfolio_quiz',
             'dynamic_portfolio_3',
             'dynamic_portfolio_results',
@@ -74,6 +74,7 @@ SESSION_CONFIGS = [
                       'dynamic_portfolio_instructions',
                       'dynamic_portfolio_practice',
                       'dynamic_portf_chp_practice',
+                      'dynamic_portfolio_practice_3',
                       'dynamic_portfolio_quiz',
                       'dynamic_portfolio',
                       'dynamic_portfolio_chp',
