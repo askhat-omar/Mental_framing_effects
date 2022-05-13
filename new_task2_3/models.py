@@ -14,16 +14,16 @@ Your app description
 
 
 class Constants(BaseConstants):
-    name_in_url = 'new_task2_chp'
+    name_in_url = 'new_task2_3'
     players_per_group = None
     num_rounds = 1
     initial_wealth = 100
-    probabilities = {"pr_1": 0.111, "pr_2": 0.361, "pr_3": 0.403, "pr_4": 0.125}
-    payoff_s1 = {"AD_1": 27.00, "AD_2": 0.00, "AD_3": 0.00, "AD_4": 0.00}
-    payoff_s2 = {"AD_1": 0.00, "AD_2": 4.50, "AD_3": 0.00, "AD_4": 0.00}
-    payoff_s3 = {"AD_1": 0.00, "AD_2": 0.00, "AD_3": 2.25, "AD_4": 0.00}
-    payoff_s4 = {"AD_1": 0.00, "AD_2": 0.00, "AD_3": 0.00, "AD_4": 3.38}
-    probs_for_payoff = [0.111, 0.361, 0.403, 0.125]
+    probabilities = {"pr_1": 0.125, "pr_2": 0.375, "pr_3": 0.375, "pr_4": 0.125}
+    payoff_s1 = {"AD_1": 64.00, "AD_2": 0.00, "AD_3": 0.00, "AD_4": 0.00}
+    payoff_s2 = {"AD_1": 0.00, "AD_2": 7.11, "AD_3": 0.00, "AD_4": 0.00}
+    payoff_s3 = {"AD_1": 0.00, "AD_2": 0.00, "AD_3": 2.37, "AD_4": 0.00}
+    payoff_s4 = {"AD_1": 0.00, "AD_2": 0.00, "AD_3": 0.00, "AD_4": 2.37}
+    probs_for_payoff = [0.125, 0.375, 0.375, 0.125]
     states_for_payoff = [1, 2, 3, 4]
 
 

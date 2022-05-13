@@ -110,7 +110,7 @@
             var payoff_2 = payoff_AD2[payoff_label];
             var payoff_3 = payoff_AD3[payoff_label];
             var payoff_4 = payoff_AD4[payoff_label];
-            var portf = portfolio[portfolio_label];
+            var portf = Math.round(portfolio[portfolio_label]*10)/10;
             row.append("td").html(probability)
                 .attr("width", "100")
                 .attr("id", "probs");
@@ -120,7 +120,8 @@
             row.append("td").html(payoff_4).attr("width", "100");
             row.append("td").html(portf)
                 .attr("width", "100")
-                .attr("id", portfolio_label);
+                .attr("id", portfolio_label)
+                .attr("step", "0.01");
         };
         var mezzanine_row = table.append("tr").attr("height", "30");
         mezzanine_row.append("td").attr("colspan", "7");
