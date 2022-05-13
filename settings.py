@@ -46,6 +46,23 @@ APP_KITS = {
             'finalpage'
         ]
     },
+    2: {
+        'color': 'green',
+        'sequence': [
+            'introduction',
+            'dynamic_portfolio_instructions',
+            'dynamic_portfolio_practice',
+            'dynamic_portfolio_quiz',
+            'dynamic_portfolio_3',
+            'dynamic_portfolio_results',
+            'new_task2',
+            'new_task2_results',
+            'static_portfolio',
+            'static_portfolio_results',
+            'crt',
+            'finalpage'
+        ]
+    },
 }
 
 SESSION_CONFIGS = [
@@ -60,6 +77,7 @@ SESSION_CONFIGS = [
                       'dynamic_portfolio_quiz',
                       'dynamic_portfolio',
                       'dynamic_portfolio_chp',
+                      'dynamic_portfolio_3',
                       'dynamic_portfolio_results',
                       'new_task2',
                       'new_task2_chp',
