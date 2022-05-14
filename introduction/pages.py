@@ -19,15 +19,14 @@ class Page1(Page):
     def app_after_this_page(player, upcoming_apps):
         # generate and initialize step
         iid_probs = player.participant.vars["iid_probs"]
-        full_first = player.participant.vars["full_first"]
-        if (iid_probs == 1) & (full_first == 1):
+        factor_three = player.participant.vars["factor_three"]
+        if (iid_probs == 1) & (factor_three == 1):
             player.participant.vars["app_id"] = 2
-        elif (iid_probs == 1) & (full_first == 0):
-            player.participant.vars["app_id"] = 2
-        elif (iid_probs == 0) & (full_first == 1):
-            player.participant.vars["app_id"] = 2
-        elif (iid_probs == 0) & (full_first == 0):
-            player.participant.vars["app_id"] = 2
+        elif (iid_probs == 1) & (factor_three == 0):
+            player.participant.vars["app_id"] = 1
+        else:
+            player.participant.vars["app_id"] = 0
+
 
         player.participant.vars["step"] = 0
 

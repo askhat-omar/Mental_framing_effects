@@ -28,6 +28,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+    booleans = models.IntegerField()
     iid_probs = models.IntegerField()
     full_first = models.IntegerField()
     factor_three = models.IntegerField()
@@ -40,12 +41,17 @@ class Player(BasePlayer):
     )
 
     def get_booleans(self):
-        iid_probs = np.random.binomial(n=1, p=0.5, size=1)
-        full_first = np.random.binomial(n=1, p=0.5, size=1)
-        factor_three = np.random.binomial(n=1, p=0.5, size=1)
+        booleans = np.random.choice([1,2,3], p=[(1/3), (1/3), (1/3)])
+        if booleans == 3:
+            iid_probs = 1
+            factor_three = 1
+        elif booleans == 2:
+            iid_probs = 1
+            factor_three = 0
+        else:
+            iid_probs = 0
+            factor_three = 0
         self.iid_probs = int(iid_probs)
-        self.full_first = int(full_first)
         self.factor_three = int(factor_three)
         self.participant.vars["iid_probs"] = self.iid_probs
-        self.participant.vars["full_first"] = self.full_first
         self.participant.vars["factor_three"] = self.factor_three
