@@ -14,15 +14,15 @@ Your app description
 
 
 class Constants(BaseConstants):
-    name_in_url = 'new_task2_practice'
+    name_in_url = 'new_task2_practice_chp'
     players_per_group = None
     num_rounds = 1
     initial_wealth = 100
-    probabilities = {"pr_1": 0.250, "pr_2": 0.500, "pr_3": 0.250}
+    probabilities = {"pr_1": 0.333, "pr_2": 0.417, "pr_3": 0.250}
     payoff_s1 = {"AD_1": 9.00, "AD_2": 0.00, "AD_3": 0.00}
     payoff_s2 = {"AD_1": 0.00, "AD_2": 2.25, "AD_3": 0.00}
     payoff_s3 = {"AD_1": 0.00, "AD_2": 0.00, "AD_3": 2.25}
-    probs_for_payoff = [0.25, 0.50, 0.25]
+    probs_for_payoff = [0.333, 0.417, 0.25]
     states_for_payoff = [1, 2, 3]
 
 
