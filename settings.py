@@ -51,7 +51,7 @@ APP_KITS = {
         ]
     },
     2: {
-        'color': 'green',
+        'color': 'red',
         'sequence': [
             'introduction',
             'dynamic_portfolio_instructions',
