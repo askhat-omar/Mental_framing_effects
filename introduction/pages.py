@@ -21,9 +21,9 @@ class Page1(Page):
         iid_probs = player.participant.vars["iid_probs"]
         factor_three = player.participant.vars["factor_three"]
         if (iid_probs == 1) & (factor_three == 1):
-            player.participant.vars["app_id"] = 0
+            player.participant.vars["app_id"] = 2
         elif (iid_probs == 1) & (factor_three == 0):
-            player.participant.vars["app_id"] = 0
+            player.participant.vars["app_id"] = 1
         else:
             player.participant.vars["app_id"] = 0
 
