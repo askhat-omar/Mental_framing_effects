@@ -1,0 +1,163 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Quiz. Question 2
+{% endblock %}
+
+{% block content %}
+   <p>Consider the example illustrated below.</p>
+
+<html>
+<style>
+#pf_1{
+    width: 70px;
+    font-weight: bold;
+}
+#pf_2{
+    width: 70px;
+    font-weight: bold;
+}
+#pf_3{
+    width: 70px;
+    font-weight: bold;
+    background-color: yellow;
+}
+#pf_4{
+    width: 70px;
+    font-weight: bold;
+}
+#w_1{
+    width: 70px;
+    font-weight: bold;
+}
+#w_2{
+    width: 70px;
+    font-weight: bold;
+}
+#w_3{
+    width: 70px;
+    font-weight: bold;
+}
+#w_4{
+    width: 70px;
+    font-weight: bold;
+}
+#head{
+    font-weight: bold;
+}
+#bottom{
+    font-weight: bold;
+}
+#index{
+    font-weight: bold;
+}
+#probs{
+    font-weight: bold;
+}
+</style>
+</html>
+
+    <div id="table1" align="center"></div>
+    <br>
+    <br>
+    <p>What payoff in state 3 does portfolio grant to its holder?</p>
+    {% formfield player.answer3 label="Your answer"%}
+    <br>
+    {% next_button %}
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <script>
+        var table = d3.select("#table1").append("table");
+        var probabilities = JSON.parse({{probabilities|json}});
+        var payoff_AD1 = JSON.parse({{payoff_s1|json}});
+        var payoff_AD2 = JSON.parse({{payoff_s2|json}});
+        var payoff_AD3 = JSON.parse({{payoff_s3|json}});
+        var payoff_AD4 = JSON.parse({{payoff_s4|json}});
+        var portfolio = JSON.parse({{portfolio|json}});
+        var weights = JSON.parse({{weights|json}});
+        var head = table.append("thead").append("tr")
+            .attr("height", "70")
+            .attr("id", "head");
+        head.append("td").html("State").attr("width", "100");
+        head.append("td").html("Probability").attr("width", "100");
+        head.append("td").html("Asset 1").attr("width", "100");
+        head.append("td").html("Asset 2").attr("width", "100");
+        head.append("td").html("Asset 3").attr("width", "100");
+        head.append("td").html("Asset 4").attr("width", "100");
+        head.append("td").html("Portfolio").attr("width", "100");
+        for(i=1; i<{{ num_states|json }}+1; i++){
+            probability_label = "pr_" + i;
+            payoff_label = "AD_" + i;
+            weight_label = "w_" + i;
+            portfolio_label = "pf_" + i;
+            var row = table.append("tr").attr("height", "40");
+            if(i=={{realized_state|json}}){
+                row.attr("class", "realrow");
+            };
+            row.append("td").html(i)
+                .attr("width", "100")
+                .attr("id", "index");
+            var probability = (probabilities[probability_label]);
+            var payoff_1 = payoff_AD1[payoff_label];
+            var payoff_2 = payoff_AD2[payoff_label];
+            var payoff_3 = payoff_AD3[payoff_label];
+            var payoff_4 = payoff_AD4[payoff_label];
+            var portf = Math.round(portfolio[portfolio_label]*10)/10;
+            row.append("td").html(probability)
+                .attr("width", "100")
+                .attr("id", "probs");
+            row.append("td").html(payoff_1).attr("width", "100");
+            row.append("td").html(payoff_2).attr("width", "100");
+            row.append("td").html(payoff_3).attr("width", "100");
+            row.append("td").html(payoff_4).attr("width", "100");
+            row.append("td").append("xhtml:input")
+                    .attr("size", "15")
+                    .attr("id", portfolio_label)
+                    .attr("value",portfolio[portfolio_label])
+                    .attr("readonly","readonly")
+                    .attr("width", "100");
+        };
+        var mezzanine_row = table.append("tr").attr("height", "30");
+        mezzanine_row.append("td").attr("colspan", "7");
+        var bottom_row = table.append("tr")
+            .attr("height", "50")
+            .attr("id", "bottom");
+        bottom_row.append("td").attr("colspan","2").html("Money amount to invest:");
+        for(i=1; i<{{ num_states|json }}+1; i++){
+            weight_label = "w_" + i
+            var weight = weights[weight_label];
+            bottom_row.append("td").append("xhtml:input")
+                    .attr("size",3)
+                    .attr("id", weight_label)
+                    .attr("value",weights[weight_label])
+                    .attr("readonly","readonly")
+                    .attr("step","1");
+        };
+        bottom_row.append("td").html({{Constants.initial_wealth|json}});
+     </script>
+
+{% endblock %}
+
+
+{% block styles %}
+    <style>
+        .otree-form-errors {
+            display: none;
+        }
+        table, th, td {
+            border: 1px solid black;
+            text-align: center;
+        }
+        tr.realrow {background-color: lightblue;}
+        div {margin-top: 50px}
+        input{
+            width: 40px;
+        }
+    </style>
+{% endblock %}

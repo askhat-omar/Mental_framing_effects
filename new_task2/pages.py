@@ -6,7 +6,7 @@ from helpers import get_next_app
 
 class Intro(Page):
     def is_displayed(self):
-        return self.round_number == 0
+        return self.round_number == 1
 
 
 class MyPage(Page):
@@ -30,4 +30,4 @@ class MyPage(Page):
 class Results(Page):
     pass
 
-page_sequence = [MyPage]
+page_sequence = [Intro, MyPage]
