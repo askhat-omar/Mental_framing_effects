@@ -54,7 +54,7 @@ APP_KITS = {
         'color': 'red',
         'sequence': [
             'introduction',
-            'dynamic_portfolio_instructions',
+            'dynamic_portfolio_instructions_3',
             'dynamic_portfolio_practice_3',
             'dynamic_portfolio_quiz_3',
             'dynamic_portfolio_3',
@@ -78,6 +78,7 @@ SESSION_CONFIGS = [
         num_demo_participants=1,
         app_sequence=['introduction',
                       'dynamic_portfolio_instructions',
+                      'dynamic_portfolio_instructions_3',
                       'dynamic_portfolio_practice',
                       'dynamic_portf_chp_practice',
                       'dynamic_portfolio_practice_3',
