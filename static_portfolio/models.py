@@ -99,7 +99,7 @@ class Player(BasePlayer):
             k = asset_c[payoff_label.format(self.static_realized_state)]
         else:
             k = Constants.payoff_d[payoff_label.format(self.static_realized_state)]
-        self.static_realized_pay = float(k)
+        self.static_realized_pay = round(float(k))
         self.payoff = self.static_realized_pay
         r = self.round_number
         self.participant.vars["static_lottery_round{}".format(r)] = self.lottery
