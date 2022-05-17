@@ -60,7 +60,7 @@
         var total_height = 2*vertical_margin + num_termnodes * (termbox_height+termbox_vertical_space);
         var svgContainer = d3.select("#chart").append("svg").attr("width",total_width).attr("height",total_height);
 
-        var prices = JSON.parse({{subsession.dyn_prices|json}});
+        var prices = JSON.parse({{dyn_prices|json}});
 
         <!--Далее рисуются стрелки-->
 

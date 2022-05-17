@@ -9,6 +9,14 @@ class Dynamic(Page):
     form_model = 'player'
     form_fields = ['dyn_stock', 'dyn_bond', 'dyn_wealth', 'fill_history']
 
+    def vars_for_template(self):
+        r = self.round_number
+        p = self.player
+        p.create_prices()
+        return {
+            'dyn_prices': p.participant.vars["dyn_prices_round{}".format(r)]
+        }
+
     def before_next_page(self):
         self.player.dyn_get_outcome()
 
