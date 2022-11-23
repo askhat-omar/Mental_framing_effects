@@ -19,10 +19,12 @@ class Constants(BaseConstants):
     num_rounds = 1
     initial_wealth = 100
     probabilities = {"pr_1": 0.111, "pr_2": 0.361, "pr_3": 0.403, "pr_4": 0.125}
-    payoff_a = {"pay_1": 136.71, "pay_2": 123.69, "pay_3": 101.83, "pay_4": 83.72}
-    payoff_d = {"pay_1": 300.00, "pay_2": 222.12, "pay_3": 93.43, "pay_4": 42.19}
-    a = [136.71, 123.69, 101.83, 83.72]
-    d = [300.00, 222.12, 93.43, 42.19]
+    payoff_a = {"pay_1": 182.49, "pay_2": 152.13, "pay_3": 101.45, "pay_4": 68.43}
+    payoff_b = {"pay_1": 300.00, "pay_2": 222.11, "pay_3": 93.43, "pay_4": 42.19}
+    payoff_d = {"pay_1": 575.28, "pay_2": 378.22, "pay_3": 57.52, "pay_4": 11.38}
+    a = [182.49, 152.13, 101.45, 68.43]
+    b = [300.00, 222.11, 93.43, 42.19]
+    d = [575.28, 378.22, 57.52, 11.38]
     probs_for_payoff = [0.111, 0.361, 0.403, 0.125]
     states_for_payoff = [1, 2, 3, 4]
 
@@ -60,41 +62,38 @@ class Player(BasePlayer):
     pf_2 = models.StringField()
     pf_3 = models.StringField()
     pf_4 = models.StringField()
+    payoff_a = models.StringField()
     payoff_b = models.StringField()
     payoff_c = models.StringField()
+    payoff_d = models.StringField()
     static_realized_state = models.IntegerField()
     static_realized_pay = models.FloatField()
     probabilities = models.StringField()
-    payoff_a = models.StringField()
-    payoff_d = models.StringField()
 
-    def set_wealth(self, w_1, w_2, w_3, w_4, pf_1, pf_2, pf_3, pf_4):
+
+
+    def set_wealth(self, w_1, w_2, w_3, w_4):
         self.w_1 = w_1
         self.w_2 = w_2
         self.w_3 = w_3
         self.w_4 = w_4
-        self.pf_1 = pf_1
-        self.pf_2 = pf_2
-        self.pf_3 = pf_3
-        self.pf_4 = pf_4
-        asset_b = {"pf_1": self.pf_1, "pf_2": self.pf_2, "pf_3": self.pf_3, "pf_4": self.pf_4}
         asset_c = {"pay_1": self.w_1, "pay_2": self.w_2, "pay_3": self.w_3, "pay_4": self.w_4}
-        self.payoff_b = json.dumps(asset_b)
-        self.payoff_c = json.dumps(asset_c)
-        self.probabilities = json.dumps(Constants.probabilities)
         self.payoff_a = json.dumps(Constants.payoff_a)
+        self.payoff_b = json.dumps(Constants.payoff_b)
+        self.payoff_c = json.dumps(asset_c)
         self.payoff_d = json.dumps(Constants.payoff_d)
+        self.probabilities = json.dumps(Constants.probabilities)
+
+
 
     def for_payoff(self):
         self.static_realized_state = int(numpy.random.choice(Constants.states_for_payoff, p=Constants.probs_for_payoff))
-        portfolio_label = "pf_{}"
         payoff_label = "pay_{}"
-        asset_b = {"pf_1": self.pf_1, "pf_2": self.pf_2, "pf_3": self.pf_3, "pf_4": self.pf_4}
         asset_c = {"pay_1": self.w_1, "pay_2": self.w_2, "pay_3": self.w_3, "pay_4": self.w_4}
         if self.lottery == '1':
             k = Constants.payoff_a[payoff_label.format(self.static_realized_state)]
         elif self.lottery == '2':
-            k = asset_b[portfolio_label.format(self.static_realized_state)]
+            k = Constants.payoff_b[payoff_label.format(self.static_realized_state)]
         elif self.lottery == '3':
             k = asset_c[payoff_label.format(self.static_realized_state)]
         else:
@@ -105,9 +104,10 @@ class Player(BasePlayer):
         self.participant.vars["static_lottery_round{}".format(r)] = self.lottery
         self.participant.vars["static_probabilities_round{}".format(r)] = self.probabilities
         self.participant.vars["static_payoff_a_round{}".format(r)] = self.payoff_a
+        self.participant.vars["static_payoff_b_round{}".format(r)] = self.payoff_b
+        self.participant.vars["static_payoff_c_round{}".format(r)] = self.payoff_c
         self.participant.vars["static_payoff_d_round{}".format(r)] = self.payoff_d
         self.participant.vars["static_realized_state_round{}".format(r)] = self.static_realized_state
         self.participant.vars["static_realized_pay_round{}".format(r)] = self.static_realized_pay
-        self.participant.vars["static_payoff_b_round{}".format(r)] = self.payoff_b
-        self.participant.vars["static_payoff_c_round{}".format(r)] = self.payoff_c
+
 
