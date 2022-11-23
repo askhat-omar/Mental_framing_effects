@@ -42,6 +42,8 @@
         var table = d3.select("#table1").append("table");
         var probabilities = JSON.parse({{player.probabilities|json}});
         var payoff_a = JSON.parse({{ player.payoff_a|json }});
+        var payoff_b = JSON.parse({{ player.payoff_b|json }});
+        var payoff_c = JSON.parse({{ player.payoff_c|json }});
         var payoff_d = JSON.parse({{ player.payoff_d|json }});
         var head = table.append("thead").append("tr")
             .attr("height", "70")
@@ -52,18 +54,16 @@
         head.append("td").html("Asset B").attr("width", "100");
         head.append("td").html("Asset C").attr("width", "100");
         head.append("td").html("Asset D").attr("width", "100");
-        var payoff_b = JSON.parse({{player.payoff_b|json}});
-        var payoff_c = JSON.parse({{player.payoff_c|json}});
+
         for(i=1; i<{{ num_states|json }}+1; i++){
             probability_label = "pr_" + i;
             payoff_label = "pay_" + i;
-            portfolio_label = "pf_" + i;
             var row = table.append("tr").attr("height", "40");
             row.append("td").html(i)
                 .attr("width", "100");
             var probability = (probabilities[probability_label]);
             var asset_a = Math.round(payoff_a[payoff_label]);
-            var asset_b = Math.round(payoff_b[portfolio_label]);
+            var asset_b = Math.round(payoff_b[payoff_label]);
             var asset_c = Math.round(payoff_c[payoff_label]);
             var asset_d = Math.round(payoff_d[payoff_label]);
             row.append("td").html(probability)

@@ -16,11 +16,9 @@ class MyPage(Page):
         r = self.round_number
         p = self.player
         wealth = json.loads(p.participant.vars["dyn_wealth_round{}".format(r)])
-        portfolio = json.loads(p.participant.vars["newt2_portfolio_round{}".format(r)])
-        p.set_wealth(FORMAT_FLOAT.format(wealth["w_3_1"]), FORMAT_FLOAT.format((wealth["w_3_2"] + wealth["w_3_3"] + wealth["w_3_5"]) / 3), FORMAT_FLOAT.format((wealth["w_3_4"] + wealth["w_3_6"] + wealth["w_3_7"]) / 3), FORMAT_FLOAT.format(wealth["w_3_8"]), FORMAT_FLOAT.format(portfolio["pf_1"]), FORMAT_FLOAT.format(portfolio["pf_2"]), FORMAT_FLOAT.format(portfolio["pf_3"]), FORMAT_FLOAT.format(portfolio["pf_4"]))
+        p.set_wealth(FORMAT_FLOAT.format(wealth["w_3_1"]), FORMAT_FLOAT.format((wealth["w_3_2"] + wealth["w_3_3"] + wealth["w_3_5"]) / 3), FORMAT_FLOAT.format((wealth["w_3_4"] + wealth["w_3_6"] + wealth["w_3_7"]) / 3), FORMAT_FLOAT.format(wealth["w_3_8"]))
         return {
             'num_states': self.subsession.num_periods + 1,
-            'payoff_b': p.payoff_b,
             'payoff_c': p.payoff_c,
         }
 
