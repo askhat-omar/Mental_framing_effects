@@ -33,6 +33,8 @@ class Player(BasePlayer):
     full_first = models.IntegerField()
     factor_three = models.IntegerField()
 
+    id_label = models.StringField(label="Please enter your Student ID:")
+
     data_priv = models.BooleanField(
         label="If you agree with the consent stated above, then please choose 'Agree' and press 'Next' button, otherwise please close the tab",
         choices=[
@@ -55,3 +57,4 @@ class Player(BasePlayer):
         self.factor_three = int(factor_three)
         self.participant.vars["iid_probs"] = self.iid_probs
         self.participant.vars["factor_three"] = self.factor_three
+        self.participant.label = self.id_label

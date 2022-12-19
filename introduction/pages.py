@@ -11,7 +11,7 @@ from .models import Constants
 
 class Page1(Page):
     form_model = 'player'
-    form_fields = ['data_priv']
+    form_fields = ['id_label', 'data_priv']
 
     def before_next_page(self):
         self.player.get_booleans()
