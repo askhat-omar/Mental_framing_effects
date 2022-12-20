@@ -121,7 +121,12 @@ LANGUAGE_CODE = 'en'
 REAL_WORLD_CURRENCY_CODE = 'SEK'
 USE_POINTS = True
 
-ROOMS = []
+ROOMS = [
+    dict(
+        name='experiment',
+        display_name='Financial Choice Experiment'
+    ),
+]
 
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable
