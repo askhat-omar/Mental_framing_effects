@@ -33,7 +33,7 @@ class Player(BasePlayer):
     full_first = models.IntegerField()
     factor_three = models.IntegerField()
 
-    id_label = models.StringField(label='Please enter your ID as "yyyymmdd-nnnn":')
+    id_label = models.StringField(label='Please enter your NU ID:')
 
     data_priv = models.BooleanField(
         label="If you agree with the consent stated above, then please choose 'Agree' and press 'Next' button, otherwise please close the tab",
