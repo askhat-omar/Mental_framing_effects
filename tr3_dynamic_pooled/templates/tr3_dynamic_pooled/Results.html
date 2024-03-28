@@ -1,0 +1,23 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Task 1
+{% endblock %}
+
+{% block content %}
+    <p>You will now play this task for real. The points you earn in this task will contribute to your final score and payment.</p>
+    <p>We will show you the results of your decisions right after you have completed this task.</p>
+{% next_button %}
+{% endblock %}
+
+
+{% block styles %}
+    <style>
+        input, body {
+          font-family: 'Helvetica', Arial, Lucida Grande, sans-serif;
+          font-size: 14px;
+        }
+    </style>
+{% endblock %}
+

@@ -15,6 +15,7 @@ APP_KITS = {
     0: {
         'color': 'blue',
         'sequence': [
+            'tr3_dynamic_pooled',
             'introduction',
             'dynamic_portfolio_instructions',
             'dynamic_portf_chp_practice',
@@ -35,6 +36,7 @@ APP_KITS = {
     1: {
         'color': 'green',
         'sequence': [
+            'tr3_dynamic_pooled',
             'introduction',
             'dynamic_portfolio_instructions',
             'dynamic_portfolio_practice',
@@ -55,6 +57,7 @@ APP_KITS = {
     2: {
         'color': 'red',
         'sequence': [
+            'tr3_dynamic_pooled',
             'introduction',
             'dynamic_portfolio_instructions_3',
             'dynamic_portfolio_practice_3',
@@ -79,7 +82,8 @@ SESSION_CONFIGS = [
         name='DynPort',
         display_name="Experiment",
         num_demo_participants=1,
-        app_sequence=['introduction',
+        app_sequence=['tr3_dynamic_pooled',
+                      'introduction',
                       'dynamic_portfolio_instructions',
                       'dynamic_portfolio_instructions_3',
                       'dynamic_portfolio_practice',
