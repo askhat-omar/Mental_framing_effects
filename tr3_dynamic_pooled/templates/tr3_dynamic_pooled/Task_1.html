@@ -1,0 +1,296 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Task 1
+{% endblock %}
+
+{% block content %}
+    <p>Please make sure that you press Next only after filling the <strong>entire tree</strong></p>
+    <p>Please choose a money amount S to invest in stocks.</p>
+
+    <div id="chart" align="center"></div>
+
+    {% next_button %}
+    <input type="hidden" name="dyn_stock" id="id_stock"/>
+    {{ form.dyn_stock.errors }}
+    <input type="hidden" name="dyn_bond" id="id_bond"/>
+    {{ form.dyn_bond.errors }}
+    <input type="hidden" name="dyn_wealth" id="id_wealth"/>
+    {{ form.dyn_wealth.errors }}
+    <input type="hidden" name="fill_history" id="id_fill_history"/>
+    {{ form.fill_history.errors }}
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <script>
+
+        d3.select("#chart")
+            .attr("align","center");
+
+
+
+        var N = 4;
+        var vOffset = 90;
+        var hOffset = 250;
+        var rootXoffset = 60;
+        var rootYoffset = 70 * N;
+        var width = rootXoffset + hOffset * N;
+        var height = rootYoffset + vOffset * N + 30;
+        var rectWidth = 180;
+        var rectHeight = 70;
+
+        var svg = d3.select("#chart")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        var prices = JSON.parse({{dyn_prices|json}});
+
+
+        svg.append("svg:defs").append("svg:marker")
+            .attr("id", "triangle")
+            .attr("refX", 13)
+            .attr("refY", 6)
+            .attr("markerWidth", 30)
+            .attr("markerHeight", 30)
+            .attr("markerUnits","userSpaceOnUse")
+            .attr("orient", "auto")
+            .append("path")
+            .attr("d", "M 0 0 12 6 0 12 3 6")
+            .style("fill", "black");
+
+        var i,j;
+        var textbox;
+        var startX;
+        var startY;
+        var targetX;
+        var targetY;
+        var targX;
+        var targYup;
+        var targYdown;
+        var rectX;
+        var rectY;
+
+        // first draw lines
+        for(i=0; i<N-1; i++) {
+            for(j=0; j<i+1; j++) {
+                startX = rootXoffset + hOffset * i + rectWidth;
+                startY = rootYoffset - vOffset * i + (2*vOffset) * j + rectHeight/2;
+                targX = rootXoffset + hOffset * (i+1);
+                targYdown = startY + 90;
+                targYup = startY - 90;
+                svg.append("line")
+                    .attr("x1", startX)
+                    .attr("y1", startY)
+                    .attr("x2", targX)
+                    .attr("y2", targYup)
+                    .attr("stroke-width", 1)
+                    .attr("stroke", "black")
+                    .attr("marker-end", "url(#triangle)");
+                svg.append("line")
+                    .attr("x1", startX)
+                    .attr("y1", startY)
+                    .attr("x2", targX)
+                    .attr("y2", targYdown)
+                    .attr("stroke-width", 1)
+                    .attr("stroke", "black")
+                    .attr("marker-end", "url(#triangle)");
+
+                svg.append("text").html(0.5)
+                    .attr("x", (startX + targX) / 2 - 20)
+                    .attr("y", (startY + targYup) / 2 - 5);
+
+                svg.append("text").html(0.5)
+                    .attr("x", (startX + targX) / 2 - 20)
+                    .attr("y", (startY + targYdown) / 2 + 15);
+            }
+        }
+
+
+        // ... and rectangles and their labels
+        for(i=0; i<N; i++) {
+            for(j=0; j<i+1; j++) {
+
+                wealth_label = "w_" + i + "_" + (j+1);
+                stock_label = "s_" + i + "_" + (j+1);
+                bond_label = "b_" + i + "_" + (j+1);
+                price_label = "x_" + i + "_" + (j+1);
+
+                rectX = rootXoffset + hOffset * i;
+                rectY = rootYoffset - vOffset * i + (2*vOffset) * j;
+
+                svg.append("rect")
+                    .attr("x", rectX)
+                    .attr("y", rectY)
+                    .attr("width", rectWidth)
+                    .attr("height", rectHeight)
+                    .attr("ry", 5)
+                    .style("stroke", "black")
+                    .style("fill", "white");
+
+                fo = svg.append("foreignObject")
+                    .attr("x",rectX+1)
+                    .attr("y",rectY+5)
+                    .attr("width",rectWidth-5)
+                    .attr("height",rectHeight-5);
+                tab = fo.append("xhtml:table");
+
+                var row1 = tab.append("tr");
+                row1.append("td").html("Price_S: ");
+                row1.append("td").append("xhtml:input")
+                    .attr("size",3)
+                    .attr("value",1)
+                    .attr("readonly","readonly");
+                row1.append("td").html("S: ");
+                if(j==0){
+                    row1.append("td").append("xhtml:input")
+                    .attr("size",1)
+                    .attr("id",stock_label)
+                    .attr("type","number")
+                    .attr("step","1")
+                    .attr("required","required");
+                } else {
+                    row1.append("td").append("xhtml:input")
+                    .attr("size",1)
+                    .attr("id",stock_label)
+                    .attr("type","number")
+                    .attr("step","1")
+                    .attr("readonly","readonly");
+                };
+                var row2 = tab.append("tr");
+                row2.append("td").html("Money:");
+                row2.append("td").append("xhtml:input")
+                    .attr("size",3)
+                    .attr("id",wealth_label)
+                    .attr("class","wealth")
+                    .attr("type","number");
+                row2.append("td").html("C: ");
+                row2.append("td").append("xhtml:input")
+                    .attr("size",3)
+                    .attr("id",bond_label)
+                    .attr("readonly","readonly");
+
+
+            }
+        }
+
+
+    </script>
+
+    <script>
+    $("#w_0_1").val({{Constants.initial_wealth}});
+
+    </script>
+
+    <!--Здесь прописана логика расчета богатства следующего периода в зависимости от того сколько респондент инвестирует
+     в акции в текущем периоде. И прочая математика-->
+    <script>
+    var fill_history = [];
+    $("input").on("keydown keyup", function() {
+        let now = new Date();
+
+        if (this.id.startsWith("s") && this.value.length > 0) {
+            if (fill_history.length > 0 && fill_history[fill_history.length - 1][0] === this.id) {
+                fill_history[fill_history.length - 1] = [this.id, this.value, now.toISOString()];
+            } else {
+                fill_history.push([this.id, this.value, now.toISOString()]);
+            }
+        }
+        $("#id_fill_history").val(JSON.stringify(fill_history));
+
+        var T = {{subsession.num_periods|json}};
+        var error = 0;
+        var wealth_string = "{ ";
+        var stock_string = "{ ";
+        var bond_string = "{ ";
+        for (t=0; t<T+1; t++){
+            for (i=1; i<(t+1)+1;i++){
+                if(t==0){
+                    current_w_id = "#w_0_1";
+                    current_w = {{Constants.initial_wealth|json}};
+                } else {
+                    var prev_node_index = Math.floor((i+1)/2);
+                    var prev_s_id = "#s_" + (t-1) + "_" + prev_node_index;
+                    var prev_b_id = "#b_" + (t-1) + "_" + prev_node_index;
+                    var prev_s =  parseInt($(prev_s_id).val());
+                    var prev_b =  parseInt($(prev_b_id).val());
+                    var up_dummy = i % 2 ;
+                    var current_w = (up_dummy * {{Constants.up_tick}} + (1 - up_dummy) * {{Constants.down_tick}}) * prev_s + prev_b;
+                    current_w = current_w.toFixed(2);
+                    if(!isNaN(current_w)) {
+                        var current_w_id = "#w_" + t + "_" + i;
+                        $(current_w_id).val(current_w);
+                    };
+                };
+                if(t <T){
+                    var current_s_id = "#s_" + t + "_" + i;
+                    var current_s = parseInt($(current_s_id).val());
+                    var current_b_id = "#b_" + t + "_" + i;
+                    var current_b = current_w - current_s;
+                    if(!isNaN(current_b)){
+                        $(current_b_id).val(current_b);
+                    };
+                    stock_string = stock_string + '"' + current_s_id.substr(1) + '":' + current_s;
+                    bond_string = bond_string + '"' + current_b_id.substr(1) + '":' + current_b;
+                    if(i<(T-1)+1){
+                        stock_string = stock_string + ', ';
+                        bond_string = bond_string + ', ';
+                    };
+                };
+                if(current_w<0 && error==0){
+                    $(current_w_id).attr("min",0);
+                    error = 1
+                } else {
+                    $(current_w_id).removeAttr("min");
+                };
+                wealth_string = wealth_string + '"' + current_w_id.substr(1) + '":' + current_w;
+                if(i<T+1){
+                    wealth_string = wealth_string + ', ';
+                };
+            };
+        };
+        stock_string = stock_string + "}";
+        $("#id_stock").val(stock_string);
+        bond_string = bond_string + "}";
+        $("#id_bond").val(bond_string);
+        wealth_string = wealth_string + "}";
+        $("#id_wealth").val(wealth_string);
+    });
+    </script>
+
+    <script>
+        $(".wealth").on('keydown paste', function(e){
+            e.preventDefault();
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+        $(window).keydown(function(event){
+        if(event.keyCode == 13) {
+          event.preventDefault();
+          return false;
+        }
+        });
+        });
+    </script>
+
+{% endblock %}
+
+{% block styles %}
+    <style>
+        input, body {
+          font-family: 'Helvetica', Arial, Lucida Grande, sans-serif;
+          font-size: 14px;
+        }
+        input{
+            width: 40px;
+        }
+    </style>
+{% endblock %}
+

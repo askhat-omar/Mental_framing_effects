@@ -24,9 +24,17 @@ class MyPage(Page):
                             step=player.participant.vars["step"])
 
 
-class ResultsWaitPage(WaitPage):
-    def is_displayed(self):
-        return False
+class Task_1(Page):
+    form_model = 'player'
+    form_fields = ['dyn_stock', 'dyn_bond', 'dyn_wealth', 'fill_history']
+
+    def vars_for_template(self):
+        r = self.round_number
+        p = self.player
+        p.create_prices()
+        return {
+            'dyn_prices': p.participant.vars["dyn_prices_round{}".format(r)]
+        }
 
 
 class Results(Page):
@@ -34,4 +42,4 @@ class Results(Page):
         return self.round_number == 1
 
 
-page_sequence = [Results, MyPage]
+page_sequence = [Results, Task_1, MyPage]
