@@ -38,7 +38,7 @@
         var vOffset = 90;
         var hOffset = 250;
         var rootXoffset = 60;
-        var rootYoffset = 70 * N;
+        var rootYoffset = 75 * N;
         var width = rootXoffset + hOffset * N;
         var height = rootYoffset + vOffset * N + 30;
         var rectWidth = 180;
@@ -124,7 +124,48 @@
                 rectX = rootXoffset + hOffset * i;
                 rectY = rootYoffset - vOffset * i + (2*vOffset) * j;
 
-                svg.append("rect")
+                if(i==3){
+                    svg.append("rect")
+                    .attr("x", rectX)
+                    .attr("y", rectY - 23/2)
+                    .attr("width", rectWidth-75)
+                    .attr("height", rectHeight+23)
+                    .attr("ry", 5)
+                    .style("stroke", "black")
+                    .style("fill", "white");
+
+                    fo = svg.append("foreignObject")
+                        .attr("x",rectX+1)
+                        .attr("y",rectY+5-23/2)
+                        .attr("width",rectWidth-80)
+                        .attr("height",rectHeight+18);
+                    tab = fo.append("xhtml:table");
+
+                    var row1 = tab.append("tr");
+                    row1.append("td").html("Price_S: ");
+                    row1.append("td").append("xhtml:input")
+                        .attr("size",3)
+                        .attr("value",1)
+                        .attr("readonly","readonly");
+
+                    var row2 = tab.append("tr");
+                    row2.append("td").html("Money:");
+                    row2.append("td").append("xhtml:input")
+                        .attr("size",3)
+                        .attr("id",wealth_label)
+                        .attr("class","wealth")
+                        .attr("type","number");
+
+                    var row3 = tab.append("tr");
+                    row3.append("td").html("Prob:");
+                    row3.append("td").append("xhtml:input")
+                        .attr("size", 3)
+                        .attr("id", "prob_3_"+(j+1))
+                        .attr('value', 0.125)
+                        .attr("readonly","readonly");
+
+                } else {
+                    svg.append("rect")
                     .attr("x", rectX)
                     .attr("y", rectY)
                     .attr("width", rectWidth)
@@ -133,47 +174,48 @@
                     .style("stroke", "black")
                     .style("fill", "white");
 
-                fo = svg.append("foreignObject")
-                    .attr("x",rectX+1)
-                    .attr("y",rectY+5)
-                    .attr("width",rectWidth-5)
-                    .attr("height",rectHeight-5);
-                tab = fo.append("xhtml:table");
+                    fo = svg.append("foreignObject")
+                        .attr("x",rectX+1)
+                        .attr("y",rectY+5)
+                        .attr("width",rectWidth-5)
+                        .attr("height",rectHeight-5);
+                    tab = fo.append("xhtml:table");
 
-                var row1 = tab.append("tr");
-                row1.append("td").html("Price_S: ");
-                row1.append("td").append("xhtml:input")
-                    .attr("size",3)
-                    .attr("value",1)
-                    .attr("readonly","readonly");
-                row1.append("td").html("S: ");
-                if(j==0){
+                    var row1 = tab.append("tr");
+                    row1.append("td").html("Price_S: ");
                     row1.append("td").append("xhtml:input")
-                    .attr("size",1)
-                    .attr("id",stock_label)
-                    .attr("type","number")
-                    .attr("step","1")
-                    .attr("required","required");
-                } else {
-                    row1.append("td").append("xhtml:input")
-                    .attr("size",1)
-                    .attr("id",stock_label)
-                    .attr("type","number")
-                    .attr("step","1")
-                    .attr("readonly","readonly");
+                        .attr("size",3)
+                        .attr("value",1)
+                        .attr("readonly","readonly");
+                    row1.append("td").html("S: ");
+                    if(j==0){
+                        row1.append("td").append("xhtml:input")
+                        .attr("size",1)
+                        .attr("id",stock_label)
+                        .attr("type","number")
+                        .attr("step","1")
+                        .attr("required","required");
+                    } else {
+                        row1.append("td").append("xhtml:input")
+                        .attr("size",1)
+                        .attr("id",stock_label)
+                        .attr("type","number")
+                        .attr("step","1")
+                        .attr("readonly","readonly");
+                    };
+                    var row2 = tab.append("tr");
+                    row2.append("td").html("Money:");
+                    row2.append("td").append("xhtml:input")
+                        .attr("size",3)
+                        .attr("id",wealth_label)
+                        .attr("class","wealth")
+                        .attr("type","number");
+                    row2.append("td").html("C: ");
+                    row2.append("td").append("xhtml:input")
+                        .attr("size",3)
+                        .attr("id",bond_label)
+                        .attr("readonly","readonly");
                 };
-                var row2 = tab.append("tr");
-                row2.append("td").html("Money:");
-                row2.append("td").append("xhtml:input")
-                    .attr("size",3)
-                    .attr("id",wealth_label)
-                    .attr("class","wealth")
-                    .attr("type","number");
-                row2.append("td").html("C: ");
-                row2.append("td").append("xhtml:input")
-                    .attr("size",3)
-                    .attr("id",bond_label)
-                    .attr("readonly","readonly");
 
 
             }
