@@ -44,12 +44,12 @@
         var rectWidth = 180;
         var rectHeight = 70;
 
+        var prices = JSON.parse({{dyn_prices|json}});
+
         var svg = d3.select("#chart")
             .append("svg")
             .attr("width", width)
             .attr("height", height);
-
-        var prices = JSON.parse({{dyn_prices|json}});
 
 
         svg.append("svg:defs").append("svg:marker")
