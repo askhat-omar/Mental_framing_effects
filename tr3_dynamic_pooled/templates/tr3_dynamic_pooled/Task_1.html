@@ -225,7 +225,12 @@
     </script>
 
     <script>
+    var terminal_probs = {{Constants.terminal_probs|json}};
     $("#w_0_1").val({{Constants.initial_wealth}});
+    $("#prob_3_1").val(terminal_probs[0]);
+    $("#prob_3_2").val(terminal_probs[1]);
+    $("#prob_3_3").val(terminal_probs[2]);
+    $("#prob_3_4").val(terminal_probs[3]);
 
     </script>
 

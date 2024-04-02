@@ -26,6 +26,7 @@ class Constants(BaseConstants):
     up_prob = 0.5
     up_tick = 2
     down_tick = 0.5
+    terminal_probs = [0.125, 0.375, 0.375, 0.125]
 
 
 class Subsession(BaseSubsession):
