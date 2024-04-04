@@ -76,12 +76,17 @@ class Player(BasePlayer):
         dyn_prices_list = {"x_0_1": Constants.initial_stock_price}
         for s in range(1, t + 1, 1):
             for i in range(1, (s + 1) + 1, 1):
-                previous_i = int((i + 1) / 2)
-                previous_price = dyn_prices_list[price_label.format(s - 1, previous_i)]
-                if i % 2 == 0:
-                    current_price = previous_price * Constants.down_tick
+                if i < 3:
+                    previous_i = int((i + 1) / 2)
+                    previous_price = dyn_prices_list[price_label.format(s - 1, previous_i)]
+                    if i % 2 == 0:
+                        current_price = previous_price * Constants.down_tick
+                    else:
+                        current_price = previous_price * Constants.up_tick
                 else:
-                    current_price = previous_price * Constants.up_tick
+                    previous_i = i - 1
+                    previous_price = dyn_prices_list[price_label.format(s - 1, previous_i)]
+                    current_price = previous_price * Constants.down_tick
                 dyn_prices_list[price_label.format(s, i)] = current_price
         self.dyn_prices = json.dumps(dyn_prices_list)
         self.participant.vars["dyn_prices_round{}".format(r)] = self.dyn_prices
