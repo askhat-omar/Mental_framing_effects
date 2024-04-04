@@ -145,7 +145,7 @@
                     row1.append("td").html("Price_S: ");
                     row1.append("td").append("xhtml:input")
                         .attr("size",3)
-                        .attr("value",1)
+                        .attr("value",prices[price_label])
                         .attr("readonly","readonly");
 
                     var row2 = tab.append("tr");
@@ -161,7 +161,6 @@
                     row3.append("td").append("xhtml:input")
                         .attr("size", 3)
                         .attr("id", "prob_3_"+(j+1))
-                        .attr('value', 0.125)
                         .attr("readonly","readonly");
 
                 } else {
@@ -185,7 +184,7 @@
                     row1.append("td").html("Price_S: ");
                     row1.append("td").append("xhtml:input")
                         .attr("size",3)
-                        .attr("value",1)
+                        .attr("value",prices[price_label])
                         .attr("readonly","readonly");
                     row1.append("td").html("S: ");
                     if(j==0){
@@ -227,10 +226,10 @@
     <script>
     var terminal_probs = {{Constants.terminal_probs|json}};
     $("#w_0_1").val({{Constants.initial_wealth}});
-    $("#prob_3_1").val(terminal_probs[0]);
-    $("#prob_3_2").val(terminal_probs[1]);
-    $("#prob_3_3").val(terminal_probs[2]);
-    $("#prob_3_4").val(terminal_probs[3]);
+    $("#prob_3_1").val({{Constants.terminal_probs}}[0]);
+    $("#prob_3_2").val({{Constants.terminal_probs}}[1]);
+    $("#prob_3_3").val({{Constants.terminal_probs}}[2]);
+    $("#prob_3_4").val({{Constants.terminal_probs}}[3]);
 
     </script>
 
