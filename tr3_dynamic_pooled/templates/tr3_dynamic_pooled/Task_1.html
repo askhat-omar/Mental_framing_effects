@@ -235,8 +235,8 @@
 
 
     <script>
-    var fill_history = [];
-    $("input").on("keydown keyup", function() {
+    function setHistory(){
+        var fill_history = [];
         let now = new Date();
 
         if (this.id.startsWith("s") && this.value.length > 0) {
@@ -247,92 +247,63 @@
             }
         }
         $("#id_fill_history").val(JSON.stringify(fill_history));
+    }
 
-        var T = {{subsession.num_periods|json}};
-        var error = 0;
-        var wealth_string = "{ ";
-        var stock_string = "{ ";
-        var bond_string = "{ ";
-        for (t=0; t<T+1; t++){
-            for (i=1; i<(t+1)+1;i++){
-                if(t==0){
-                    current_w_id = "#w_0_1";
-                    current_w = {{Constants.initial_wealth|json}};
-                } else {
-                    var prev_node_index;
-                    var prev_s_id;
-                    var prev_b_id;
-                    var prev_s;
-                    var prev_b;
-                    var up_dummy;
-                    var current_w;
+    function debounce(func, timeout = 500){
+      let timer;
+      return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => { func.apply(this, args); }, timeout);
+      };
+    }
+    function LogicExp(e) {
+        const current_s_id = e.target.id
+        var result = {}
+        const stocks = []
+        switch(current_s_id){
+            case "s_0_1":
+                const current_s = parseInt($(`#${current_s_id}`).val());
+                const next_w_up_id = "w_1_1";
+                const next_w_down_id = "w_1_2";
+                const current_w_id = "w_0_1";
+                const current_b_id = "b_0_1";
+                const current_w = {{Constants.initial_wealth|json}};
+                const current_b = current_w - current_s;
+                const next_w_up = {{Constants.up_tick}} * current_s + current_b;
+                const next_w_down = {{Constants.down_tick}} * current_s + current_b;
+                $(`#${current_w_id}`).val(current_w);
+                $(`#${current_b_id}`).val(current_b);
+                $(`#${next_w_up_id}`).val(next_w_up);
+                $(`#${next_w_down_id}`).val(next_w_down);
+                result[current_s_id] = current_s;
+                console.log(result)
+                break
+            case "s_1_1":
+                const s_1_1 = parseInt($(`#${current_s_id}`).val());
+                const w_2_1_id = "w_2_1";
+                const w_2_2_id = "w_2_2";
+                const w_1_1_id = "w_1_1";
+                const b_1_1_id = "b_1_1";
+                const w_1_1 = parseInt($(`#${w_1_1_id}`).val());
+                const b_1_1 = w_1_1 - s_1_1;
+                const w_2_1 = {{Constants.up_tick}} * s_1_1 + b_1_1;
+                const w_2_2 = {{Constants.down_tick}} * s_1_1 + b_1_1;
+                $(`#${b_1_1_id}`).val(b_1_1);
+                $(`#${w_2_1_id}`).val(w_2_1);
+                $(`#${w_2_2_id}`).val(w_2_2);
+                result[current_s_id] = s_1_1;
+                console.log(result)
+                break
+        }
 
-                    if(i<3){
-                        prev_node_index = Math.floor((i+1)/2);
-                        prev_s_id = "#s_" + (t-1) + "_" + prev_node_index;
-                        prev_b_id = "#b_" + (t-1) + "_" + prev_node_index;
-                        prev_s = parseInt($(prev_s_id).val());
-                        prev_b = parseInt($(prev_b_id).val());
-                        up_dummy = i % 2;
-                        current_w = (up_dummy * {{Constants.up_tick}} + (1 - up_dummy) * {{Constants.down_tick}}) * prev_s + prev_b;
-                    } else{
-                        prev_node_index = i - 1;
-                        prev_s_id = "#s_" + (t-1) + "_" + prev_node_index;
-                        prev_b_id = "#b_" + (t-1) + "_" + prev_node_index;
-                        prev_s = parseInt($(prev_s_id).val());
-                        prev_b = parseInt($(prev_b_id).val());
-                        current_w = {{Constants.down_tick}} * prev_s + prev_b;
-                    };
+        $("#id_stock").val(JSON.stringify(result));
+        {#setHistory()#}
 
-                    current_w = current_w.toFixed(2);
-                    if(!isNaN(current_w)) {
-                        var current_w_id = "#w_" + t + "_" + i;
-                        $(current_w_id).val(current_w);
-                    };
-                };
 
-                if(t <T){
-                    var current_s_id = "#s_" + t + "_" + i;
-                    var current_s;
-                    var next_w_id = "#w_" + (t+1) + "_" + (i);
-                    var next_w = parseFloat($(next_w_id).val());
-                    if(i==1){
-                        current_s = parseInt($(current_s_id).val())
-                    }else{
-                        current_s = next_w - current_w
-                        $(current_s_id).val(current_s)
-                    };
-                    var current_b_id = "#b_" + t + "_" + i;
-                    var current_b = current_w - current_s;
-                    if(!isNaN(current_b)){
-                        $(current_b_id).val(current_b);
-                    };
-                    stock_string = stock_string + '"' + current_s_id.substr(1) + '":' + current_s;
-                    bond_string = bond_string + '"' + current_b_id.substr(1) + '":' + current_b;
-                    if(i<(T-1)+1){
-                        stock_string = stock_string + ', ';
-                        bond_string = bond_string + ', ';
-                    };
-                };
-                if(current_w<0 && error==0){
-                    $(current_w_id).attr("min",0);
-                    error = 1
-                } else {
-                    $(current_w_id).removeAttr("min");
-                };
-                wealth_string = wealth_string + '"' + current_w_id.substr(1) + '":' + current_w;
-                if(i<T+1){
-                    wealth_string = wealth_string + ', ';
-                };
-            };
-        };
-        stock_string = stock_string + "}";
-        $("#id_stock").val(stock_string);
-        bond_string = bond_string + "}";
-        $("#id_bond").val(bond_string);
-        wealth_string = wealth_string + "}";
-        $("#id_wealth").val(wealth_string);
-    });
+    }
+    const processChange = debounce(LogicExp);
+
+    $("input").on("input", processChange);
     </script>
 
     <script>
