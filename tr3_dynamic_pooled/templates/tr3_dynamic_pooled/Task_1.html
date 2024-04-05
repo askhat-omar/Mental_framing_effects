@@ -293,7 +293,15 @@
 
                 if(t <T){
                     var current_s_id = "#s_" + t + "_" + i;
-                    var current_s = parseInt($(current_s_id).val());
+                    var current_s;
+                    var next_w_id = "#w_" + (t+1) + "_" + (i);
+                    var next_w = parseFloat($(next_w_id).val());
+                    if(i==1){
+                        current_s = parseInt($(current_s_id).val())
+                    }else{
+                        current_s = next_w - current_w
+                        $(current_s_id).val(current_s)
+                    };
                     var current_b_id = "#b_" + t + "_" + i;
                     var current_b = current_w - current_s;
                     if(!isNaN(current_b)){
