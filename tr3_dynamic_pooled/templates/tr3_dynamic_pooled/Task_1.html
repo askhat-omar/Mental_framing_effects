@@ -36,8 +36,8 @@
 
         var N = 4;
         var vOffset = 90;
-        var hOffset = 250;
-        var rootXoffset = 60;
+        var hOffset = 270;
+        var rootXoffset = 50;
         var rootYoffset = 75 * N;
         var width = rootXoffset + hOffset * N;
         var height = rootYoffset + vOffset * N + 30;
@@ -259,19 +259,38 @@
                     current_w_id = "#w_0_1";
                     current_w = {{Constants.initial_wealth|json}};
                 } else {
-                    var prev_node_index = Math.floor((i+1)/2);
-                    var prev_s_id = "#s_" + (t-1) + "_" + prev_node_index;
-                    var prev_b_id = "#b_" + (t-1) + "_" + prev_node_index;
-                    var prev_s =  parseInt($(prev_s_id).val());
-                    var prev_b =  parseInt($(prev_b_id).val());
-                    var up_dummy = i % 2 ;
-                    var current_w = (up_dummy * {{Constants.up_tick}} + (1 - up_dummy) * {{Constants.down_tick}}) * prev_s + prev_b;
+                    var prev_node_index;
+                    var prev_s_id;
+                    var prev_b_id;
+                    var prev_s;
+                    var prev_b;
+                    var up_dummy;
+                    var current_w;
+
+                    if(i<3){
+                        prev_node_index = Math.floor((i+1)/2);
+                        prev_s_id = "#s_" + (t-1) + "_" + prev_node_index;
+                        prev_b_id = "#b_" + (t-1) + "_" + prev_node_index;
+                        prev_s = parseInt($(prev_s_id).val());
+                        prev_b = parseInt($(prev_b_id).val());
+                        up_dummy = i % 2;
+                        current_w = (up_dummy * {{Constants.up_tick}} + (1 - up_dummy) * {{Constants.down_tick}}) * prev_s + prev_b;
+                    } else{
+                        prev_node_index = i - 1;
+                        prev_s_id = "#s_" + (t-1) + "_" + prev_node_index;
+                        prev_b_id = "#b_" + (t-1) + "_" + prev_node_index;
+                        prev_s = parseInt($(prev_s_id).val());
+                        prev_b = parseInt($(prev_b_id).val());
+                        current_w = {{Constants.down_tick}} * prev_s + prev_b;
+                    };
+
                     current_w = current_w.toFixed(2);
                     if(!isNaN(current_w)) {
                         var current_w_id = "#w_" + t + "_" + i;
                         $(current_w_id).val(current_w);
                     };
                 };
+
                 if(t <T){
                     var current_s_id = "#s_" + t + "_" + i;
                     var current_s = parseInt($(current_s_id).val());
