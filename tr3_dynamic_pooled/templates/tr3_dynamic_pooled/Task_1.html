@@ -249,6 +249,7 @@
                 fill_history.push([this.id, this.value, now.toISOString()]);
             }
         }
+        $("#id_fill_history").val(JSON.stringify(fill_history));
     }
 
     function debounce(func, timeout = 500){
@@ -359,7 +360,6 @@
 
         $("#id_stock").val(JSON.stringify(result));
         setHistory()
-        $("#id_fill_history").val(JSON.stringify(fill_history));
 
 
     }
