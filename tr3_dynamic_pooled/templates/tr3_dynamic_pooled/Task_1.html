@@ -154,7 +154,8 @@
                         .attr("size",3)
                         .attr("id",wealth_label)
                         .attr("class","wealth")
-                        .attr("type","number");
+                        .attr("type","number")
+                        .attr("min", 0);
 
                     var row3 = tab.append("tr");
                     row3.append("td").html("Prob:");
@@ -208,10 +209,12 @@
                         .attr("size",3)
                         .attr("id",wealth_label)
                         .attr("class","wealth")
-                        .attr("type","number");
+                        .attr("type","number")
+                        .attr("min", 0);
                     row2.append("td").html("C: ");
                     row2.append("td").append("xhtml:input")
                         .attr("size",3)
+                        .attr("type", "number")
                         .attr("id",bond_label)
                         .attr("readonly","readonly");
                 };
@@ -246,7 +249,6 @@
                 fill_history.push([this.id, this.value, now.toISOString()]);
             }
         }
-        $("#id_fill_history").val(JSON.stringify(fill_history));
     }
 
     function debounce(func, timeout = 500){
@@ -262,42 +264,102 @@
         const stocks = []
         switch(current_s_id){
             case "s_0_1":
-                const current_s = parseInt($(`#${current_s_id}`).val());
-                const next_w_up_id = "w_1_1";
-                const next_w_down_id = "w_1_2";
-                const current_w_id = "w_0_1";
-                const current_b_id = "b_0_1";
-                const current_w = {{Constants.initial_wealth|json}};
-                const current_b = current_w - current_s;
-                const next_w_up = {{Constants.up_tick}} * current_s + current_b;
-                const next_w_down = {{Constants.down_tick}} * current_s + current_b;
+                var current_s = parseInt($(`#${current_s_id}`).val());
+                var next_up_w_id = "w_1_1";
+                var next_down_w_id = "w_1_2";
+                var current_w_id = "w_0_1";
+                var current_b_id = "b_0_1";
+                var current_w = {{Constants.initial_wealth|json}};
+                var current_b = current_w - current_s;
+                var next_up_w = {{Constants.up_tick}} * current_s + current_b;
+                var next_down_w = {{Constants.down_tick}} * current_s + current_b;
+                next_up_w = next_up_w.toFixed(2);
+                next_down_w = next_down_w.toFixed(2);
                 $(`#${current_w_id}`).val(current_w);
                 $(`#${current_b_id}`).val(current_b);
-                $(`#${next_w_up_id}`).val(next_w_up);
-                $(`#${next_w_down_id}`).val(next_w_down);
+                $(`#${next_up_w_id}`).val(next_up_w);
+                $(`#${next_down_w_id}`).val(next_down_w);
                 result[current_s_id] = current_s;
                 console.log(result)
                 break
             case "s_1_1":
-                const s_1_1 = parseInt($(`#${current_s_id}`).val());
-                const w_2_1_id = "w_2_1";
-                const w_2_2_id = "w_2_2";
-                const w_1_1_id = "w_1_1";
-                const b_1_1_id = "b_1_1";
-                const w_1_1 = parseInt($(`#${w_1_1_id}`).val());
-                const b_1_1 = w_1_1 - s_1_1;
-                const w_2_1 = {{Constants.up_tick}} * s_1_1 + b_1_1;
-                const w_2_2 = {{Constants.down_tick}} * s_1_1 + b_1_1;
-                $(`#${b_1_1_id}`).val(b_1_1);
-                $(`#${w_2_1_id}`).val(w_2_1);
-                $(`#${w_2_2_id}`).val(w_2_2);
-                result[current_s_id] = s_1_1;
+                current_s = parseInt($(`#${current_s_id}`).val());
+                current_w_id = "w_1_1";
+                next_up_w_id = "w_2_1";
+                next_down_w_id = "w_2_2";
+                current_b_id = "b_1_1";
+                var s_down1_id = "s_1_2";
+                var b_down1_id = "b_1_2";
+                var w_down1_id = "w_1_2";
+                var next_rem1_w_id = "w_2_3";
+                current_w = parseInt($(`#${current_w_id}`).val());
+                current_b = current_w - current_s;
+                next_up_w = {{Constants.up_tick}} * current_s + current_b;
+                next_down_w = {{Constants.down_tick}} * current_s + current_b;
+                next_up_w = next_up_w.toFixed(2);
+                next_down_w = next_down_w.toFixed(2);
+                var w_down1 = parseInt($(`#${w_down1_id}`).val());
+                var s_down1 = next_down_w - w_down1;
+                var b_down1 = w_down1 - s_down1;
+                var next_rem1_w = {{Constants.down_tick}} * s_down1 + b_down1;
+                next_rem1_w = next_rem1_w.toFixed(2);
+                $(`#${current_b_id}`).val(current_b);
+                $(`#${next_up_w_id}`).val(next_up_w);
+                $(`#${next_down_w_id}`).val(next_down_w);
+                $(`#${s_down1_id}`).val(s_down1);
+                $(`#${b_down1_id}`).val(b_down1);
+                $(`#${next_rem1_w_id}`).val(next_rem1_w);
+                result[current_s_id] = current_s;
                 console.log(result)
                 break
+            case "s_2_1":
+                current_s = parseInt($(`#${current_s_id}`).val());
+                current_w_id = "w_2_1";
+                next_up_w_id = "w_3_1";
+                next_down_w_id = "w_3_2";
+                current_b_id = "b_2_1";
+                s_down1_id = "s_2_2";
+                b_down1_id = "b_2_2";
+                w_down1_id = "w_2_2";
+                var s_down2_id = "s_2_3";
+                var b_down2_id = "b_2_3";
+                var w_down2_id = "w_2_3";
+                next_rem1_w_id = "w_3_3";
+                var next_rem2_w_id = "w_3_4";
+                current_w = parseInt($(`#${current_w_id}`).val());
+                current_b = current_w - current_s;
+                next_up_w = {{Constants.up_tick}} * current_s + current_b;
+                next_down_w = {{Constants.down_tick}} * current_s + current_b;
+                next_up_w = next_up_w.toFixed(2);
+                next_down_w = next_down_w.toFixed(2);
+                w_down1 = parseInt($(`#${w_down1_id}`).val());
+                s_down1 = next_down_w - w_down1;
+                b_down1 = w_down1 - s_down1;
+                next_rem1_w = {{Constants.down_tick}} * s_down1 + b_down1;
+                next_rem1_w = next_rem1_w.toFixed(2);
+                var w_down2 = parseInt($(`#${w_down2_id}`).val());
+                var s_down2 = next_rem1_w- w_down2;
+                var b_down2 = w_down2 - s_down2;
+                var next_rem2_w = {{Constants.down_tick}} * s_down2 + b_down2;
+                next_rem2_w = next_rem2_w.toFixed(2);
+                $(`#${current_b_id}`).val(current_b);
+                $(`#${next_up_w_id}`).val(next_up_w);
+                $(`#${next_down_w_id}`).val(next_down_w);
+                $(`#${s_down1_id}`).val(s_down1);
+                $(`#${b_down1_id}`).val(b_down1);
+                $(`#${next_rem1_w_id}`).val(next_rem1_w);
+                $(`#${s_down2_id}`).val(s_down2);
+                $(`#${b_down2_id}`).val(b_down2);
+                $(`#${next_rem2_w_id}`).val(next_rem2_w);
+                result[current_s_id] = current_s;
+                console.log(result)
         }
 
+        console.log(JSON.stringify(result))
+
         $("#id_stock").val(JSON.stringify(result));
-        {#setHistory()#}
+        setHistory()
+        $("#id_fill_history").val(JSON.stringify(fill_history));
 
 
     }
