@@ -66,7 +66,6 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    fill_history = models.StringField()
     dyn_wealth = models.StringField()
     dyn_stock = models.StringField()
     dyn_bond = models.StringField()
