@@ -16,6 +16,7 @@ APP_KITS = {
         'color': 'green',
         'sequence': [
             'introduction',
+            'tr3_dynamic_pooled_quiz',
             'tr3_dynamic_pooled',
             'tr3_dynamic_pooled_results',
             'dynamic_portfolio_instructions',
@@ -38,6 +39,7 @@ APP_KITS = {
         'color': 'blue',
         'sequence': [
             'introduction',
+            'tr3_dynamic_pooled_quiz',
             'tr3_dynamic_pooled',
             'tr3_dynamic_pooled_results',
             'dynamic_portfolio_instructions',
@@ -60,6 +62,7 @@ APP_KITS = {
         'color': 'red',
         'sequence': [
             'introduction',
+            'tr3_dynamic_pooled_quiz',
             'tr3_dynamic_pooled',
             'tr3_dynamic_pooled_results',
             'dynamic_portfolio_instructions_3',
@@ -86,6 +89,7 @@ SESSION_CONFIGS = [
         display_name="Experiment",
         num_demo_participants=1,
         app_sequence=['introduction',
+                      'tr3_dynamic_pooled_quiz',
                       'tr3_dynamic_pooled',
                       'tr3_dynamic_pooled_results',
                       'dynamic_portfolio_instructions',
