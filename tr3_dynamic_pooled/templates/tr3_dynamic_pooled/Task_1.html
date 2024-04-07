@@ -78,9 +78,9 @@
 
         // first draw lines
         for(i=0; i<N-1; i++) {
-            for(j=0; j<i+1; j++) {
+            for(j=1; j<(i+1)+1; j++) {
                 startX = rootXoffset + hOffset * i + rectWidth;
-                startY = rootYoffset - vOffset * i + (2*vOffset) * j + rectHeight/2;
+                startY = rootYoffset - vOffset * i + (2*vOffset) * (j-1) + rectHeight/2;
                 targX = rootXoffset + hOffset * (i+1);
                 targYdown = startY + 90;
                 targYup = startY - 90;
@@ -114,15 +114,15 @@
 
         // ... and rectangles and their labels
         for(i=0; i<N; i++) {
-            for(j=0; j<i+1; j++) {
+            for(j=1; j<(i+1)+1; j++) {
 
-                wealth_label = "w_" + i + "_" + (j+1);
-                stock_label = "s_" + i + "_" + (j+1);
-                bond_label = "b_" + i + "_" + (j+1);
-                price_label = "x_" + i + "_" + (j+1);
+                wealth_label = "w_" + i + "_" + j;
+                stock_label = "s_" + i + "_" + j;
+                bond_label = "b_" + i + "_" + j;
+                price_label = "x_" + i + "_" + j;
 
                 rectX = rootXoffset + hOffset * i;
-                rectY = rootYoffset - vOffset * i + (2*vOffset) * j;
+                rectY = rootYoffset - vOffset * i + (2*vOffset) * (j-1);
 
                 if(i==3){
                     svg.append("rect")
@@ -161,7 +161,7 @@
                     row3.append("td").html("Prob:");
                     row3.append("td").append("xhtml:input")
                         .attr("size", 3)
-                        .attr("id", "prob_3_"+(j+1))
+                        .attr("id", "prob_3_"+j)
                         .attr("readonly","readonly");
 
                 } else {
@@ -188,7 +188,7 @@
                         .attr("value",prices[price_label])
                         .attr("readonly","readonly");
                     row1.append("td").html("S: ");
-                    if(j==0){
+                    if(j==1){
                         row1.append("td").append("xhtml:input")
                         .attr("size",1)
                         .attr("id",stock_label)
