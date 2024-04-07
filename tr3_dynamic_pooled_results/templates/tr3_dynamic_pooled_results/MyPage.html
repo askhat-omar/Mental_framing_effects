@@ -98,11 +98,24 @@
                 targYup = startY - 90;
 
                 if(j==states[i.toString()]){
-                    if(states[(i+1).toString()]){
-
+                    var cur_state = states[i.toString()];
+                    var next_state = states[(i+1).toString()];
+                    if((next_state-cur_state)==0){
+                        var upline_color = "red";
+                        var downline_color = "black";
+                        var upline_marker = "url(#red_triangle)";
+                        var downline_marker = "url(#triangle)";
+                    } else{
+                        var upline_color = "black";
+                        var downline_color = "red";
+                        var upline_marker = "url(#triangle)";
+                        var downline_marker = "url(#red_triangle)";
                     }
                 } else{
-
+                    var upline_color = "black";
+                    var downline_color = "black";
+                    var upline_marker = "url(#triangle)";
+                    var downline_marker = "url(#triangle)";
                 };
 
                 svg.append("line")
@@ -111,16 +124,16 @@
                     .attr("x2", targX)
                     .attr("y2", targYup)
                     .attr("stroke-width", 1)
-                    .attr("stroke", "black")
-                    .attr("marker-end", "url(#triangle)");
+                    .attr("stroke", upline_color)
+                    .attr("marker-end", upline_marker);
                 svg.append("line")
                     .attr("x1", startX)
                     .attr("y1", startY)
                     .attr("x2", targX)
                     .attr("y2", targYdown)
                     .attr("stroke-width", 1)
-                    .attr("stroke", "black")
-                    .attr("marker-end", "url(#triangle)");
+                    .attr("stroke", downline_color)
+                    .attr("marker-end", downline_marker);
 
                 svg.append("text").html(0.5)
                     .attr("x", (startX + targX) / 2 - 20)
