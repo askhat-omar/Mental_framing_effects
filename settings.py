@@ -17,6 +17,7 @@ APP_KITS = {
         'sequence': [
             'introduction',
             'tr3_dynamic_pooled',
+            'tr3_dynamic_pooled_results',
             'dynamic_portfolio_instructions',
             'dynamic_portfolio_practice',
             'dynamic_portfolio_quiz',
@@ -38,6 +39,7 @@ APP_KITS = {
         'sequence': [
             'introduction',
             'tr3_dynamic_pooled',
+            'tr3_dynamic_pooled_results',
             'dynamic_portfolio_instructions',
             'dynamic_portf_chp_practice',
             'dynamic_portfolio_quiz',
@@ -59,6 +61,7 @@ APP_KITS = {
         'sequence': [
             'introduction',
             'tr3_dynamic_pooled',
+            'tr3_dynamic_pooled_results',
             'dynamic_portfolio_instructions_3',
             'dynamic_portfolio_practice_3',
             'dynamic_portfolio_quiz_3',
@@ -84,6 +87,7 @@ SESSION_CONFIGS = [
         num_demo_participants=1,
         app_sequence=['introduction',
                       'tr3_dynamic_pooled',
+                      'tr3_dynamic_pooled_results',
                       'dynamic_portfolio_instructions',
                       'dynamic_portfolio_instructions_3',
                       'dynamic_portfolio_practice',
