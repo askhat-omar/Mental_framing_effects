@@ -101,7 +101,7 @@ class Question4(Page):
 
     def is_displayed(self):
         player = self.player
-        return player.participant.vars["iid_probs"] == 1
+        return player.participant.vars["treatment"] == 3
 
     def vars_for_template(self):
         probability_list = {"pr_1": 0.125, "pr_2": 0.375, "pr_3": 0.375, "pr_4": 0.125

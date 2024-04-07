@@ -25,9 +25,9 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    def iid_probs(self):
-        iid_probs = self.participant.vars["iid_probs"]
-        return iid_probs
+    def treatment(self):
+        treatment = self.participant.vars["treatment"]
+        return treatment
 
     answer1 = models.IntegerField(
         choices=[

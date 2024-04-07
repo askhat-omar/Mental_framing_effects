@@ -213,7 +213,7 @@ class Question7(Page):
 
     def is_displayed(self):
         player = self.player
-        return player.participant.vars["iid_probs"] == 1
+        return player.participant.vars["treatment"] == 1
 
     def vars_for_template(self):
         prices_list = {"x_0_1": 8, "x_1_1": 16, "x_1_2": 4, "x_2_1": 32,
@@ -256,7 +256,7 @@ class Question8(Page):
 
     def is_displayed(self):
         player = self.player
-        return player.participant.vars["iid_probs"] == 0
+        return player.participant.vars["treatment"] == 2
 
     def vars_for_template(self):
         prices_list = {"x_0_1": 8, "x_1_1": 16, "x_1_2": 4, "x_2_1": 32,
@@ -352,7 +352,7 @@ class Question10(Page):
         states_list = {"0": "", "1": "", "2": "", "3": ""
                        }
         p = self.player
-        iid_probs = p.participant.vars["iid_probs"]
+        treatment = p.participant.vars["treatment"]
 
         return {
             'num_periods': 3,
@@ -361,7 +361,7 @@ class Question10(Page):
             'stock': json.dumps(stock_list),
             'bond': json.dumps(bond_list),
             'realized_states': json.dumps(states_list),
-            'iid_probs': json.dumps(iid_probs)
+            'treatment': json.dumps(treatment)
         }
     def app_after_this_page(player, upcoming_apps):
         player.participant.vars["step"] += 1

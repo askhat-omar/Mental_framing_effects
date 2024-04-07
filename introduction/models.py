@@ -28,10 +28,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    booleans = models.IntegerField()
-    iid_probs = models.IntegerField()
-    full_first = models.IntegerField()
-    factor_three = models.IntegerField()
+    treatment = models.IntegerField()
 
     id_label = models.StringField(label='Please enter your NU ID:')
 
@@ -43,18 +40,7 @@ class Player(BasePlayer):
     )
 
     def get_booleans(self):
-        booleans = np.random.choice([1,2,3], p=[(1/3), (1/3), (1/3)])
-        if booleans == 3:
-            iid_probs = 1
-            factor_three = 1
-        elif booleans == 2:
-            iid_probs = 1
-            factor_three = 0
-        else:
-            iid_probs = 0
-            factor_three = 0
-        self.iid_probs = int(iid_probs)
-        self.factor_three = int(factor_three)
-        self.participant.vars["iid_probs"] = self.iid_probs
-        self.participant.vars["factor_three"] = self.factor_three
+        treatment = int(np.random.choice([1,2,3], p=[(1/3), (1/3), (1/3)]))
+        self.treatment = treatment
+        self.participant.vars["treatment"] = self.treatment
         self.participant.label = self.id_label

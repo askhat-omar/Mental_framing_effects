@@ -345,7 +345,7 @@ class Question10(Page):
         states_list = {"0": "", "1": "", "2": "", "3": ""
                        }
         p = self.player
-        iid_probs = p.participant.vars["iid_probs"]
+        treatment = p.participant.vars["treatment"]
 
         return {
             'num_periods': 3,
@@ -354,7 +354,7 @@ class Question10(Page):
             'stock': json.dumps(stock_list),
             'bond': json.dumps(bond_list),
             'realized_states': json.dumps(states_list),
-            'iid_probs': json.dumps(iid_probs)
+            'treatment': json.dumps(treatment)
         }
     def app_after_this_page(player, upcoming_apps):
         player.participant.vars["step"] += 1

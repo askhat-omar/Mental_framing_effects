@@ -13,30 +13,8 @@ SESSION_CONFIG_DEFAULTS = {
 
 APP_KITS = {
     0: {
-        'color': 'blue',
-        'sequence': [
-            'tr3_dynamic_pooled',
-            'introduction',
-            'dynamic_portfolio_instructions',
-            'dynamic_portf_chp_practice',
-            'dynamic_portfolio_quiz',
-            'dynamic_portfolio_chp',
-            'dynamic_portfolio_results',
-            'new_task2_instructions',
-            'new_task2_practice_chp',
-            'new_task2_quiz',
-            'new_task2_chp',
-            'new_task2_results',
-            'static_portfolio_chp',
-            'static_portfolio_results',
-            'crt',
-            'finalpage'
-        ]
-    },
-    1: {
         'color': 'green',
         'sequence': [
-            'tr3_dynamic_pooled',
             'introduction',
             'dynamic_portfolio_instructions',
             'dynamic_portfolio_practice',
@@ -54,10 +32,29 @@ APP_KITS = {
             'finalpage'
         ]
     },
+    1: {
+        'color': 'blue',
+        'sequence': [
+            'introduction',
+            'dynamic_portfolio_instructions',
+            'dynamic_portf_chp_practice',
+            'dynamic_portfolio_quiz',
+            'dynamic_portfolio_chp',
+            'dynamic_portfolio_results',
+            'new_task2_instructions',
+            'new_task2_practice_chp',
+            'new_task2_quiz',
+            'new_task2_chp',
+            'new_task2_results',
+            'static_portfolio_chp',
+            'static_portfolio_results',
+            'crt',
+            'finalpage'
+        ]
+    },
     2: {
         'color': 'red',
         'sequence': [
-            'tr3_dynamic_pooled',
             'introduction',
             'dynamic_portfolio_instructions_3',
             'dynamic_portfolio_practice_3',
@@ -82,8 +79,7 @@ SESSION_CONFIGS = [
         name='DynPort',
         display_name="Experiment",
         num_demo_participants=1,
-        app_sequence=['tr3_dynamic_pooled',
-                      'introduction',
+        app_sequence=['introduction',
                       'dynamic_portfolio_instructions',
                       'dynamic_portfolio_instructions_3',
                       'dynamic_portfolio_practice',

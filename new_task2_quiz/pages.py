@@ -15,7 +15,7 @@ class Question1(Page):
 
     def is_displayed(self):
         player = self.player
-        return player.participant.vars["iid_probs"] == 0
+        return player.participant.vars["treatment"] == 2
 
     def vars_for_template(self):
         probability_list = {"pr_1": 0.111, "pr_2": 0.361, "pr_3": 0.403, "pr_4": 0.125
@@ -47,7 +47,7 @@ class Question2(Page):
 
     def is_displayed(self):
         player = self.player
-        return player.participant.vars["iid_probs"] == 1
+        return player.participant.vars["treatment"] == 1
 
     def vars_for_template(self):
         probability_list = {"pr_1": 0.125, "pr_2": 0.375, "pr_3": 0.375, "pr_4": 0.125
@@ -136,7 +136,7 @@ class Question5(Page):
 
     def is_displayed(self):
         player = self.player
-        return player.participant.vars["iid_probs"] == 0
+        return player.participant.vars["treatment"] == 2
 
     def vars_for_template(self):
         probability_list = {"pr_1": 0.111, "pr_2": 0.361, "pr_3": 0.403, "pr_4": 0.125
@@ -172,7 +172,7 @@ class Question6(Page):
 
     def is_displayed(self):
         player = self.player
-        return player.participant.vars["iid_probs"] == 1
+        return player.participant.vars["treatment"] == 1
 
     def vars_for_template(self):
         probability_list = {"pr_1": 0.125, "pr_2": 0.375, "pr_3": 0.375, "pr_4": 0.125
