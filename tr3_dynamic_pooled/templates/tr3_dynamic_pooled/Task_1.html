@@ -153,6 +153,7 @@
                         .attr("id",wealth_label)
                         .attr("class","wealth")
                         .attr("type","number")
+                        .attr("step", 0.01)
                         .attr("min", 0);
 
                     var row3 = tab.append("tr");
@@ -195,7 +196,7 @@
                         .attr("required","required");
                     } else {
                         row1.append("td").append("xhtml:input")
-                        .attr("size",1)
+                        .attr("size",0.01)
                         .attr("id",stock_label)
                         .attr("type","number")
                         .attr("step","1")
@@ -208,11 +209,13 @@
                         .attr("id",wealth_label)
                         .attr("class","wealth")
                         .attr("type","number")
+                        .attr("step", 0.01)
                         .attr("min", 0);
                     row2.append("td").html("C: ");
                     row2.append("td").append("xhtml:input")
                         .attr("size",3)
                         .attr("type", "number")
+                        .attr("step", 0.01)
                         .attr("id",bond_label)
                         .attr("readonly","readonly");
                 };
@@ -244,110 +247,260 @@
         timer = setTimeout(() => { func.apply(this, args); }, timeout);
       };
     }
-    function LogicExp(e) {
+    const stock_list = {};
+    const wealth_list = {};
+    const bond_list = {};
+
+    function case1(current_s_id) {
+        let s_1_1_id = "s_1_1";
+        let s_1_2_id = "s_1_2";
+        let s_2_1_id = "s_2_1";
+        let s_2_2_id = "s_2_2";
+        let s_2_3_id = "s_2_3";
+        let w_0_1_id = "w_0_1";
+        let w_1_1_id = "w_1_1";
+        let w_1_2_id = "w_1_2";
+        let w_2_1_id = "w_2_1";
+        let w_2_2_id = "w_2_2";
+        let w_2_3_id = "w_2_3";
+        let w_3_1_id = "w_3_1";
+        let w_3_2_id = "w_3_2";
+        let w_3_3_id = "w_3_3";
+        let w_3_4_id = "w_3_4";
+        let b_0_1_id = "b_0_1";
+        let b_1_1_id = "b_1_1";
+        let b_1_2_id = "b_1_2";
+        let b_2_1_id = "b_2_1";
+        let b_2_2_id = "b_2_2";
+        let b_2_3_id = "b_2_3";
+        let s_0_1 = parseInt($(`#${current_s_id}`).val());
+        let w_0_1 = {{Constants.initial_wealth|json}};
+        let b_0_1 = w_0_1 - s_0_1;
+        let w_1_1 = {{Constants.up_tick}} * s_0_1 + b_0_1;
+        let w_1_2 = {{Constants.down_tick}} * s_0_1 + b_0_1;
+        w_1_1 = w_1_1.toFixed(2);
+        w_1_2 = w_1_2.toFixed(2);
+        let s_1_1 = parseInt($(`#${s_1_1_id}`).val());
+        let b_1_1 = w_1_1 - s_1_1;
+        let w_2_1 = {{Constants.up_tick}} * s_1_1 + b_1_1;
+        let w_2_2 = {{Constants.down_tick}} * s_1_1 + b_1_1;
+        w_2_1 = w_2_1.toFixed(2);
+        w_2_2 = w_2_2.toFixed(2);
+        let s_1_2 = w_2_2 - w_1_2;
+        let b_1_2 = w_1_2 - s_1_2;
+        let w_2_3 = {{Constants.down_tick}} * s_1_2 + b_1_2;
+        w_2_3 = w_2_3.toFixed(2);
+        let s_2_1 = parseInt($(`#${s_2_1_id}`).val());
+        let b_2_1 = w_2_1 - s_2_1;
+        let w_3_1 = {{Constants.up_tick}} * s_2_1 + b_2_1;
+        let w_3_2 = {{Constants.down_tick}} * s_2_1 + b_2_1;
+        w_3_1 = w_3_1.toFixed(2);
+        w_3_2 = w_3_2.toFixed(2);
+        let s_2_2 = w_3_2 - w_2_2;
+        let b_2_2 = w_2_2 - s_2_2;
+        let w_3_3 = {{Constants.down_tick}} * s_2_2 + b_2_2;
+        w_3_3 = w_3_3.toFixed(2);
+        let s_2_3 = w_3_3- w_2_3;
+        let b_2_3 = w_2_3 - s_2_3;
+        let w_3_4 = {{Constants.down_tick}} * s_2_3 + b_2_3;
+        w_3_4 = w_3_4.toFixed(2);
+        $(`#${s_1_2_id}`).val(s_1_2);
+        $(`#${s_2_2_id}`).val(s_2_2);
+        $(`#${s_2_3_id}`).val(s_2_3);
+        $(`#${b_0_1_id}`).val(b_0_1);
+        $(`#${b_1_1_id}`).val(b_1_1);
+        $(`#${b_1_2_id}`).val(b_1_2);
+        $(`#${b_2_1_id}`).val(b_2_1);
+        $(`#${b_2_2_id}`).val(b_2_2);
+        $(`#${b_2_3_id}`).val(b_2_3);
+        $(`#${w_0_1_id}`).val(w_0_1);
+        $(`#${w_1_1_id}`).val(w_1_1);
+        $(`#${w_1_2_id}`).val(w_1_2);
+        $(`#${w_2_1_id}`).val(w_2_1);
+        $(`#${w_2_2_id}`).val(w_2_2);
+        $(`#${w_2_3_id}`).val(w_2_3);
+        $(`#${w_3_1_id}`).val(w_3_1);
+        $(`#${w_3_2_id}`).val(w_3_2);
+        $(`#${w_3_3_id}`).val(w_3_3);
+        $(`#${w_3_4_id}`).val(w_3_4);
+        for(i=0; i<N; i++) {
+            for(j=1; j<(i+1)+1; j++) {
+                let wealth_id = "w_"+i+"_"+j;
+                let wealth = parseFloat($(`#${wealth_id}`).val());
+                wealth_list[wealth_id] = wealth;
+            };
+        };
+        for(i=0; i<(N-1); i++) {
+            for(j=1; j<(i+1)+1; j++) {
+                let stock_id = "s_"+i+"_"+j;
+                let bond_id = "b_"+i+"_"+j;
+                let stock = parseInt($(`#${stock_id}`).val());
+                let bond = parseInt($(`#${bond_id}`).val());
+                stock_list[stock_id] = stock;
+                bond_list[bond_id] = bond;
+            };
+        };
+    };
+
+    function case2(current_s_id) {
+        let s_1_2_id = "s_1_2";
+        let s_2_1_id = "s_2_1";
+        let s_2_2_id = "s_2_2";
+        let s_2_3_id = "s_2_3";
+        let w_1_1_id = "w_1_1";
+        let w_1_2_id = "w_1_2";
+        let w_2_1_id = "w_2_1";
+        let w_2_2_id = "w_2_2";
+        let w_2_3_id = "w_2_3";
+        let w_3_1_id = "w_3_1";
+        let w_3_2_id = "w_3_2";
+        let w_3_3_id = "w_3_3";
+        let w_3_4_id = "w_3_4";
+        let b_1_1_id = "b_1_1";
+        let b_1_2_id = "b_1_2";
+        let b_2_1_id = "b_2_1";
+        let b_2_2_id = "b_2_2";
+        let b_2_3_id = "b_2_3";
+        let s_1_1 = parseInt($(`#${current_s_id}`).val());
+        let w_1_1 = parseFloat($(`#${w_1_1_id}`).val());
+        let b_1_1 = w_1_1 - s_1_1;
+        let w_2_1 = {{Constants.up_tick}} * s_1_1 + b_1_1;
+        let w_2_2 = {{Constants.down_tick}} * s_1_1 + b_1_1;
+        w_2_1 = w_2_1.toFixed(2);
+        w_2_2 = w_2_2.toFixed(2);
+        let w_1_2 = parseFloat($(`#${w_1_2_id}`).val());
+        let s_1_2 = w_2_2 - w_1_2;
+        let b_1_2 = w_1_2 - s_1_2;
+        let w_2_3 = {{Constants.down_tick}} * s_1_2 + b_1_2;
+        w_2_3 = w_2_3.toFixed(2);
+        let s_2_1 = parseInt($(`#${s_2_1_id}`).val());
+        let b_2_1 = w_2_1 - s_2_1;
+        let w_3_1 = {{Constants.up_tick}} * s_2_1 + b_2_1;
+        let w_3_2 = {{Constants.down_tick}} * s_2_1 + b_2_1;
+        w_3_1 = w_3_1.toFixed(2);
+        w_3_2 = w_3_2.toFixed(2);
+        let s_2_2 = w_3_2 - w_2_2;
+        let b_2_2 = w_2_2 - s_2_2;
+        let w_3_3 = {{Constants.down_tick}} * s_2_2 + b_2_2;
+        w_3_3 = w_3_3.toFixed(2);
+        let s_2_3 = w_3_3- w_2_3;
+        let b_2_3 = w_2_3 - s_2_3;
+        let w_3_4 = {{Constants.down_tick}} * s_2_3 + b_2_3;
+        w_3_4 = w_3_4.toFixed(2);
+        $(`#${s_1_2_id}`).val(s_1_2);
+        $(`#${s_2_2_id}`).val(s_2_2);
+        $(`#${s_2_3_id}`).val(s_2_3);
+        $(`#${b_1_1_id}`).val(b_1_1);
+        $(`#${b_1_2_id}`).val(b_1_2);
+        $(`#${b_2_1_id}`).val(b_2_1);
+        $(`#${b_2_2_id}`).val(b_2_2);
+        $(`#${b_2_3_id}`).val(b_2_3);
+        $(`#${w_2_1_id}`).val(w_2_1);
+        $(`#${w_2_2_id}`).val(w_2_2);
+        $(`#${w_2_3_id}`).val(w_2_3);
+        $(`#${w_3_1_id}`).val(w_3_1);
+        $(`#${w_3_2_id}`).val(w_3_2);
+        $(`#${w_3_3_id}`).val(w_3_3);
+        $(`#${w_3_4_id}`).val(w_3_4);
+        for(i=0; i<N; i++) {
+            for(j=1; j<(i+1)+1; j++) {
+                let wealth_id = "w_"+i+"_"+j;
+                let wealth = parseFloat($(`#${wealth_id}`).val());
+                wealth_list[wealth_id] = wealth;
+            };
+        };
+        for(i=0; i<(N-1); i++) {
+            for(j=1; j<(i+1)+1; j++) {
+                let stock_id = "s_"+i+"_"+j;
+                let bond_id = "b_"+i+"_"+j;
+                let stock = parseInt($(`#${stock_id}`).val());
+                let bond = parseInt($(`#${bond_id}`).val());
+                stock_list[stock_id] = stock;
+                bond_list[bond_id] = bond;
+            };
+        };
+    };
+
+    function case3(current_s_id) {
+        let s_2_2_id = "s_2_2";
+        let s_2_3_id = "s_2_3";
+        let w_2_1_id = "w_2_1";
+        let w_2_2_id = "w_2_2";
+        let w_2_3_id = "w_2_3";
+        let w_3_1_id = "w_3_1";
+        let w_3_2_id = "w_3_2";
+        let w_3_3_id = "w_3_3";
+        let w_3_4_id = "w_3_4";
+        let b_2_1_id = "b_2_1";
+        let b_2_2_id = "b_2_2";
+        let b_2_3_id = "b_2_3";
+        let s_2_1 = parseInt($(`#${current_s_id}`).val());
+        let w_2_1 = parseFloat($(`#${w_2_1_id}`).val());
+        let b_2_1 = w_2_1 - s_2_1;
+        let w_3_1 = {{Constants.up_tick}} * s_2_1 + b_2_1;
+        let w_3_2 = {{Constants.down_tick}} * s_2_1 + b_2_1;
+        w_3_1 = w_3_1.toFixed(2);
+        w_3_2 = w_3_2.toFixed(2);
+        let w_2_2 = parseFloat($(`#${w_2_2_id}`).val());
+        let s_2_2 = w_3_2 - w_2_2;
+        let b_2_2 = w_2_2 - s_2_2;
+        let w_3_3 = {{Constants.down_tick}} * s_2_2 + b_2_2;
+        w_3_3 = w_3_3.toFixed(2);
+        let w_2_3 = parseFloat($(`#${w_2_3_id}`).val());
+        let s_2_3 = w_3_3 - w_2_3;
+        let b_2_3 = w_2_3 - s_2_3;
+        let w_3_4 = {{Constants.down_tick}} * s_2_3 + b_2_3;
+        w_3_4 = w_3_4.toFixed(2);
+        $(`#${s_2_2_id}`).val(s_2_2);
+        $(`#${s_2_3_id}`).val(s_2_3);
+        $(`#${b_2_1_id}`).val(b_2_1);
+        $(`#${b_2_2_id}`).val(b_2_2);
+        $(`#${b_2_3_id}`).val(b_2_3);
+        $(`#${w_3_1_id}`).val(w_3_1);
+        $(`#${w_3_2_id}`).val(w_3_2);
+        $(`#${w_3_3_id}`).val(w_3_3);
+        $(`#${w_3_4_id}`).val(w_3_4);
+        for(i=0; i<N; i++) {
+            for(j=1; j<(i+1)+1; j++) {
+                let wealth_id = "w_"+i+"_"+j;
+                let wealth = parseFloat($(`#${wealth_id}`).val());
+                wealth_list[wealth_id] = wealth;
+            };
+        };
+        for(i=0; i<(N-1); i++) {
+            for(j=1; j<(i+1)+1; j++) {
+                let stock_id = "s_"+i+"_"+j;
+                let bond_id = "b_"+i+"_"+j;
+                let stock = parseInt($(`#${stock_id}`).val());
+                let bond = parseInt($(`#${bond_id}`).val());
+                stock_list[stock_id] = stock;
+                bond_list[bond_id] = bond;
+            };
+        };
+    };
+
+    function Task_Logic(e) {
         const current_s_id = e.target.id
-        const result = {}
         const stocks = []
         switch(current_s_id){
             case "s_0_1":
-                const s_0_1 = parseInt($(`#${current_s_id}`).val());
-                const w_1_1_id = "w_1_1";
-                const w_1_2_id = "w_1_2";
-                const w_0_1_id = "w_0_1";
-                const b_0_1_id = "b_0_1";
-                const w_0_1 = {{Constants.initial_wealth|json}};
-                const b_0_1 = w_0_1 - s_0_1;
-                var w_1_1 = {{Constants.up_tick}} * s_0_1 + b_0_1;
-                var w_1_2 = {{Constants.down_tick}} * s_0_1 + b_0_1;
-                w_1_1 = w_1_1.toFixed(2);
-                w_1_2 = w_1_2.toFixed(2);
-                $(`#${w_0_1_id}`).val(w_0_1);
-                $(`#${b_0_1_id}`).val(b_0_1);
-                $(`#${w_1_1_id}`).val(w_1_1);
-                $(`#${w_1_2_id}`).val(w_1_2);
-                result[current_s_id] = s_0_1;
-                console.log(result)
+                case1(current_s_id);
                 break
             case "s_1_1":
-                const s_1_1 = parseInt($(`#${current_s_id}`).val());
-                const cur_w_1_1_id = "w_1_1";
-                const cur_w_1_2_id = "w_1_2";
-                const w_2_1_id = "w_2_1";
-                const w_2_2_id = "w_2_2";
-                const b_1_1_id = "b_1_1";
-                const s_1_2_id = "s_1_2";
-                const b_1_2_id = "b_1_2";
-                const w_2_3_id = "w_2_3";
-                const cur_w_1_1 = parseInt($(`#${cur_w_1_1_id}`).val());
-                const b_1_1 = cur_w_1_1 - s_1_1;
-                var w_2_1 = {{Constants.up_tick}} * s_1_1 + b_1_1;
-                var w_2_2 = {{Constants.down_tick}} * s_1_1 + b_1_1;
-                w_2_1 = w_2_1.toFixed(2);
-                w_2_2 = w_2_2.toFixed(2);
-                const cur_w_1_2 = parseInt($(`#${cur_w_1_2_id}`).val());
-                const s_1_2 = w_2_2 - cur_w_1_2;
-                const b_1_2 = cur_w_1_2 - s_1_2;
-                var w_2_3 = {{Constants.down_tick}} * s_1_2 + b_1_2;
-                w_2_3 = w_2_3.toFixed(2);
-                $(`#${b_1_1_id}`).val(b_1_1);
-                $(`#${w_2_1_id}`).val(w_2_1);
-                $(`#${w_2_2_id}`).val(w_2_2);
-                $(`#${s_1_2_id}`).val(s_1_2);
-                $(`#${b_1_2_id}`).val(b_1_2);
-                $(`#${w_2_3_id}`).val(w_2_3);
-                result[current_s_id] = s_1_1;
-                console.log(result)
+                case2(current_s_id);
                 break
             case "s_2_1":
-                const s_2_1 = parseInt($(`#${current_s_id}`).val());
-                const cur_w_2_1_id = "w_2_1";
-                const cur_w_2_2_id = "w_2_2";
-                const cur_w_2_3_id = "w_2_3";
-                const w_3_1_id = "w_3_1";
-                const w_3_2_id = "w_3_2";
-                const b_2_1_id = "b_2_1";
-                const s_2_2_id = "s_2_2";
-                const b_2_2_id = "b_2_2";
-                const s_2_3_id = "s_2_3";
-                const b_2_3_id = "b_2_3";
-                const w_3_3_id = "w_3_3";
-                const w_3_4_id = "w_3_4";
-                const cur_w_2_1 = parseInt($(`#${cur_w_2_1_id}`).val());
-                const b_2_1 = cur_w_2_1 - s_2_1;
-                var w_3_1 = {{Constants.up_tick}} * s_2_1 + b_2_1;
-                var w_3_2 = {{Constants.down_tick}} * s_2_1 + b_2_1;
-                w_3_1 = w_3_1.toFixed(2);
-                w_3_2 = w_3_2.toFixed(2);
-                const cur_w_2_2 = parseInt($(`#${cur_w_2_2_id}`).val());
-                const s_2_2 = w_3_2 - cur_w_2_2;
-                const b_2_2 = cur_w_2_2 - s_2_2;
-                var w_3_3 = {{Constants.down_tick}} * s_2_2 + b_2_2;
-                w_3_3 = w_3_3.toFixed(2);
-                const cur_w_2_3 = parseInt($(`#${cur_w_2_3_id}`).val());
-                const s_2_3 = w_3_3- cur_w_2_3;
-                const b_2_3 = cur_w_2_3 - s_2_3;
-                var w_3_4 = {{Constants.down_tick}} * s_2_3 + b_2_3;
-                w_3_4 = w_3_4.toFixed(2);
-                $(`#${b_2_1_id}`).val(b_2_1);
-                $(`#${w_3_1_id}`).val(w_3_1);
-                $(`#${w_3_2_id}`).val(w_3_2);
-                $(`#${s_2_2_id}`).val(s_2_2);
-                $(`#${b_2_2_id}`).val(b_2_2);
-                $(`#${w_3_3_id}`).val(w_3_3);
-                $(`#${s_2_3_id}`).val(s_2_3);
-                $(`#${b_2_3_id}`).val(b_2_3);
-                $(`#${w_3_4_id}`).val(w_3_4);
-                result[current_s_id] = s_2_1;
-                console.log(result)
-        }
+                case3(current_s_id);
+                break
+        };
 
-        console.log(JSON.stringify(result))
-
-        $("#id_stock").val(JSON.stringify(result));
+        $("#id_stock").val(JSON.stringify(stock_list));
+        $("#id_wealth").val(JSON.stringify(wealth_list));
+        $("#id_bond").val(JSON.stringify(bond_list));
 
 
-    }
-    const processChange = debounce(LogicExp);
+    };
+    const processChange = debounce(Task_Logic);
 
     $("input").on("input", processChange);
     </script>
