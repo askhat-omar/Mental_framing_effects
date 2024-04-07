@@ -18,8 +18,6 @@
     {{ form.dyn_bond.errors }}
     <input type="hidden" name="dyn_wealth" id="id_wealth"/>
     {{ form.dyn_wealth.errors }}
-    <input type="hidden" name="fill_history" id="id_fill_history"/>
-    {{ form.fill_history.errors }}
 
 {% endblock %}
 
@@ -238,19 +236,6 @@
 
 
     <script>
-    function setHistory(){
-        var fill_history = [];
-        let now = new Date();
-
-        if (this.id.startsWith("s") && this.value.length > 0) {
-            if (fill_history.length > 0 && fill_history[fill_history.length - 1][0] === this.id) {
-                fill_history[fill_history.length - 1] = [this.id, this.value, now.toISOString()];
-            } else {
-                fill_history.push([this.id, this.value, now.toISOString()]);
-            }
-        }
-        $("#id_fill_history").val(JSON.stringify(fill_history));
-    }
 
     function debounce(func, timeout = 500){
       let timer;
@@ -359,7 +344,6 @@
         console.log(JSON.stringify(result))
 
         $("#id_stock").val(JSON.stringify(result));
-        setHistory()
 
 
     }
