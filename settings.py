@@ -65,6 +65,7 @@ APP_KITS = {
             'new_task2_quiz',
             'new_task2',
             'new_task2_results',
+            'static_portfolio',
             'static_portfolio_results',
             'crt',
             'finalpage'
