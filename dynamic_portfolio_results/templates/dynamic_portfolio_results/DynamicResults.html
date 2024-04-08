@@ -36,9 +36,9 @@
         var num_termnodes = 2**T;
         var horizontal_margin = 20;
         var vertical_margin = 20;
-        var box_width = 180;
+        var box_width = 210;
         var box_height = 70;
-        var termbox_width = 105;
+        var termbox_width = 135;
         var termbox_height = 62;
         var box_horizontal_space = 100;
         var termbox_vertical_space = 25;
@@ -125,7 +125,9 @@
                 .attr("size",3)
                 .attr("id",wealth_label)
                 .attr("readonly","readonly")
-                .attr("value",wealth[wealth_label]);
+                .attr("value",wealth[wealth_label])
+                .attr("type","number")
+                .attr("step",0.01);
         }
 
         <!--Промежуточные ячейки-->
@@ -254,7 +256,7 @@
           font-size: 14px;
         }
         input{
-            width: 40px;
+            width: 60px;
         }
     </style>
 {% endblock %}

@@ -119,7 +119,7 @@
                     .attr("id",portfolio_label)
                     .attr("class","expenditure")
                     .attr("type","number")
-                    .attr("step","0.01")
+                    .attr("step",0.01)
                     .attr("width", "100");
         };
         var mezzanine_row = table.append("tr").attr("height", "30");
@@ -177,7 +177,7 @@
                 };
                 var weight = parseFloat($(weight_label).val());
                 var expenditure = (payoff_1+payoff_2+payoff_3+payoff_4) * weight;
-                $(portfolio_label).val(Math.round(10*expenditure)/10);
+                $(portfolio_label).val(expenditure.toFixed(2));
                 tot_weights = tot_weights + weight;
                 weights_string = weights_string + '"' + weight_label.substr(1) + '":' + weight;
                 if(i<{{ num_states|json }}){

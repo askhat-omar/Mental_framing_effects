@@ -36,9 +36,9 @@
         var num_termnodes = 2**T;
         var horizontal_margin = 20;
         var vertical_margin = 20;
-        var box_width = 180;
+        var box_width = 210;
         var box_height = 70;
-        var termbox_width = 105;
+        var termbox_width = 135;
         var termbox_height = 62;
         var box_horizontal_space = 100;
         var termbox_vertical_space = 25;
@@ -103,7 +103,8 @@
                 .attr("size",3)
                 .attr("id",wealth_label)
                 .attr("class","wealth")
-                .attr("type","number");
+                .attr("type","number")
+                .attr("step",0.01);
         }
 
         <!--NON-TERMINAL NODES-->
@@ -161,12 +162,15 @@
                     .attr("size",3)
                     .attr("id",wealth_label)
                     .attr("class","wealth")
-                    .attr("type","number");
+                    .attr("type","number")
+                    .attr("step",0.01);
                 row2.append("td").html("C: ");
                 row2.append("td").append("xhtml:input")
                     .attr("size",3)
                     .attr("id",bond_label)
-                    .attr("readonly","readonly");
+                    .attr("readonly","readonly")
+                    .attr("type","number")
+                    .attr("step",0.01);
 
                 var line_start_X = targetX + box_width;
                 var line_start_Y = targetY + 0.5 * box_height;
@@ -228,11 +232,11 @@
                     var prev_node_index = Math.floor((i+1)/2);
                     var prev_s_id = "#s_" + (t-1) + "_" + prev_node_index;
                     var prev_b_id = "#b_" + (t-1) + "_" + prev_node_index;
-                    var prev_s =  parseInt($(prev_s_id).val());
-                    var prev_b =  parseInt($(prev_b_id).val());
+                    var prev_s =  parseFloat($(prev_s_id).val());
+                    var prev_b =  parseFloat($(prev_b_id).val());
                     var up_dummy = i % 2 ;
                     var current_w = (up_dummy * {{Constants.up_tick}} + (1 - up_dummy) * {{Constants.down_tick}}) * prev_s + prev_b;
-                    current_w = Math.round(current_w);
+                    current_w = current_w.toFixed(2);
                     if(!isNaN(current_w)) {
                         var current_w_id = "#w_" + t + "_" + i;
                         $(current_w_id).val(current_w);
@@ -240,7 +244,7 @@
                 };
                 if(t <T){
                     var current_s_id = "#s_" + t + "_" + i;
-                    var current_s = parseInt($(current_s_id).val());
+                    var current_s = parseFloat($(current_s_id).val());
                     var current_b_id = "#b_" + t + "_" + i;
                     var current_b = current_w - current_s;
                     if(!isNaN(current_b)){
@@ -300,7 +304,7 @@
           font-size: 14px;
         }
         input{
-            width: 40px;
+            width: 60px;
         }
     </style>
 {% endblock %}

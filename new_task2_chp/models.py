@@ -84,7 +84,7 @@ class Player(BasePlayer):
         for n in range(4):
             for k in range(4):
                 result[n, k] = payoff_matrix[n, k] * weights[k]
-        portfolio = np.round(result.sum(axis=1),1)
+        portfolio = np.round(result.sum(axis=1),2)
         for p in range(1, 5):
             portfolio_payoffs[portfolio_label.format(p)] = portfolio[p - 1]
         #
