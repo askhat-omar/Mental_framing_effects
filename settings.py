@@ -60,6 +60,7 @@ APP_KITS = {
         'color': 'red',
         'sequence': [
             'introduction',
+            'dynamic_portfolio_instructions',
             'tr3_dynamic_pooled_practice',
             'tr3_dynamic_pooled_quiz',
             'tr3_dynamic_pooled',
