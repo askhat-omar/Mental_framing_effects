@@ -17,8 +17,8 @@ class MyPage(Page):
         p = self.player
         wealth = json.loads(p.participant.vars["dyn_wealth_round{}".format(r)])
         p.set_wealth(FORMAT_FLOAT.format(wealth["w_3_1"]),
-                     FORMAT_FLOAT.format(wealth["w_3_2"] * 0.615 + wealth["w_3_3"] * 0.154 + wealth["w_3_5"] * 0.231),
-                     FORMAT_FLOAT.format(wealth["w_3_4"] * 0.276 + wealth["w_3_6"] * 0.414 + wealth["w_3_7"] * 0.310),
+                     FORMAT_FLOAT.format(wealth["w_3_2"] * (8/13) + wealth["w_3_3"] * (2/13) + wealth["w_3_5"] * (3/13)),
+                     FORMAT_FLOAT.format(wealth["w_3_4"] * (8/29) + wealth["w_3_6"] * (12/29) + wealth["w_3_7"] * (9/29)),
                      FORMAT_FLOAT.format(wealth["w_3_8"]))
         return {
             'num_states': self.subsession.num_periods + 1,
