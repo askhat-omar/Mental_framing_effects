@@ -50,6 +50,8 @@ APP_KITS = {
             'new_task2_results',
             'static_portfolio_chp',
             'static_portfolio_results',
+            'static_portfolio_b_chp',
+            'static_portfolio_b_results',
             'crt',
             'finalpage'
         ]
@@ -106,6 +108,7 @@ SESSION_CONFIGS = [
                       'static_portfolio_chp',
                       'static_portfolio_results',
                       'static_portfolio_b',
+                      'static_portfolio_b_chp',
                       'static_portfolio_b_results',
                       'crt',
                       'finalpage'
