@@ -19,12 +19,12 @@ class Constants(BaseConstants):
     num_rounds = 1
     initial_wealth = 100
     probabilities = {"pr_1": 0.125, "pr_2": 0.375, "pr_3": 0.375, "pr_4": 0.125}
-    payoff_a = {"pay_1": 234.00, "pay_2": 147.00, "pay_3": 93.00, "pay_4": 58.00}
-    payoff_b = {"pay_1": 338.00, "pay_2": 169.00, "pay_3": 84.00, "pay_4": 42.00}
-    payoff_d = {"pay_1": 800.00, "pay_2": 200.00, "pay_3": 50.00, "pay_4": 12.00}
-    a = [234.00, 147.00, 93.00, 58.00]
-    b = [338.00, 169.00, 84.00, 42.00]
-    d = [800.00, 200.00, 50.00, 12.00]
+    payoff_a = {"pay_1": 233.94, "pay_2": 147.37, "pay_3": 92.83, "pay_4": 58.48}
+    payoff_b = {"pay_1": 337.50, "pay_2": 168.75, "pay_3": 84.38, "pay_4": 42.19}
+    payoff_d = {"pay_1": 800.00, "pay_2": 200.00, "pay_3": 50.00, "pay_4": 12.50}
+    a = [233.94, 147.37, 92.83, 58.48]
+    b = [337.50, 168.75, 84.38, 42.19]
+    d = [800.00, 200.00, 50.00, 12.50]
     probs_for_payoff = [0.125, 0.375, 0.375, 0.125]
     states_for_payoff = [1, 2, 3, 4]
 
@@ -96,10 +96,7 @@ class Player(BasePlayer):
             k = asset_c[payoff_label.format(self.static_realized_state)]
         else:
             k = Constants.payoff_d[payoff_label.format(self.static_realized_state)]
-        if (float(k) - numpy.floor(float(k))) >= 0.5:
-            self.static_realized_pay = numpy.ceil(float(k))
-        else:
-            self.static_realized_pay = numpy.floor(float(k))
+        self.static_realized_pay = float(k)
         self.payoff = self.static_realized_pay
         r = self.round_number
         self.participant.vars["static_lottery_round{}".format(r)] = self.lottery

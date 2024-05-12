@@ -62,10 +62,10 @@
             row.append("td").html(i)
                 .attr("width", "100");
             var probability = (probabilities[probability_label]);
-            var asset_a = Math.round(payoff_a[payoff_label]);
-            var asset_b = Math.round(payoff_b[payoff_label]);
-            var asset_c = Math.round(payoff_c[payoff_label]);
-            var asset_d = Math.round(payoff_d[payoff_label]);
+            var asset_a = (payoff_a[payoff_label]).toFixed(2);
+            var asset_b = (payoff_b[payoff_label]).toFixed(2);
+            var asset_c = payoff_c[payoff_label];
+            var asset_d = (payoff_d[payoff_label]).toFixed(2);
             row.append("td").html(probability)
                 .attr("width", "100");
             row.append("td").html(asset_a).attr("width", "100");
