@@ -30,7 +30,7 @@ class Group(BaseGroup):
 class Player(BasePlayer):
     treatment = models.IntegerField()
 
-    id_label = models.StringField(label='Please enter your NU ID:')
+    id_label = models.StringField(label='Please enter your matriculation number:')
 
     data_priv = models.BooleanField(
         label="If you agree with the consent stated above, then please choose 'Agree' and press 'Next' button, otherwise please close the tab",
@@ -40,7 +40,7 @@ class Player(BasePlayer):
     )
 
     def get_booleans(self):
-        treatment = int(np.random.choice([1,2,3], p=[(1/3), (1/3), (1/3)]))
+        treatment = int(np.random.choice([1,2,3], p=[(1/4), (1/2), (1/4)]))
         self.treatment = treatment
         self.participant.vars["treatment"] = self.treatment
         self.participant.label = self.id_label
