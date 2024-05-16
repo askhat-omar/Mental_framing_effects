@@ -46,22 +46,10 @@ class Player(BasePlayer):
         widget=widgets.RadioSelect
     )
 
-    a_w_1 = models.FloatField()
-    a_w_2 = models.FloatField()
-    a_w_3 = models.FloatField()
-    a_w_4 = models.FloatField()
-    b_w_1 = models.FloatField()
-    b_w_2 = models.FloatField()
-    b_w_3 = models.FloatField()
-    b_w_4 = models.FloatField()
-    c_w_1 = models.FloatField()
-    c_w_2 = models.FloatField()
-    c_w_3 = models.FloatField()
-    c_w_4 = models.FloatField()
-    d_w_1 = models.FloatField()
-    d_w_2 = models.FloatField()
-    d_w_3 = models.FloatField()
-    d_w_4 = models.FloatField()
+    w_1 = models.FloatField()
+    w_2 = models.FloatField()
+    w_3 = models.FloatField()
+    w_4 = models.FloatField()
     payoff_a = models.StringField()
     payoff_b = models.StringField()
     payoff_c = models.StringField()
@@ -70,99 +58,19 @@ class Player(BasePlayer):
     static_realized_pay = models.FloatField()
     probabilities = models.StringField()
 
-    def set_wealth(self, b_w_1, b_w_2, b_w_3, b_w_4):
-        self.b_w_1 = float(b_w_1)
-        self.b_w_2 = float(b_w_2)
-        self.b_w_3 = float(b_w_3)
-        self.b_w_4 = float(b_w_4)
-        asset_b = {"pay_1": self.b_w_4, "pay_2": self.b_w_3, "pay_3": self.b_w_2, "pay_4": self.b_w_1}
+    def set_wealth(self, w_1, w_2, w_3, w_4):
+        self.w_1 = float(w_1)
+        self.w_2 = float(w_2)
+        self.w_3 = float(w_3)
+        self.w_4 = float(w_4)
 
-        choice = np.array([self.b_w_1, self.b_w_2, self.b_w_3, self.b_w_4])
-        w_3U = choice[0]
-        w_2U = choice[1]
-        w_1U = choice[2]
-        w_0U = choice[3]
-        if np.all(choice[1:] == 0):
-            a1 = np.array([680, 170, 43, 10])
-            a2 = np.array([287, 144, 71, 36])
-            a3 = np.array([199, 125, 79, 49])
-
-        elif np.all(choice[2:] == 0):
-            diff = round(choice[1] - choice[1]/2, 2)
-            a1_w2U = choice[1] - diff
-            a1_w3U = choice[0] + round(1.5 * diff, 2)
-            a1 = np.array([a1_w3U, a1_w2U, w_1U, w_0U])
-
-            diff = round(choice[1] - choice[1]/2.5, 2)
-            a2_w2U = choice[1] - diff
-            a2_w3U = choice[0] + round(1.5 * diff, 2)
-            a2 = np.array([a2_w3U, a2_w2U, w_1U, w_0U])
-
-            diff = round(choice[1] - choice[1]/1.5, 2)
-            a3_w2U = choice[1] - diff
-            a3_w3U = choice[0] + round(1.5 * diff, 2)
-            a3 = np.array([a3_w3U, a3_w2U, w_1U, w_0U])
-
-        elif choice[2] == 0:
-            diff = round(choice[1] - choice[1]/2, 2)
-            a1_w2U = choice[1] - diff
-            a1_w3U = choice[0] + round(0.75 * diff, 2)
-            a1_w0U = choice[3] + round(0.75 * diff, 2)
-            a1 = np.array([a1_w3U, a1_w2U, w_1U, a1_w0U])
-
-            diff = round(choice[1] - choice[1]/2.5, 2)
-            a2_w2U = choice[1] - diff
-            a2_w3U = choice[0] + round(0.75 * diff, 2)
-            a2_w0U = choice[3] + round(0.75 * diff, 2)
-            a2 = np.array([a2_w3U, a2_w2U, w_1U, a2_w0U])
-
-            diff = round(choice[1] - choice[1]/1.5, 2)
-            a3_w2U = choice[1] - diff
-            a3_w3U = choice[0] + round(0.75 * diff, 2)
-            a3_w0U = choice[3] + round(0.75 * diff, 2)
-            a3 = np.array([a3_w3U, a3_w2U, w_1U, a3_w0U])
-
-        else:
-            diff1 = round(choice[1] - choice[1]/2, 2)
-            diff2 = round(choice[2] - choice[2]/3, 2)
-            a1_w2U = choice[1] - diff1
-            a1_w1U = choice[2] - diff2
-            a1_w3U = choice[0] + round(1.5 * diff1, 2)
-            a1_w0U = choice[3] + round(1.5 * diff2, 2)
-            a1 = np.array([a1_w3U, a1_w2U, a1_w1U, a1_w0U])
-
-            diff1 = round(choice[1] - choice[1]/2.5, 2)
-            diff2 = round(choice[2] - choice[2]/3.5, 2)
-            a2_w2U = choice[1] - diff1
-            a2_w1U = choice[2] - diff2
-            a2_w3U = choice[0] + round(1.5 * diff1, 2)
-            a2_w0U = choice[3] + round(1.5 * diff2, 2)
-            a2 = np.array([a2_w3U, a2_w2U, a2_w1U, a2_w0U])
-
-            diff1 = round(choice[1] - choice[1]/1.5, 2)
-            diff2 = round(choice[2] - choice[2]/2.5, 2)
-            a3_w2U = choice[1] - diff1
-            a3_w1U = choice[2] - diff2
-            a3_w3U = choice[0] + round(1.5 * diff1, 2)
-            a3_w0U = choice[3] + round(1.5 * diff2, 2)
-            a3 = np.array([a3_w3U, a3_w2U, a3_w1U, a3_w0U])
-
-        asset_a = {"pay_1": a1[3], "pay_2": a1[2], "pay_3": a1[1], "pay_4": a1[0]}
-        asset_c = {"pay_1": a2[3], "pay_2": a2[2], "pay_3": a2[1], "pay_4": a2[0]}
-        asset_d = {"pay_1": a3[3], "pay_2": a3[2], "pay_3": a3[1], "pay_4": a3[0]}
-
-        self.a_w_1 = a1[0]
-        self.a_w_2 = a1[1]
-        self.a_w_3 = a1[2]
-        self.a_w_4 = a1[3]
-        self.c_w_1 = a2[0]
-        self.c_w_2 = a2[1]
-        self.c_w_3 = a2[2]
-        self.c_w_4 = a2[3]
-        self.d_w_1 = a3[0]
-        self.d_w_2 = a3[1]
-        self.d_w_3 = a3[2]
-        self.d_w_4 = a3[3]
+        asset_a = {"pay_1": max(self.w_4 - 5, 0), "pay_2": max(self.w_3 - 10, 0), "pay_3": max(self.w_2 - 15, 0),
+                   "pay_4": max(self.w_1 - 20, 0)}
+        asset_b = {"pay_1": self.w_4, "pay_2": self.w_3, "pay_3": self.w_2, "pay_4": self.w_1}
+        asset_c = {"pay_1": max(self.w_4 - 20, 0), "pay_2": max(self.w_3 - 15, 0), "pay_3": max(self.w_2 - 10, 0),
+                   "pay_4": max(self.w_1 - 5, 0)}
+        asset_d = {"pay_1": max(self.w_4 - 10, 0), "pay_2": max(self.w_3 - 20, 0), "pay_3": max(self.w_2 - 5, 0),
+                   "pay_4": max(self.w_1 - 15, 0)}
 
         self.probabilities = json.dumps(Constants.probabilities)
         self.payoff_a = json.dumps(asset_a)
@@ -173,10 +81,13 @@ class Player(BasePlayer):
     def for_payoff(self):
         self.static_realized_state = int(np.random.choice(Constants.states_for_payoff, p=Constants.probs_for_payoff))
         payoff_label = "pay_{}"
-        asset_a = {"pay_1": self.a_w_4, "pay_2": self.a_w_3, "pay_3": self.a_w_2, "pay_4": self.a_w_1}
-        asset_b = {"pay_1": self.b_w_4, "pay_2": self.b_w_3, "pay_3": self.b_w_2, "pay_4": self.b_w_1}
-        asset_c = {"pay_1": self.c_w_4, "pay_2": self.c_w_3, "pay_3": self.c_w_2, "pay_4": self.c_w_1}
-        asset_d = {"pay_1": self.d_w_4, "pay_2": self.d_w_3, "pay_3": self.d_w_2, "pay_4": self.d_w_1}
+        asset_a = {"pay_1": max(self.w_4 - 5, 0), "pay_2": max(self.w_3 - 10, 0), "pay_3": max(self.w_2 - 15, 0),
+                   "pay_4": max(self.w_1 - 20, 0)}
+        asset_b = {"pay_1": self.w_4, "pay_2": self.w_3, "pay_3": self.w_2, "pay_4": self.w_1}
+        asset_c = {"pay_1": max(self.w_4 - 20, 0), "pay_2": max(self.w_3 - 15, 0), "pay_3": max(self.w_2 - 10, 0),
+                   "pay_4": max(self.w_1 - 5, 0)}
+        asset_d = {"pay_1": max(self.w_4 - 10, 0), "pay_2": max(self.w_3 - 20, 0), "pay_3": max(self.w_2 - 5, 0),
+                   "pay_4": max(self.w_1 - 15, 0)}
         if self.lottery == '1':
             k = asset_a[payoff_label.format(self.static_realized_state)]
         elif self.lottery == '2':
