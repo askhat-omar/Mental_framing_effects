@@ -24,7 +24,10 @@ class Static(Page):
                      FORMAT_FLOAT.format(wealth["w_3_8"]))
         return {
             'num_states': self.subsession.num_periods + 1,
+            'payoff_a': p.payoff_a,
             'payoff_b': p.payoff_b,
+            'payoff_c': p.payoff_c,
+            'payoff_d': p.payoff_d,
         }
 
     def before_next_page(self):
