@@ -31,6 +31,7 @@ APP_KITS = {
             'static_portfolio_b',
             'static_portfolio_b_results',
             'crt',
+            'survey',
             'finalpage'
         ]
     },
@@ -53,6 +54,7 @@ APP_KITS = {
             'static_portfolio_b_chp',
             'static_portfolio_b_results',
             'crt',
+            'survey',
             'finalpage'
         ]
     },
@@ -75,6 +77,7 @@ APP_KITS = {
             'static_portfolio_b',
             'static_portfolio_b_results',
             'crt',
+            'survey',
             'finalpage'
         ]
     },
@@ -112,6 +115,7 @@ SESSION_CONFIGS = [
                       'static_portfolio_b_chp',
                       'static_portfolio_b_results',
                       'crt',
+                      'survey',
                       'finalpage'
                       ],
         round1_T=3,

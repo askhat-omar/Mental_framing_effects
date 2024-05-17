@@ -7,7 +7,7 @@ from .models import Constants
 
 class Page1(Page):
     form_model = 'player'
-    form_fields = ['sex', 'major']
+    form_fields = ['prev_participation', 'sex', 'year', 'major']
 
     def app_after_this_page(player, upcoming_apps):
         player.participant.vars["step"] += 1

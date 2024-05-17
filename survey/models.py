@@ -26,12 +26,28 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    sex = models.StringField(
-        choices=['Female', 'Male']
+    prev_participation = models.StringField(
+        choices=['No', 'Yes'],
+        widget=widgets.RadioSelectHorizontal
     )
+
+    sex = models.StringField(
+        choices=['Female', 'Male'],
+        widget=widgets.RadioSelectHorizontal
+    )
+
+    year = models.StringField(
+        choices=['1st year Bachelor', '2nd year Bachelor', '3rd year Bachelor', '4th year Bachelor', 'Master student',
+                 'Doctoral Student', 'Faculty', 'Staff']
+    )
+
     major = models.StringField(
-        choices=['Science, technology, engineering and mathematics',
-                 'Social sciences, business and finance',
-                 'Art and humanities'
+        choices=['STEM',
+                 'Economics & Finance',
+                 'Business & Management',
+                 'Social Sciences',
+                 'Art & Humanities',
+                 'Medicine',
+                 'Other'
                  ]
     )
