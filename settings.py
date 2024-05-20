@@ -90,7 +90,6 @@ SESSION_CONFIGS = [
         num_demo_participants=1,
         app_sequence=['introduction',
                       'dynamic_portfolio_instructions',
-                      'dynamic_portfolio_instructions_3',
                       'dynamic_portfolio_practice',
                       'dynamic_portf_chp_practice',
                       'tr3_dynamic_pooled_practice',
