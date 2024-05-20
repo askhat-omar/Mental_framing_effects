@@ -33,7 +33,7 @@ class Player(BasePlayer):
     id_label = models.StringField(label='Please enter your matriculation number:')
 
     data_priv = models.BooleanField(
-        label="If you agree with the consent stated above, then please choose 'Agree' and press 'Next' button, otherwise please close the tab",
+        label="If you agree to the consent above, please select 'Agree' and click 'Next.' Otherwise, please close this tab.",
         choices=[
             [True, "Agree"]
         ]
