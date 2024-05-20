@@ -7,12 +7,12 @@
 
 {% block content %}
     <p>
-    In this page, you are asked to provide some information about yourself.
+    On this page, you are asked to provide some information about yourself.
     Your responses will remain completely confidential and will be used only in unrecognizable and generalized form.
     </p>
     {% formfield player.prev_participation label="Have you participated in this experiment in September 2023?" %}
     {% formfield player.sex label="Please indicate your gender:" %}
-    {% formfield player.year label="Please choose what describes you best:" %}
+    {% formfield player.year label="Which of the following best describes your role at the university?" %}
     {% formfield player.major label="Please choose your major:" %}
     {% next_button %}
 {% endblock %}
