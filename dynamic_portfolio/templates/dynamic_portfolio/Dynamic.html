@@ -116,7 +116,9 @@
             row2.append("td").append("xhtml:input")
                 .attr("size",3)
                 .attr("id",wealth_label)
-                .attr("class","wealth");
+                .attr("class","wealth")
+                .attr("type","number")
+                .attr("step","0.01");
         }
 
 
@@ -175,12 +177,16 @@
                 row2.append("td").append("xhtml:input")
                     .attr("size",3)
                     .attr("id",wealth_label)
-                    .attr("class","wealth");
+                    .attr("class","wealth")
+                    .attr("type","number")
+                    .attr("step","0.01");
                 row2.append("td").html("C: ");
                 row2.append("td").append("xhtml:input")
                     .attr("size",3)
                     .attr("id",bond_label)
-                    .attr("readonly","readonly");
+                    .attr("readonly","readonly")
+                    .attr("type","number")
+                    .attr("step","0.01");
 
                 var line_start_X = targetX + box_width;
                 var line_start_Y = targetY + 0.5 * box_height;
