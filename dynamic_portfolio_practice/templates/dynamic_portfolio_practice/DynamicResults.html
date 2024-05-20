@@ -6,8 +6,9 @@
 {% endblock %}
 
 {% block content %}
-    <p>The random final outcome (in points earned) of this task is shown in red type font below.</p>
-    <p>Your points in this practice round are {{player.dyn_realized_wealth}}. Since this was a practice round, the results do not count towards your total score and earnings.</p>
+    <p>The random final outcome (in points earned) of this task is shown in red below.</p>
+    <p>Your points in this practice round are {{player.dyn_realized_wealth}}. Since this was a practice round, the results
+        do not count towards your total score or earnings.</p>
 
     <div id="chart" align="center"></div>
 
@@ -121,7 +122,7 @@
                 .attr("size",3)
                 .attr("id",wealth_label)
                 .attr("readonly","readonly")
-                .attr("value",wealth[wealth_label])
+                .attr("value",wealth[wealth_label].toFixed(2))
                 .attr("type","number")
                 .attr("step",0.01);
         }
@@ -201,14 +202,14 @@
                     .attr("size",3)
                     .attr("id",wealth_label)
                     .attr("readonly","readonly")
-                    .attr("value",wealth[wealth_label])
+                    .attr("value",wealth[wealth_label].toFixed(2))
                     .attr("type","number")
                     .attr("step",0.01);
                 row2.append("td").html("C: ");
                 row2.append("td").append("xhtml:input")
                     .attr("size",3)
                     .attr("id",bond_label)
-                    .attr("value",bond[bond_label])
+                    .attr("value",bond[bond_label].toFixed(2))
                     .attr("readonly","readonly")
                     .attr("type","number")
                     .attr("step",0.01);
