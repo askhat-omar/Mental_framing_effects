@@ -125,9 +125,7 @@
                 .attr("size",3)
                 .attr("id",wealth_label)
                 .attr("readonly","readonly")
-                .attr("value",wealth[wealth_label])
-                .attr("type","number")
-                .attr("step",0.01);
+                .attr("value",wealth[wealth_label].toFixed(2));
         }
 
         <!--Промежуточные ячейки-->
@@ -205,12 +203,12 @@
                     .attr("size",3)
                     .attr("id",wealth_label)
                     .attr("readonly","readonly")
-                    .attr("value",wealth[wealth_label]);
+                    .attr("value",wealth[wealth_label].toFixed(2));
                 row2.append("td").html("C: ");
                 row2.append("td").append("xhtml:input")
                     .attr("size",3)
                     .attr("id",bond_label)
-                    .attr("value",bond[bond_label])
+                    .attr("value",bond[bond_label].toFixed(2))
                     .attr("readonly","readonly");
 
                 var line_start_X = targetX + box_width;
