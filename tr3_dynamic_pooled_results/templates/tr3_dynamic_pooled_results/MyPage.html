@@ -195,7 +195,7 @@
                         .attr("size",3)
                         .attr("id",wealth_label)
                         .attr("readonly","readonly")
-                        .attr("value",wealth[wealth_label]);
+                        .attr("value",wealth[wealth_label].toFixed(2));
 
                     var row3 = tab.append("tr");
                     row3.append("td").html("Prob:");
@@ -239,13 +239,13 @@
                     row2.append("td").append("xhtml:input")
                         .attr("size",3)
                         .attr("id",wealth_label)
-                        .attr("value",wealth[wealth_label])
+                        .attr("value",wealth[wealth_label].toFixed(2))
                         .attr("readonly","readonly");
                     row2.append("td").html("C: ");
                     row2.append("td").append("xhtml:input")
                         .attr("size",3)
                         .attr("id",bond_label)
-                        .attr("value",bond[bond_label])
+                        .attr("value",bond[bond_label].toFixed(2))
                         .attr("readonly","readonly");
                 };
             };
