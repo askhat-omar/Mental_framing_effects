@@ -8,11 +8,20 @@
 {% block content %}
 
  <p>
-    Your total score is: {{player.participant.payoff}}.
+    Thank you for your time and effort. Your total score is: {{player.participant.payoff}}.
 </p>
 
 <p>
-    Thank you for your time and effort. You may now leave the room.
+    If you are currently matriculated at the University of St.Gallen with the matriculation number you provided earlier
+    then you may now leave the experiment.<br>
+    <br>
+    If, however, you are currently not matriculated at University of St.Gallen
+    please <b>send the following information and screenshot of your browser with this page</b> to Prof. Enrico Giovanni De Giorgi (enrico.degiorgi@unisg.ch):<br>
+    <ol>
+        <li>Matriculation number: {{ player.participant.label }}</li>
+        <li>Full name</li>
+        <li>Total score: {{ player.participant.payoff }}</li>
+    </ol>
 </p>
 
 
