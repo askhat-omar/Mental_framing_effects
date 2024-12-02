@@ -1,0 +1,23 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Task 1: Practice Round
+{% endblock %}
+
+{% block content %}
+    <p>Before playing for real, please complete a practice round.</p>
+    <p>The points you earn in this round will not affect your final score or payment.</p>
+    {% next_button %}
+{% endblock %}
+
+
+{% block styles %}
+    <style>
+        input, body {
+          font-family: 'Helvetica', Arial, Lucida Grande, sans-serif;
+          font-size: 14px;
+        }
+    </style>
+{% endblock %}
+
