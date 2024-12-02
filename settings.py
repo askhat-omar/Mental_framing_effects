@@ -17,7 +17,7 @@ APP_KITS = {
         'sequence': [
             'introduction',
             'task1_instructions',
-            'dynamic_portfolio_practice',
+            'task1_prac_tr1',
             'dynamic_portfolio_quiz',
             'task1_tr1',
             'dynamic_portfolio_results',
@@ -90,7 +90,7 @@ SESSION_CONFIGS = [
         num_demo_participants=1,
         app_sequence=['introduction',
                       'task1_instructions',
-                      'dynamic_portfolio_practice',
+                      'task1_prac_tr1',
                       'task1_prac_tr2',
                       'tr3_dynamic_pooled_practice',
                       'dynamic_portfolio_quiz',
