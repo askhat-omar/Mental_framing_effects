@@ -40,7 +40,7 @@ APP_KITS = {
         'sequence': [
             'introduction',
             'dynamic_portfolio_instructions',
-            'dynamic_portf_chp_practice',
+            'task1_prac_tr2',
             'dynamic_portfolio_quiz',
             'dynamic_portfolio_chp',
             'dynamic_portfolio_results',
@@ -91,7 +91,7 @@ SESSION_CONFIGS = [
         app_sequence=['introduction',
                       'dynamic_portfolio_instructions',
                       'dynamic_portfolio_practice',
-                      'dynamic_portf_chp_practice',
+                      'task1_prac_tr2',
                       'tr3_dynamic_pooled_practice',
                       'dynamic_portfolio_quiz',
                       'tr3_dynamic_pooled_quiz',
