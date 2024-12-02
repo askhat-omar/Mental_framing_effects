@@ -14,9 +14,9 @@ Your app description
 
 
 class Constants(BaseConstants):
-    name_in_url = 'dynamic_portfolio'
+    name_in_url = 'task1_tr1'
     players_per_group = None
-    num_rounds = 2
+    num_rounds = 1
     initial_wealth = 100
     initial_stock_price = 8
     up_prob = 0.5
@@ -56,11 +56,30 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+    fill_history = models.StringField()
     dyn_wealth = models.StringField()
     dyn_stock = models.StringField()
     dyn_bond = models.StringField()
     dyn_realized_states = models.StringField()
     dyn_realized_wealth = models.FloatField()
+    dyn_prices = models.StringField()
+
+    def create_prices(self):
+        r = self.round_number
+        t = self.session.config['round{}_T'.format(r)]
+        price_label = "x_{}_{}"
+        dyn_prices_list = {"x_0_1": Constants.initial_stock_price}
+        for s in range(1, t + 1, 1):
+            for i in range(1, 2 ** s + 1, 1):
+                previous_i = int((i + 1) / 2)
+                previous_price = dyn_prices_list[price_label.format(s - 1, previous_i)]
+                if i % 2 == 0:
+                    current_price = previous_price * Constants.down_tick
+                else:
+                    current_price = previous_price * Constants.up_tick
+                dyn_prices_list[price_label.format(s, i)] = current_price
+        self.dyn_prices = json.dumps(dyn_prices_list)
+        self.participant.vars["dyn_prices_round{}".format(r)] = self.dyn_prices
 
     def dyn_get_outcome(self):
         upticks = numpy.random.binomial(1, Constants.up_prob, size=self.subsession.num_periods)
