@@ -14,7 +14,7 @@ Your app description
 
 
 class Constants(BaseConstants):
-    name_in_url = 'static_portfolio_b'
+    name_in_url = 'task4_tr13'
     players_per_group = None
     num_rounds = 1
     initial_wealth = 100
