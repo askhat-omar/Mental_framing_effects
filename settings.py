@@ -29,7 +29,7 @@ APP_KITS = {
             'task3_tr13',
             'static_portfolio_results',
             'task4_tr13',
-            'static_portfolio_b_results',
+            'task4_results',
             'crt',
             'survey',
             'finalpage'
@@ -52,7 +52,7 @@ APP_KITS = {
             'static_portfolio_chp',
             'static_portfolio_results',
             'task4_tr2',
-            'static_portfolio_b_results',
+            'task4_results',
             'crt',
             'survey',
             'finalpage'
@@ -75,7 +75,7 @@ APP_KITS = {
             'task3_tr13',
             'static_portfolio_results',
             'task4_tr13',
-            'static_portfolio_b_results',
+            'task4_results',
             'crt',
             'survey',
             'finalpage'
@@ -112,7 +112,7 @@ SESSION_CONFIGS = [
                       'static_portfolio_results',
                       'task4_tr13',
                       'task4_tr2',
-                      'static_portfolio_b_results',
+                      'task4_results',
                       'crt',
                       'survey',
                       'finalpage'
