@@ -12,7 +12,7 @@ Your app description
 
 
 class Constants(BaseConstants):
-    name_in_url = 'static_portfolio_results'
+    name_in_url = 'task3_results_tr13'
     players_per_group = None
     num_rounds = 1
 
