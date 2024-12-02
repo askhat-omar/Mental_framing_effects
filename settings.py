@@ -16,7 +16,7 @@ APP_KITS = {
         'color': 'green',
         'sequence': [
             'introduction',
-            'dynamic_portfolio_instructions',
+            'task1_instructions',
             'dynamic_portfolio_practice',
             'dynamic_portfolio_quiz',
             'task1_tr1',
@@ -39,7 +39,7 @@ APP_KITS = {
         'color': 'blue',
         'sequence': [
             'introduction',
-            'dynamic_portfolio_instructions',
+            'task1_instructions',
             'task1_prac_tr2',
             'dynamic_portfolio_quiz',
             'task1_tr2',
@@ -62,7 +62,7 @@ APP_KITS = {
         'color': 'red',
         'sequence': [
             'introduction',
-            'dynamic_portfolio_instructions',
+            'task1_instructions',
             'tr3_dynamic_pooled_practice',
             'tr3_dynamic_pooled_quiz',
             'tr3_dynamic_pooled',
@@ -89,7 +89,7 @@ SESSION_CONFIGS = [
         display_name="Experiment",
         num_demo_participants=1,
         app_sequence=['introduction',
-                      'dynamic_portfolio_instructions',
+                      'task1_instructions',
                       'dynamic_portfolio_practice',
                       'task1_prac_tr2',
                       'tr3_dynamic_pooled_practice',

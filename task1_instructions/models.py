@@ -12,7 +12,7 @@ Your app description
 
 
 class Constants(BaseConstants):
-    name_in_url = 'dynamic_portfolio_instructions'
+    name_in_url = 'task1_instructions'
     players_per_group = None
     num_rounds = 1
 
@@ -26,4 +26,6 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    pass
+    def treatment(self):
+        treatment = self.participant.vars["treatment"]
+        return treatment
