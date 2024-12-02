@@ -14,18 +14,12 @@ Your app description
 
 
 class Constants(BaseConstants):
-    name_in_url = 'dynamic_portfolio_chp'
+    name_in_url = 'task1_tr2'
     players_per_group = None
-    # Второй (Т=4) раунд я убрал, достаточно первого (Т=3)
     num_rounds = 1
     initial_wealth = 100
-    # Начальная цена акции может быть случайной в диапазоне от 1 до 10
     initial_stock_price = 8
-    # Вероятность того, что цена пойдет вверх. В dynamic_portfolio с одинаковыми вероятностями так и остается, в версии
-    # с разными вероятностями при Т=2 вероятность меняется на 0.667, а при Т=3 вероятность меняется на 0.333. Думаю,
-    # понятно, что вероятность того, что цена пойдет вниз равна 1 - up_prob
     up_prob = 0.5
-    # Эти двое не меняются, это коэффициенты роста цены акции
     up_tick = 2
     down_tick = 0.5
     uptick_probs = [
@@ -39,7 +33,6 @@ class Subsession(BaseSubsession):
     dyn_prices = models.StringField()
     uptick_probs = models.StringField()
 
-# Здесь прописывается логика того, как меняется цена акции и как в зависимости от этого меняется богатство респондента
     def creating_session(self):
         num_rounds = Constants.num_rounds
         if self.round_number == 1:
@@ -94,10 +87,6 @@ class Player(BasePlayer):
         self.dyn_prices = json.dumps(dyn_prices_list)
         self.participant.vars["dyn_prices_round{}".format(r)] = self.dyn_prices
 
-# Здесь случайным образом выбираются результаты. Для dynamic_portfolio с одинаковыми вероятностями ничего не меняется,
-# но для версии с меняющимися вероятностями возможно нужно через if поменять. Для dynamic_iterative нужно будет сделать
-# то же самое, кроме того, что результат вычисляется и показывается респонденту сразу и пошагово (в dynamic_portfolio это
-# делается в конце эксперимента)
     def dyn_get_outcome(self):
         realized_states = {"0": 1}
         state = 1
