@@ -14,7 +14,7 @@ Your app description
 
 
 class Constants(BaseConstants):
-    name_in_url = 'dynamic_portfolio_results'
+    name_in_url = 'task1_results_tr12'
     players_per_group = None
     num_rounds = 1
 
