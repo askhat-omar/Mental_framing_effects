@@ -16,7 +16,7 @@ class MyPage(Page):
     def vars_for_template(self):
         p = self.player
         p.for_template()
-        return {'num_states': self.subsession.num_periods + 1}
+        return {'num_states': self.subsession.num_periods + 2}
 
     def before_next_page(self):
         self.player.newt2_get_outcome()

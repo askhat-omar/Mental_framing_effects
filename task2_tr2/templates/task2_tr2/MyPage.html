@@ -31,6 +31,10 @@
     width: 70px;
     font-weight: bold;
 }
+#pf_5{
+    width: 70px;
+    font-weight: bold;
+}
 #w_1{
     width: 70px;
     font-weight: bold;
@@ -44,6 +48,10 @@
     font-weight: bold;
 }
 #w_4{
+    width: 70px;
+    font-weight: bold;
+}
+#w_5{
     width: 70px;
     font-weight: bold;
 }
@@ -84,6 +92,7 @@
         var payoff_AD2 = JSON.parse({{player.payoff_s2|json}});
         var payoff_AD3 = JSON.parse({{player.payoff_s3|json}});
         var payoff_AD4 = JSON.parse({{player.payoff_s4|json}});
+        var payoff_AD5 = JSON.parse({{player.payoff_s5|json}});
         var head = table.append("thead").append("tr")
             .attr("height", "70")
             .attr("id", "head");
@@ -93,6 +102,7 @@
         head.append("td").html("Asset 2").attr("width", "100");
         head.append("td").html("Asset 3").attr("width", "100");
         head.append("td").html("Asset 4").attr("width", "100");
+        head.append("td").html("Asset 5").attr("width", "100");
         head.append("td").html("Portfolio").attr("width", "100");
         for(i=1; i<{{ num_states|json }}+1; i++){
             probability_label = "pr_" + i;
@@ -108,6 +118,7 @@
             var payoff_2 = payoff_AD2[payoff_label];
             var payoff_3 = payoff_AD3[payoff_label];
             var payoff_4 = payoff_AD4[payoff_label];
+            var payoff_5 = payoff_AD5[payoff_label];
             row.append("td").html(probability)
                 .attr("width", "100")
                 .attr("id", "probs");
@@ -115,6 +126,7 @@
             row.append("td").html(payoff_2).attr("width", "100");
             row.append("td").html(payoff_3).attr("width", "100");
             row.append("td").html(payoff_4).attr("width", "100");
+            row.append("td").html(payoff_5).attr("width", "100");
             row.append("td").append("xhtml:input")
                     .attr("size", "15")
                     .attr("id",portfolio_label)
@@ -122,7 +134,7 @@
                     .attr("width", "100");
         };
         var mezzanine_row = table.append("tr").attr("height", "30");
-        mezzanine_row.append("td").attr("colspan", "7");
+        mezzanine_row.append("td").attr("colspan", "8");
         var bottom_row = table.append("tr")
             .attr("height", "50")
             .attr("id", "bottom");
@@ -159,6 +171,7 @@
         var payoff_AD2 = JSON.parse({{player.payoff_s2|json}});
         var payoff_AD3 = JSON.parse({{player.payoff_s3|json}});
         var payoff_AD4 = JSON.parse({{player.payoff_s4|json}});
+        var payoff_AD5 = JSON.parse({{player.payoff_s5|json}});
         $("input").on("keydown keyup", function() {
             var weights_string = "{ ";
             var tot_weights = 0;
@@ -170,12 +183,13 @@
                 var payoff_2 = payoff_AD2[payoff_label];
                 var payoff_3 = payoff_AD3[payoff_label];
                 var payoff_4 = payoff_AD4[payoff_label];
+                var payoff_5 = payoff_AD5[payoff_label];
                 if(i=={{ num_states|json }}){
                     var residual = ( {{ Constants.initial_wealth|json }} - tot_weights );
                     $(weight_label).val(Math.round(residual*10)/10);
                 };
                 var weight = parseFloat($(weight_label).val());
-                var expenditure = (payoff_1+payoff_2+payoff_3+payoff_4) * weight;
+                var expenditure = (payoff_1+payoff_2+payoff_3+payoff_4+payoff_5) * weight;
                 if(!isNaN(expenditure)){
                     $(portfolio_label).val(expenditure.toFixed(2));
                 };

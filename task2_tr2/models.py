@@ -18,13 +18,14 @@ class Constants(BaseConstants):
     players_per_group = None
     num_rounds = 1
     initial_wealth = 100
-    probabilities = {"pr_1": 0.111, "pr_2": 0.361, "pr_3": 0.403, "pr_4": 0.125}
-    payoff_s1 = {"AD_1": 27.00, "AD_2": 0.00, "AD_3": 0.00, "AD_4": 0.00}
-    payoff_s2 = {"AD_1": 0.00, "AD_2": 4.50, "AD_3": 0.00, "AD_4": 0.00}
-    payoff_s3 = {"AD_1": 0.00, "AD_2": 0.00, "AD_3": 2.25, "AD_4": 0.00}
-    payoff_s4 = {"AD_1": 0.00, "AD_2": 0.00, "AD_3": 0.00, "AD_4": 3.38}
-    probs_for_payoff = [0.111, 0.361, 0.403, 0.125]
-    states_for_payoff = [1, 2, 3, 4]
+    probabilities = {"pr_1": 0.333, "pr_2": 0.167, "pr_3": 0.25, "pr_4": 0.125, "pr_5": 0.125}
+    payoff_s1 = {"AD_1": 9.00, "AD_2": 0.00, "AD_3": 0.00, "AD_4": 0.00, "AD_5": 0.00}
+    payoff_s2 = {"AD_1": 0.00, "AD_2": 4.50, "AD_3": 0.00, "AD_4": 0.00, "AD_5": 0.00}
+    payoff_s3 = {"AD_1": 0.00, "AD_2": 0.00, "AD_3": 4.50, "AD_4": 0.00, "AD_5": 0.00}
+    payoff_s4 = {"AD_1": 0.00, "AD_2": 0.00, "AD_3": 0.00, "AD_4": 6.75, "AD_5": 0.00}
+    payoff_s5 = {"AD_1": 0.00, "AD_2": 0.00, "AD_3": 0.00, "AD_4": 0.00, "AD_5": 3.375}
+    probs_for_payoff = [0.333, 0.167, 0.25, 0.125, 0.125]
+    states_for_payoff = [1, 2, 3, 4, 5]
 
 
 class Subsession(BaseSubsession):
@@ -34,6 +35,7 @@ class Subsession(BaseSubsession):
     payoff_s2 = models.StringField()
     payoff_s3 = models.StringField()
     payoff_s4 = models.StringField()
+    payoff_s5 = models.StringField()
 
     def creating_session(self):
         num_rounds = Constants.num_rounds
@@ -60,6 +62,7 @@ class Player(BasePlayer):
     payoff_s2 = models.StringField()
     payoff_s3 = models.StringField()
     payoff_s4 = models.StringField()
+    payoff_s5 = models.StringField()
 
     def for_template(self):
         self.probabilities = json.dumps(Constants.probabilities)
@@ -67,6 +70,7 @@ class Player(BasePlayer):
         self.payoff_s2 = json.dumps(Constants.payoff_s2)
         self.payoff_s3 = json.dumps(Constants.payoff_s3)
         self.payoff_s4 = json.dumps(Constants.payoff_s4)
+        self.payoff_s5 = json.dumps(Constants.payoff_s5)
 
     def newt2_get_outcome(self):
         self.newt2_realized_state = int(np.random.choice(Constants.states_for_payoff, p=Constants.probs_for_payoff))
@@ -74,18 +78,18 @@ class Player(BasePlayer):
         payoff_label = "AD_{}"
         portfolio_label = "pf_{}"
         portfolio_payoffs = {"pf_1": 0}
-        variables = [Constants.payoff_s1, Constants.payoff_s2, Constants.payoff_s3, Constants.payoff_s4]
-        payoff_matrix = np.zeros(shape=(4, 4))
-        for i in range(1, 5):
-            for j in range(1, 5):
+        variables = [Constants.payoff_s1, Constants.payoff_s2, Constants.payoff_s3, Constants.payoff_s4, Constants.payoff_s5]
+        payoff_matrix = np.zeros(shape=(5, 5))
+        for i in range(1, 6):
+            for j in range(1, 6):
                 payoff_matrix[i - 1, j - 1] = variables[i - 1][payoff_label.format(j)]
-        weights = np.array([weights_list["w_1"], weights_list["w_2"], weights_list["w_3"], weights_list["w_4"]])
-        result = np.zeros(shape=(4, 4))
-        for n in range(4):
-            for k in range(4):
+        weights = np.array([weights_list["w_1"], weights_list["w_2"], weights_list["w_3"], weights_list["w_4"], weights_list["w_5"]])
+        result = np.zeros(shape=(5, 5))
+        for n in range(5):
+            for k in range(5):
                 result[n, k] = payoff_matrix[n, k] * weights[k]
         portfolio = np.round(result.sum(axis=1),2)
-        for p in range(1, 5):
+        for p in range(1, 6):
             portfolio_payoffs[portfolio_label.format(p)] = portfolio[p - 1]
         #
         self.newt2_realized_pay = portfolio_payoffs[portfolio_label.format(self.newt2_realized_state)]
