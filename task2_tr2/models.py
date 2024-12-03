@@ -105,3 +105,4 @@ class Player(BasePlayer):
         self.participant.vars["newt2_payoff_s2_round{}".format(r)] = self.payoff_s2
         self.participant.vars["newt2_payoff_s3_round{}".format(r)] = self.payoff_s3
         self.participant.vars["newt2_payoff_s4_round{}".format(r)] = self.payoff_s4
+        self.participant.vars["newt2_payoff_s5_round{}".format(r)] = self.payoff_s5
