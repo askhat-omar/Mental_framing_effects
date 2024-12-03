@@ -18,7 +18,7 @@ Your app description
 
 
 class Constants(BaseConstants):
-    name_in_url = 'tr3_dynamic_pooled'
+    name_in_url = 'task1_tr3'
     players_per_group = None
     num_rounds = 1
     initial_wealth = 100
