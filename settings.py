@@ -63,7 +63,7 @@ APP_KITS = {
         'sequence': [
             'introduction',
             'task1_instructions',
-            'tr3_dynamic_pooled_practice',
+            'task1_prac_tr3',
             'tr3_dynamic_pooled_quiz',
             'task1_tr3',
             'tr3_dynamic_pooled_results',
@@ -92,7 +92,7 @@ SESSION_CONFIGS = [
                       'task1_instructions',
                       'task1_prac_tr1',
                       'task1_prac_tr2',
-                      'tr3_dynamic_pooled_practice',
+                      'task1_prac_tr3',
                       'task1_quiz_tr12',
                       'tr3_dynamic_pooled_quiz',
                       'task1_tr1',
