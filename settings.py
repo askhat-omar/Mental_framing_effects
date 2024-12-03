@@ -52,7 +52,7 @@ APP_KITS = {
             'task3_tr2',
             'task3_results_tr2',
             'task4_tr2',
-            'task4_results',
+            'task4_results_tr2',
             'crt',
             'survey',
             'finalpage'
@@ -115,6 +115,7 @@ SESSION_CONFIGS = [
                       'task4_tr13',
                       'task4_tr2',
                       'task4_results',
+                      'task4_results_tr2',
                       'crt',
                       'survey',
                       'finalpage'
