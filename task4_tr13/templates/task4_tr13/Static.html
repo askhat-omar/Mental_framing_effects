@@ -61,14 +61,16 @@
             portfolio_label = "pf_" + i;
             var row = table.append("tr").attr("height", "40");
             row.append("td").html(i)
-                .attr("width", "100");
+                .attr("width", "100")
+                .attr("id", "index");
             var probability = (probabilities[probability_label]);
             var asset_a = (payoff_a[payoff_label]).toFixed(2);
             var asset_b = (payoff_b[payoff_label]).toFixed(2);
             var asset_c = (payoff_c[payoff_label]).toFixed(2);
             var asset_d = (payoff_d[payoff_label]).toFixed(2);
             row.append("td").html(probability)
-                .attr("width", "100");
+                .attr("width", "100")
+                .attr("id", "probs");
             row.append("td").html(asset_a).attr("width", "100");
             row.append("td").html(asset_b).attr("width", "100");
             row.append("td").html(asset_c).attr("width", "100");
