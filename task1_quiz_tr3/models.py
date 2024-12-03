@@ -14,7 +14,7 @@ Your app description
 
 
 class Constants(BaseConstants):
-    name_in_url = 'tr3_dynamic_pooled_quiz'
+    name_in_url = 'task1_quiz_tr3'
     players_per_group = None
     num_rounds = 1
     terminal_probs = [0.125, 0.375, 0.375, 0.125]
