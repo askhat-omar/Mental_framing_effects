@@ -36,7 +36,7 @@ class Static(Page):
                          FORMAT_FLOAT.format(wealth["w_3_3"]),
                          FORMAT_FLOAT.format(wealth["w_3_4"]))
         return {
-            'num_states': 8,
+            'num_states': 2**self.subsession.num_periods,
             'payoff_c': p.payoff_c,
         }
 
