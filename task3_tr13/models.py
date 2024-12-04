@@ -18,15 +18,15 @@ class Constants(BaseConstants):
     players_per_group = None
     num_rounds = 1
     initial_wealth = 100
-    probabilities = {"pr_1": 0.125, "pr_2": 0.375, "pr_3": 0.375, "pr_4": 0.125}
-    payoff_a = {"pay_1": 233.94, "pay_2": 147.37, "pay_3": 92.83, "pay_4": 58.48}
-    payoff_b = {"pay_1": 337.50, "pay_2": 168.75, "pay_3": 84.38, "pay_4": 42.19}
-    payoff_d = {"pay_1": 800.00, "pay_2": 200.00, "pay_3": 50.00, "pay_4": 12.50}
-    a = [233.94, 147.37, 92.83, 58.48]
-    b = [337.50, 168.75, 84.38, 42.19]
-    d = [800.00, 200.00, 50.00, 12.50]
-    probs_for_payoff = [0.125, 0.375, 0.375, 0.125]
-    states_for_payoff = [1, 2, 3, 4]
+    probabilities = {"pr_1": 0.125, "pr_2": 0.125, "pr_3": 0.125, "pr_4": 0.125, "pr_5": 0.125, "pr_6": 0.125, "pr_7": 0.125, "pr_8": 0.125}
+    payoff_a = {"pay_1": 233.93, "pay_2": 147.37, "pay_3": 147.37, "pay_4": 92.83, "pay_5": 147.37, "pay_6": 92.83, "pay_7": 92.83, "pay_8": 58.48}
+    payoff_b = {"pay_1": 337.50, "pay_2": 168.75, "pay_3": 168.75, "pay_4": 84.38, "pay_5": 168.75, "pay_6": 84.38, "pay_7": 84.38, "pay_8": 42.19}
+    payoff_d = {"pay_1": 800.00, "pay_2": 200.00, "pay_3": 200.00, "pay_4": 50.00, "pay_5": 200.00, "pay_6": 50.00, "pay_7": 50.00, "pay_8": 12.50}
+    a = [233.93, 147.37, 147.37, 92.83, 147.37, 92.83, 92.83, 58.48]
+    b = [337.50, 168.75, 168.75, 84.38, 168.75, 84.38, 84.38, 42.19]
+    d = [800.00, 200.00, 200.00, 50.00, 200.00, 50.00, 50.00, 12.50]
+    probs_for_payoff = [0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125]
+    states_for_payoff = [1, 2, 3, 4, 5, 6, 7, 8]
 
 
 
@@ -58,10 +58,10 @@ class Player(BasePlayer):
     w_2 = models.StringField()
     w_3 = models.StringField()
     w_4 = models.StringField()
-    pf_1 = models.StringField()
-    pf_2 = models.StringField()
-    pf_3 = models.StringField()
-    pf_4 = models.StringField()
+    w_5 = models.StringField()
+    w_6 = models.StringField()
+    w_7 = models.StringField()
+    w_8 = models.StringField()
     payoff_a = models.StringField()
     payoff_b = models.StringField()
     payoff_c = models.StringField()
@@ -72,12 +72,16 @@ class Player(BasePlayer):
 
 
 
-    def set_wealth(self, w_1, w_2, w_3, w_4):
+    def set_wealth(self, w_1, w_2, w_3, w_4, w_5, w_6, w_7, w_8):
         self.w_1 = w_1
         self.w_2 = w_2
         self.w_3 = w_3
         self.w_4 = w_4
-        asset_c = {"pay_1": self.w_1, "pay_2": self.w_2, "pay_3": self.w_3, "pay_4": self.w_4}
+        self.w_5 = w_5
+        self.w_6 = w_6
+        self.w_7 = w_7
+        self.w_8 = w_8
+        asset_c = {"pay_1": self.w_1, "pay_2": self.w_2, "pay_3": self.w_3, "pay_4": self.w_4, "pay_5": self.w_5, "pay_6": self.w_6, "pay_7": self.w_7, "pay_8": self.w_8}
         self.probabilities = json.dumps(Constants.probabilities)
         self.payoff_a = json.dumps(Constants.payoff_a)
         self.payoff_b = json.dumps(Constants.payoff_b)
@@ -87,7 +91,7 @@ class Player(BasePlayer):
     def for_payoff(self):
         self.static_realized_state = int(numpy.random.choice(Constants.states_for_payoff, p=Constants.probs_for_payoff))
         payoff_label = "pay_{}"
-        asset_c = {"pay_1": self.w_1, "pay_2": self.w_2, "pay_3": self.w_3, "pay_4": self.w_4}
+        asset_c = {"pay_1": self.w_1, "pay_2": self.w_2, "pay_3": self.w_3, "pay_4": self.w_4, "pay_5": self.w_5, "pay_6": self.w_6, "pay_7": self.w_7, "pay_8": self.w_8}
         if self.lottery == '1':
             k = Constants.payoff_a[payoff_label.format(self.static_realized_state)]
         elif self.lottery == '2':

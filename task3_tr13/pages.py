@@ -19,16 +19,24 @@ class Static(Page):
         wealth = json.loads(p.participant.vars["dyn_wealth_round{}".format(r)])
         if treatment == 1:
             p.set_wealth(FORMAT_FLOAT.format(wealth["w_3_1"]),
-                         FORMAT_FLOAT.format((wealth["w_3_2"] + wealth["w_3_3"] + wealth["w_3_5"]) / 3),
-                         FORMAT_FLOAT.format((wealth["w_3_4"] + wealth["w_3_6"] + wealth["w_3_7"]) / 3),
+                         FORMAT_FLOAT.format(wealth["w_3_2"]),
+                         FORMAT_FLOAT.format(wealth["w_3_3"]),
+                         FORMAT_FLOAT.format(wealth["w_3_4"]),
+                         FORMAT_FLOAT.format(wealth["w_3_5"]),
+                         FORMAT_FLOAT.format(wealth["w_3_6"]),
+                         FORMAT_FLOAT.format(wealth["w_3_7"]),
                          FORMAT_FLOAT.format(wealth["w_3_8"]))
         elif treatment == 3:
             p.set_wealth(FORMAT_FLOAT.format(wealth["w_3_1"]),
                          FORMAT_FLOAT.format(wealth["w_3_2"]),
+                         FORMAT_FLOAT.format(wealth["w_3_2"]),
+                         FORMAT_FLOAT.format(wealth["w_3_3"]),
+                         FORMAT_FLOAT.format(wealth["w_3_2"]),
+                         FORMAT_FLOAT.format(wealth["w_3_3"]),
                          FORMAT_FLOAT.format(wealth["w_3_3"]),
                          FORMAT_FLOAT.format(wealth["w_3_4"]))
         return {
-            'num_states': self.subsession.num_periods + 1,
+            'num_states': 8,
             'payoff_c': p.payoff_c,
         }
 
