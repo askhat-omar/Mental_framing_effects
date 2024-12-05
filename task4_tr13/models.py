@@ -18,9 +18,9 @@ class Constants(BaseConstants):
     players_per_group = None
     num_rounds = 1
     initial_wealth = 100
-    probabilities = {"pr_1": 0.125, "pr_2": 0.375, "pr_3": 0.375, "pr_4": 0.125}
-    probs_for_payoff = [0.125, 0.375, 0.375, 0.125]
-    states_for_payoff = [1, 2, 3, 4]
+    probabilities = {"pr_1": 0.125, "pr_2": 0.125, "pr_3": 0.125, "pr_4": 0.125, "pr_5": 0.125, "pr_6": 0.125, "pr_7": 0.125, "pr_8": 0.125}
+    probs_for_payoff = [0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125]
+    states_for_payoff = [1, 2, 3, 4, 5, 6, 7, 8]
 
 
 class Subsession(BaseSubsession):
@@ -50,6 +50,10 @@ class Player(BasePlayer):
     w_2 = models.FloatField()
     w_3 = models.FloatField()
     w_4 = models.FloatField()
+    w_5 = models.FloatField()
+    w_6 = models.FloatField()
+    w_7 = models.FloatField()
+    w_8 = models.FloatField()
     payoff_a = models.StringField()
     payoff_b = models.StringField()
     payoff_c = models.StringField()
@@ -58,19 +62,27 @@ class Player(BasePlayer):
     static_realized_pay = models.FloatField()
     probabilities = models.StringField()
 
-    def set_wealth(self, w_1, w_2, w_3, w_4):
+    def set_wealth(self, w_1, w_2, w_3, w_4, w_5, w_6, w_7, w_8):
         self.w_1 = float(w_1)
         self.w_2 = float(w_2)
         self.w_3 = float(w_3)
         self.w_4 = float(w_4)
+        self.w_5 = float(w_5)
+        self.w_6 = float(w_6)
+        self.w_7 = float(w_7)
+        self.w_8 = float(w_8)
 
-        asset_a = {"pay_1": max(self.w_4 - 5, 0), "pay_2": max(self.w_3 - 10, 0), "pay_3": max(self.w_2 - 15, 0),
-                   "pay_4": max(self.w_1 - 20, 0)}
-        asset_b = {"pay_1": self.w_4, "pay_2": self.w_3, "pay_3": self.w_2, "pay_4": self.w_1}
-        asset_c = {"pay_1": max(self.w_4 - 20, 0), "pay_2": max(self.w_3 - 15, 0), "pay_3": max(self.w_2 - 10, 0),
-                   "pay_4": max(self.w_1 - 5, 0)}
-        asset_d = {"pay_1": max(self.w_4 - 10, 0), "pay_2": max(self.w_3 - 20, 0), "pay_3": max(self.w_2 - 5, 0),
-                   "pay_4": max(self.w_1 - 15, 0)}
+        asset_a = {"pay_1": max(self.w_8 - 5, 0), "pay_2": max(self.w_7 - 10, 0), "pay_3": max(self.w_6 - 10, 0),
+                   "pay_4": max(self.w_5 - 15, 0), "pay_5": max(self.w_4 - 10, 0), "pay_6": max(self.w_3 - 15, 0),
+                   "pay_7": max(self.w_2 - 15, 0), "pay_8": max(self.w_1 - 20, 0)}
+        asset_b = {"pay_1": self.w_8, "pay_2": self.w_7, "pay_3": self.w_6, "pay_4": self.w_5, "pay_5": self.w_4,
+                   "pay_6": self.w_3, "pay_7": self.w_2, "pay_8": self.w_1}
+        asset_c = {"pay_1": max(self.w_8 - 20, 0), "pay_2": max(self.w_7 - 15, 0), "pay_3": max(self.w_6 - 15, 0),
+                   "pay_4": max(self.w_5 - 10, 0), "pay_5": max(self.w_4 - 15, 0), "pay_6": max(self.w_3 - 10, 0),
+                   "pay_7": max(self.w_2 - 10, 0), "pay_8": max(self.w_1 - 5, 0)}
+        asset_d = {"pay_1": max(self.w_8 - 10, 0), "pay_2": max(self.w_7 - 20, 0), "pay_3": max(self.w_6 - 20, 0),
+                   "pay_4": max(self.w_5 - 5, 0), "pay_5": max(self.w_4 - 20, 0), "pay_6": max(self.w_3 - 5, 0),
+                   "pay_7": max(self.w_2 - 5, 0), "pay_8": max(self.w_1 - 15, 0)}
 
         self.probabilities = json.dumps(Constants.probabilities)
         self.payoff_a = json.dumps(asset_a)
@@ -81,13 +93,17 @@ class Player(BasePlayer):
     def for_payoff(self):
         self.static_realized_state = int(np.random.choice(Constants.states_for_payoff, p=Constants.probs_for_payoff))
         payoff_label = "pay_{}"
-        asset_a = {"pay_1": max(self.w_4 - 5, 0), "pay_2": max(self.w_3 - 10, 0), "pay_3": max(self.w_2 - 15, 0),
-                   "pay_4": max(self.w_1 - 20, 0)}
-        asset_b = {"pay_1": self.w_4, "pay_2": self.w_3, "pay_3": self.w_2, "pay_4": self.w_1}
-        asset_c = {"pay_1": max(self.w_4 - 20, 0), "pay_2": max(self.w_3 - 15, 0), "pay_3": max(self.w_2 - 10, 0),
-                   "pay_4": max(self.w_1 - 5, 0)}
-        asset_d = {"pay_1": max(self.w_4 - 10, 0), "pay_2": max(self.w_3 - 20, 0), "pay_3": max(self.w_2 - 5, 0),
-                   "pay_4": max(self.w_1 - 15, 0)}
+        asset_a = {"pay_1": max(self.w_8 - 5, 0), "pay_2": max(self.w_7 - 10, 0), "pay_3": max(self.w_6 - 10, 0),
+                   "pay_4": max(self.w_5 - 15, 0), "pay_5": max(self.w_4 - 10, 0), "pay_6": max(self.w_3 - 15, 0),
+                   "pay_7": max(self.w_2 - 15, 0), "pay_8": max(self.w_1 - 20, 0)}
+        asset_b = {"pay_1": self.w_8, "pay_2": self.w_7, "pay_3": self.w_6, "pay_4": self.w_5, "pay_5": self.w_4,
+                   "pay_6": self.w_3, "pay_7": self.w_2, "pay_8": self.w_1}
+        asset_c = {"pay_1": max(self.w_8 - 20, 0), "pay_2": max(self.w_7 - 15, 0), "pay_3": max(self.w_6 - 15, 0),
+                   "pay_4": max(self.w_5 - 10, 0), "pay_5": max(self.w_4 - 15, 0), "pay_6": max(self.w_3 - 10, 0),
+                   "pay_7": max(self.w_2 - 10, 0), "pay_8": max(self.w_1 - 5, 0)}
+        asset_d = {"pay_1": max(self.w_8 - 10, 0), "pay_2": max(self.w_7 - 20, 0), "pay_3": max(self.w_6 - 20, 0),
+                   "pay_4": max(self.w_5 - 5, 0), "pay_5": max(self.w_4 - 20, 0), "pay_6": max(self.w_3 - 5, 0),
+                   "pay_7": max(self.w_2 - 5, 0), "pay_8": max(self.w_1 - 15, 0)}
         if self.lottery == '1':
             k = asset_a[payoff_label.format(self.static_realized_state)]
         elif self.lottery == '2':
