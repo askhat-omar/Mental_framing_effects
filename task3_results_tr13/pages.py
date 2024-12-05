@@ -14,7 +14,7 @@ class Results(Page):
     def vars_for_template(self):
         r = self.round_number
         p = self.player
-        return {'num_states': self.session.vars["static_num_periods_round{}".format(r)] + 1,
+        return {'num_states': 2 ** self.session.vars["static_num_periods_round{}".format(r)],
                 'probabilities': p.participant.vars["static_probabilities_round{}".format(r)],
                 'payoff_a': p.participant.vars["static_payoff_a_round{}".format(r)],
                 'payoff_b': p.participant.vars["static_payoff_b_round{}".format(r)],
