@@ -22,7 +22,7 @@ class Constants(BaseConstants):
     payoff_s1 = {"AD_1": 27.00, "AD_2": 0.00, "AD_3": 0.00, "AD_4": 0.00}
     payoff_s2 = {"AD_1": 0.00, "AD_2": 4.50, "AD_3": 0.00, "AD_4": 0.00}
     payoff_s3 = {"AD_1": 0.00, "AD_2": 0.00, "AD_3": 2.25, "AD_4": 0.00}
-    payoff_s4 = {"AD_1": 0.00, "AD_2": 0.00, "AD_3": 0.00, "AD_4": 3.38}
+    payoff_s4 = {"AD_1": 0.00, "AD_2": 0.00, "AD_3": 0.00, "AD_4": 3.375}
     probs_for_payoff = [0.125, 0.375, 0.375, 0.125]
     states_for_payoff = [1, 2, 3, 4]
 
