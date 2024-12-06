@@ -166,10 +166,10 @@
                 payoff_label = "AD_" + i;
                 weight_label = "#w_" + i;
                 portfolio_label = "#pf_" + i;
-                var payoff_1 = payoff_AD1[payoff_label];
-                var payoff_2 = payoff_AD2[payoff_label];
-                var payoff_3 = payoff_AD3[payoff_label];
-                var payoff_4 = payoff_AD4[payoff_label];
+                var payoff_1 = Math.round(payoff_AD1[payoff_label]*100)/100;
+                var payoff_2 = Math.round(payoff_AD2[payoff_label]*100)/100;
+                var payoff_3 = Math.round(payoff_AD3[payoff_label]*100)/100;
+                var payoff_4 = Math.round(payoff_AD4[payoff_label]*100)/100;
                 if(i=={{ num_states|json }}){
                     var residual = ( {{ Constants.initial_wealth|json }} - tot_weights );
                     $(weight_label).val(Math.round(residual*10)/10);
