@@ -160,7 +160,7 @@ class Player(BasePlayer):
             [1, 'The one at the top.'],
             [2, 'The one at the bottom.'],
             [3, 'A randomly selected one.'],
-            [4, 'All of them.']
+            [4, 'None of them.']
         ],
         widget=widgets.RadioSelect
     )
