@@ -16,7 +16,7 @@ class Constants(BaseConstants):
     name_in_url = 'task1_prac_tr1'
     players_per_group = None
     num_rounds = 2
-    initial_wealth_list = [120, 80]
+    initial_wealth_list = [100, 80]
     initial_stock_price = 8
     up_prob = 0.5
     up_tick = 2
