@@ -86,7 +86,7 @@ class Player(BasePlayer):
                 result[n, k] = payoff_matrix[n, k] * weights[k]
         portfolio = np.round(result.sum(axis=1),2)
         for p in range(1, 4):
-            portfolio_payoffs[portfolio_label.format(p)] = portfolio[p - 1]
+            portfolio_payoffs[portfolio_label.format(p)] = float(portfolio[p - 1])
         #
         self.newt2_realized_pay = portfolio_payoffs[portfolio_label.format(self.newt2_realized_state)]
         self.newt2_portfolio = json.dumps(portfolio_payoffs)
