@@ -106,10 +106,10 @@
                 .attr("width", "100")
                 .attr("id", "index");
             var probability = (probabilities[probability_label]);
-            var payoff_1 = payoff_AD1[payoff_label];
-            var payoff_2 = payoff_AD2[payoff_label];
-            var payoff_3 = payoff_AD3[payoff_label];
-            var payoff_4 = payoff_AD4[payoff_label];
+            var payoff_1 = Math.round(payoff_AD1[payoff_label] * 100) / 100;
+            var payoff_2 = Math.round(payoff_AD2[payoff_label] * 100) / 100;
+            var payoff_3 = Math.round(payoff_AD3[payoff_label] * 100) / 100;
+            var payoff_4 = Math.round(payoff_AD4[payoff_label] * 100) / 100;
             var portf = portfolio[portfolio_label].toFixed(2);
             row.append("td").html(probability)
                 .attr("width", "100")
