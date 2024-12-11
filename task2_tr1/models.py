@@ -29,11 +29,6 @@ class Constants(BaseConstants):
 
 class Subsession(BaseSubsession):
     num_periods = models.IntegerField()
-    probabilities = models.StringField()
-    payoff_s1 = models.StringField()
-    payoff_s2 = models.StringField()
-    payoff_s3 = models.StringField()
-    payoff_s4 = models.StringField()
 
     def creating_session(self):
         num_rounds = Constants.num_rounds

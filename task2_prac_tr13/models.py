@@ -28,11 +28,6 @@ class Constants(BaseConstants):
 
 class Subsession(BaseSubsession):
     num_periods = models.IntegerField()
-    probabilities = models.StringField()
-    payoff_s1 = models.StringField()
-    payoff_s2 = models.StringField()
-    payoff_s3 = models.StringField()
-    payoff_s4 = models.StringField()
 
     def creating_session(self):
         num_rounds = Constants.num_rounds
@@ -58,8 +53,6 @@ class Player(BasePlayer):
     payoff_s1 = models.StringField()
     payoff_s2 = models.StringField()
     payoff_s3 = models.StringField()
-    payoff_s4 = models.StringField()
-    weights_temp = models.StringField()
 
     def for_template(self):
         self.probabilities = json.dumps(Constants.probabilities)
@@ -90,4 +83,3 @@ class Player(BasePlayer):
         #
         self.newt2_realized_pay = portfolio_payoffs[portfolio_label.format(self.newt2_realized_state)]
         self.newt2_portfolio = json.dumps(portfolio_payoffs)
-        self.weights_temp = json.dumps(weights_list)

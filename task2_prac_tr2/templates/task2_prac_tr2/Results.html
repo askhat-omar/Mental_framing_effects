@@ -82,7 +82,7 @@
         var payoff_AD2 = JSON.parse({{player.payoff_s2|json}});
         var payoff_AD3 = JSON.parse({{player.payoff_s3|json}});
         var portfolio = JSON.parse({{player.newt2_portfolio|json}});
-        var weights = JSON.parse({{player.weights_temp|json}});
+        var weights = JSON.parse({{player.newt2_weights|json}});
         var head = table.append("thead").append("tr")
             .attr("height", "70")
             .attr("id", "head");
