@@ -6,7 +6,7 @@ from helpers import get_next_app
 
 class Task_1(Page):
     form_model = 'player'
-    form_fields = ['dyn_stock', 'dyn_bond', 'dyn_wealth']
+    form_fields = ['dyn_stock', 'dyn_bond', 'dyn_wealth', 'fill_history']
 
     def vars_for_template(self):
         r = self.round_number
