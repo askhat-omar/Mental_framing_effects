@@ -11,7 +11,7 @@ class Intro(Page):
 
 class MyPage(Page):
     form_model = 'player'
-    form_fields = ['newt2_weights']
+    form_fields = ['newt2_weights', 'fill_history']
 
     def vars_for_template(self):
         p = self.player

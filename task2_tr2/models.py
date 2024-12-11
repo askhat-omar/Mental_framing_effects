@@ -47,6 +47,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+    fill_history = models.StringField()
     newt2_weights = models.StringField()
     newt2_realized_state = models.IntegerField()
     newt2_portfolio = models.StringField()

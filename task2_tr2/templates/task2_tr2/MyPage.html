@@ -216,6 +216,22 @@
     </script>
 
     <script>
+    var fill_history = [];
+    $("input").on("keydown keyup", function() {
+        let now = new Date();
+
+        if (this.id.startsWith("w") && this.value.length > 0) {
+            if (fill_history.length > 0 && fill_history[fill_history.length - 1][0] === this.id) {
+                fill_history[fill_history.length - 1] = [this.id, this.value, now.toISOString()];
+            } else {
+                fill_history.push([this.id, this.value, now.toISOString()]);
+            }
+        }
+        $("#id_fill_history").val(JSON.stringify(fill_history));
+        });
+    </script>
+
+    <script>
         $(document).ready(function() {
         $(window).keydown(function(event){
         if(event.keyCode == 13) {
