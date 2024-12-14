@@ -8,6 +8,11 @@
 {% block content %}
 
     <p>Consider the example illustrated below.</p>
+    {% if player.treatment == 1 %}
+        <a href="https://drive.google.com/file/d/1ARVon5t4ziNBf13WWVZUFSBE5wUcnGLM/view" target="_blank" rel="noopener noreferrer">Read instructions again</a>
+    {% elif player.treatment == 2 %}
+        <a href="https://drive.google.com/file/d/1P15LoqpSln9odsZdix2gJ5fhMulgZj2p/view" target="_blank" rel="noopener noreferrer">Read instructions again</a>
+    {% endif %}
 
     <div id="chart" align="center"></div>
     <p>What is the probability that the scenario represented in red occurs?</p>
