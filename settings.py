@@ -114,7 +114,7 @@ SESSION_CONFIGS = [
                       'task3_results_tr2',
                       'task4_tr13',
                       'task4_tr2',
-                      'task4_results',
+                      'task4_results_tr13',
                       'task4_results_tr2',
                       'crt',
                       'survey',
