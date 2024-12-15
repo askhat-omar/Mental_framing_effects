@@ -29,7 +29,7 @@ APP_KITS = {
             'task3_tr13',
             'task3_results_tr13',
             'task4_tr13',
-            'task4_results',
+            'task4_results_tr13',
             'crt',
             'survey',
             'finalpage'
@@ -75,7 +75,7 @@ APP_KITS = {
             'task3_tr13',
             'task3_results_tr13',
             'task4_tr13',
-            'task4_results',
+            'task4_results_tr13',
             'crt',
             'survey',
             'finalpage'
