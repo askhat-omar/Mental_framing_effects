@@ -1,14 +1,6 @@
 from otree.api import Currency as c, currency_range
 from ._builtin import Page, WaitPage
 from .models import Constants
-
-
-class MyPage(Page):
-    pass
-
-from otree.api import Currency as c, currency_range
-from ._builtin import Page, WaitPage
-from .models import Constants
 from helpers import get_next_app
 
 
@@ -39,13 +31,3 @@ class Results(Page):
 
 
 page_sequence = [Results]
-
-class ResultsWaitPage(WaitPage):
-    pass
-
-
-class Results(Page):
-    pass
-
-
-page_sequence = [MyPage, ResultsWaitPage, Results]
