@@ -1,0 +1,224 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+        {% if session.vars.num_rounds == 1 %}
+         Task 2: Practice Round
+    {% else %}
+         Task 2: Practice Round
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <p>Choose an amount to invest in each asset (the price of each asset is 1). Fill out the empty boxes in the bottom
+        row. The "Portfolio" column will be computed automatically.</p>
+    <a href="https://drive.google.com/file/d/19BwCeN8i6UqGGD8H9v9nwXINF4OAIv3r/view" target="_blank" rel="noopener noreferrer">View instructions</a>
+
+<html>
+<style>
+#pf_1{
+    width: 70px;
+    font-weight: bold;
+}
+#pf_2{
+    width: 70px;
+    font-weight: bold;
+}
+#pf_3{
+    width: 70px;
+    font-weight: bold;
+}
+#pf_4{
+    width: 70px;
+    font-weight: bold;
+}
+#w_1{
+    width: 70px;
+    font-weight: bold;
+}
+#w_2{
+    width: 70px;
+    font-weight: bold;
+}
+#w_3{
+    width: 70px;
+    font-weight: bold;
+}
+#w_4{
+    width: 70px;
+    font-weight: bold;
+}
+#head{
+    font-weight: bold;
+}
+#bottom{
+    font-weight: bold;
+}
+#index{
+    font-weight: bold;
+}
+#probs{
+    font-weight: bold;
+}
+</style>
+</html>
+
+    <div id="table1" align="center"></div>
+    <br>
+    <br>
+    <br>
+    {% next_button %}
+
+    <input type="hidden" name="newt2_weights" id="id_weights"/>
+    {{ form.newt2_weights.errors }}
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <script>
+        var table = d3.select("#table1").append("table");
+        var probabilities = JSON.parse({{player.probabilities|json}});
+        var payoff_AD1 = JSON.parse({{player.payoff_s1|json}});
+        var payoff_AD2 = JSON.parse({{player.payoff_s2|json}});
+        var payoff_AD3 = JSON.parse({{player.payoff_s3|json}});
+        var head = table.append("thead").append("tr")
+            .attr("height", "70")
+            .attr("id", "head");
+        head.append("td").html("State").attr("width", "100");
+        head.append("td").html("Probability").attr("width", "100");
+        head.append("td").html("Asset 1").attr("width", "100");
+        head.append("td").html("Asset 2").attr("width", "100");
+        head.append("td").html("Asset 3").attr("width", "100");
+        head.append("td").html("Portfolio").attr("width", "100");
+        for(i=1; i<{{ num_states|json }}; i++){
+            probability_label = "pr_" + i;
+            payoff_label = "AD_" + i;
+            weight_label = "w_" + i;
+            portfolio_label = "pf_" + i;
+            var row = table.append("tr").attr("height", "40");
+            row.append("td").html(i)
+                .attr("width", "100")
+                .attr("id", "index");
+            var probability = (probabilities[probability_label]);
+            var payoff_1 = payoff_AD1[payoff_label];
+            var payoff_2 = payoff_AD2[payoff_label];
+            var payoff_3 = payoff_AD3[payoff_label];
+            row.append("td").html(probability)
+                .attr("width", "100")
+                .attr("id", "probs");
+            row.append("td").html(payoff_1).attr("width", "100");
+            row.append("td").html(payoff_2).attr("width", "100");
+            row.append("td").html(payoff_3).attr("width", "100");
+            row.append("td").append("xhtml:input")
+                    .attr("size", "15")
+                    .attr("id",portfolio_label)
+                    .attr("class","expenditure")
+                    .attr("width", "100");
+        };
+        var mezzanine_row = table.append("tr").attr("height", "30");
+        mezzanine_row.append("td").attr("colspan", "6");
+        var bottom_row = table.append("tr")
+            .attr("height", "50")
+            .attr("id", "bottom");
+        bottom_row.append("td").attr("colspan","2").html("Money amount to invest:");
+        for(i=1; i<{{ num_states|json }}; i++){
+            weight_label = "w_" + i
+            if(i=={{ num_states|json }}-1){
+                bottom_row.append("td").append("xhtml:input")
+                    .attr("size",3)
+                    .attr("id",weight_label)
+                    .attr("class","residual")
+                    .attr("type","number")
+                    .attr("step", "1")
+                    .attr("min", 0)
+                    .attr("max", 100);
+
+            } else {
+                bottom_row.append("td").append("xhtml:input")
+                    .attr("size",3)
+                    .attr("id",weight_label)
+                    .attr("type","number")
+                    .attr("required","required")
+                    .attr("step","1")
+                    .attr("min", 0)
+                    .attr("max", 100);
+
+            }
+        };
+        bottom_row.append("td").html({{Constants.initial_wealth|json}});
+     </script>
+
+    <script>
+        var payoff_AD1 = JSON.parse({{player.payoff_s1|json}});
+        var payoff_AD2 = JSON.parse({{player.payoff_s2|json}});
+        var payoff_AD3 = JSON.parse({{player.payoff_s3|json}});
+        $("input").on("keydown keyup", function() {
+            var weights_string = "{ ";
+            var tot_weights = 0;
+            for(i=1;i<{{ num_states|json }}; i++){
+                payoff_label = "AD_" + i;
+                weight_label = "#w_" + i;
+                portfolio_label = "#pf_" + i;
+                var payoff_1 = payoff_AD1[payoff_label];
+                var payoff_2 = payoff_AD2[payoff_label];
+                var payoff_3 = payoff_AD3[payoff_label];
+                if(i=={{ num_states|json }}-1){
+                    var residual = ( {{ Constants.initial_wealth|json }} - tot_weights );
+                    $(weight_label).val(Math.round(residual*10)/10);
+                };
+                var weight = parseFloat($(weight_label).val());
+                var expenditure = (payoff_1+payoff_2+payoff_3) * weight;
+                if(!isNaN(expenditure)){
+                    $(portfolio_label).val(expenditure.toFixed(2));
+                };
+                tot_weights = tot_weights + weight;
+                weights_string = weights_string + '"' + weight_label.substr(1) + '":' + weight;
+                if(i<{{ num_states|json }}-1){
+                    weights_string = weights_string + ', ';
+                };
+            };
+            weights_string = weights_string + "}";
+            $("#id_weights").val(weights_string);
+        });
+    </script>
+
+
+    <script>
+        $(".residual").on('keydown paste', function(e){
+            e.preventDefault();
+        });
+
+        $(".expenditure").on('keydown paste', function(e){
+            e.preventDefault();
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+        $(window).keydown(function(event){
+        if(event.keyCode == 13) {
+          event.preventDefault();
+          return false;
+        }
+        });
+        });
+    </script>
+
+{% endblock %}
+
+
+{% block styles %}
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            text-align: center;
+        }
+        div {margin-top: 50px}
+        input{
+            width: 40px;
+        }
+    </style>
+{% endblock %}

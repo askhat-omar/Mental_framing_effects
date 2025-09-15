@@ -1,0 +1,283 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Quiz. Question 2
+{% endblock %}
+
+{% block content %}
+
+    <p>Consider the example illustrated below.</p>
+    <a href="https://drive.google.com/file/d/1WQLAb48MVFj8Tr4jr2aoxE3A9YWr1pAq/view" target="_blank" rel="noopener noreferrer">View instructions</a>
+
+    <div id="chart" align="center"></div>
+
+    <p>What is the value of X?</p>
+    {% formfield player.answer2 label="Your answer"%}
+
+    {% next_button %}
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <script>
+
+        d3.select("#chart")
+            .attr("align","center");
+
+
+        var N = 4;
+        var vOffset = 90;
+        var hOffset = 270;
+        var rootXoffset = 50;
+        var rootYoffset = 75 * N;
+        var width = rootXoffset + hOffset * N;
+        var height = rootYoffset + vOffset * N + 30;
+        var rectWidth = 210;
+        var rectHeight = 70;
+
+        var wealth = JSON.parse({{wealth|json}});
+        var stock = JSON.parse({{stock|json}});
+        var bond = JSON.parse({{bond|json}});
+        var states = JSON.parse({{realized_states|json}});
+        var prices = JSON.parse({{prices|json}});
+
+        var svg = d3.select("#chart")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+
+        svg.append("svg:defs").append("svg:marker")
+            .attr("id", "triangle")
+            .attr("refX", 13)
+            .attr("refY", 6)
+            .attr("markerWidth", 30)
+            .attr("markerHeight", 30)
+            .attr("markerUnits","userSpaceOnUse")
+            .attr("orient", "auto")
+            .append("path")
+            .attr("d", "M 0 0 12 6 0 12 3 6")
+            .style("fill", "black");
+
+        svg.append("svg:defs").append("svg:marker")
+            .attr("id", "red_triangle")
+            .attr("refX", 13)
+            .attr("refY", 6)
+            .attr("markerWidth", 30)
+            .attr("markerHeight", 30)
+            .attr("markerUnits","userSpaceOnUse")
+            .attr("orient", "auto")
+            .append("path")
+            .attr("d", "M 0 0 12 6 0 12 3 6")
+            .style("fill", "red");
+
+        var i,j;
+        var textbox;
+        var startX;
+        var startY;
+        var targetX;
+        var targetY;
+        var targX;
+        var targYup;
+        var targYdown;
+        var rectX;
+        var rectY;
+
+        // first draw lines
+        for(i=0; i<N-1; i++) {
+            for(j=1; j<(i+1)+1; j++) {
+                startX = rootXoffset + hOffset * i + rectWidth;
+                startY = rootYoffset - vOffset * i + (2*vOffset) * (j-1) + rectHeight/2;
+                targX = rootXoffset + hOffset * (i+1);
+                targYdown = startY + 90;
+                targYup = startY - 90;
+
+                if(j==states[i.toString()]){
+                    var cur_state = states[i.toString()];
+                    var next_state = states[(i+1).toString()];
+                    if((next_state-cur_state)==0){
+                        var upline_color = "red";
+                        var downline_color = "black";
+                        var upline_marker = "url(#red_triangle)";
+                        var downline_marker = "url(#triangle)";
+                    } else{
+                        var upline_color = "black";
+                        var downline_color = "red";
+                        var upline_marker = "url(#triangle)";
+                        var downline_marker = "url(#red_triangle)";
+                    };
+                } else{
+                    var upline_color = "black";
+                    var downline_color = "black";
+                    var upline_marker = "url(#triangle)";
+                    var downline_marker = "url(#triangle)";
+                };
+
+                svg.append("line")
+                    .attr("x1", startX)
+                    .attr("y1", startY)
+                    .attr("x2", targX)
+                    .attr("y2", targYup)
+                    .attr("stroke-width", 1)
+                    .attr("stroke", upline_color)
+                    .attr("marker-end", upline_marker);
+                svg.append("line")
+                    .attr("x1", startX)
+                    .attr("y1", startY)
+                    .attr("x2", targX)
+                    .attr("y2", targYdown)
+                    .attr("stroke-width", 1)
+                    .attr("stroke", downline_color)
+                    .attr("marker-end", downline_marker);
+
+                svg.append("text").html(0.5)
+                    .attr("x", (startX + targX) / 2 - 20)
+                    .attr("y", (startY + targYup) / 2 - 5);
+
+                svg.append("text").html(0.5)
+                    .attr("x", (startX + targX) / 2 - 20)
+                    .attr("y", (startY + targYdown) / 2 + 15);
+            }
+        }
+
+
+        // ... and rectangles and their labels
+        for(i=0; i<N; i++) {
+            for(j=1; j<(i+1)+1; j++) {
+
+                if(j==states[i.toString()]){
+                    var color = "red";
+                } else {
+                    var color = "black";
+                };
+
+                wealth_label = "w_" + i + "_" + j;
+                stock_label = "s_" + i + "_" + j;
+                bond_label = "b_" + i + "_" + j;
+                price_label = "x_" + i + "_" + j;
+
+                rectX = rootXoffset + hOffset * i;
+                rectY = rootYoffset - vOffset * i + (2*vOffset) * (j-1);
+
+                if(i==3){
+                    svg.append("rect")
+                    .attr("x", rectX)
+                    .attr("y", rectY - 23/2)
+                    .attr("width", rectWidth-75)
+                    .attr("height", rectHeight+23)
+                    .attr("ry", 5)
+                    .style("stroke", color)
+                    .style("fill", "white");
+
+                    fo = svg.append("foreignObject")
+                        .attr("x",rectX+1)
+                        .attr("y",rectY+5-23/2)
+                        .attr("width",rectWidth-80)
+                        .attr("height",rectHeight+18);
+                    tab = fo.append("xhtml:table");
+
+                    var row1 = tab.append("tr");
+                    row1.append("td").html("Price_S: ");
+                    row1.append("td").append("xhtml:input")
+                        .attr("size",3)
+                        .attr("id",price_label)
+                        .attr("value",prices[price_label])
+                        .attr("readonly","readonly");
+
+                    var row2 = tab.append("tr");
+                    row2.append("td").html("Money:");
+                    row2.append("td").append("xhtml:input")
+                        .attr("size",3)
+                        .attr("id",wealth_label)
+                        .attr("readonly","readonly")
+                        .attr("value",wealth[wealth_label]);
+
+                    var row3 = tab.append("tr");
+                    row3.append("td").html("Prob:");
+                    row3.append("td").append("xhtml:input")
+                        .attr("size", 3)
+                        .attr("id", "prob_3_"+j)
+                        .attr("readonly","readonly");
+
+                } else {
+                    svg.append("rect")
+                    .attr("x", rectX)
+                    .attr("y", rectY)
+                    .attr("width", rectWidth)
+                    .attr("height", rectHeight)
+                    .attr("ry", 5)
+                    .style("stroke", color)
+                    .style("fill", "white");
+
+                    fo = svg.append("foreignObject")
+                        .attr("x",rectX+1)
+                        .attr("y",rectY+5)
+                        .attr("width",rectWidth-5)
+                        .attr("height",rectHeight-5);
+                    tab = fo.append("xhtml:table");
+
+                    var row1 = tab.append("tr");
+                    row1.append("td").html("Price_S: ");
+                    row1.append("td").append("xhtml:input")
+                        .attr("size",3)
+                        .attr("id",price_label)
+                        .attr("value",prices[price_label])
+                        .attr("readonly","readonly");
+                    row1.append("td").html("S: ");
+                    row1.append("td").append("xhtml:input")
+                        .attr("size",1)
+                        .attr("id",stock_label)
+                        .attr("value",stock[stock_label])
+                        .attr("readonly","readonly");
+                    var row2 = tab.append("tr");
+                    row2.append("td").html("Money:");
+                    row2.append("td").append("xhtml:input")
+                        .attr("size",3)
+                        .attr("id",wealth_label)
+                        .attr("value",wealth[wealth_label])
+                        .attr("readonly","readonly");
+                    row2.append("td").html("C: ");
+                    row2.append("td").append("xhtml:input")
+                        .attr("size",3)
+                        .attr("id",bond_label)
+                        .attr("value",bond[bond_label])
+                        .attr("readonly","readonly");
+                };
+            };
+        };
+
+
+    </script>
+
+    <script>
+    var terminal_probs = {{Constants.terminal_probs|json}};
+    $("#prob_3_1").val({{Constants.terminal_probs}}[0]);
+    $("#prob_3_2").val({{Constants.terminal_probs}}[1]);
+    $("#prob_3_3").val({{Constants.terminal_probs}}[2]);
+    $("#prob_3_4").val({{Constants.terminal_probs}}[3]);
+
+    </script>
+
+{% endblock %}
+
+
+{% block styles %}
+    <style>
+        input, body {
+          font-family: 'Helvetica', Arial, Lucida Grande, sans-serif;
+          font-size: 14px;
+        }
+        input{
+            width: 60px;
+        }
+        #w_1_2 {
+            background-color: yellow;
+        }
+    </style>
+{% endblock %}
+
+
