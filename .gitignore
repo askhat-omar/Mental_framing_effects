@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.pyc
+*.otreezip
+.DS_Store
+**/.DS_Store
+.AppleDouble
 
 # C extensions
 *.so
