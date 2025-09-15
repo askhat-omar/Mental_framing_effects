@@ -4,6 +4,9 @@ __pycache__/
 *$py.class
 *.pyc
 *.otreezip
+.DS_Store
+**/.DS_Store
+.AppleDouble
 
 # C extensions
 *.so
