@@ -15,6 +15,13 @@ This repository provides a fully replicable version of the experiment as it was 
 
 ## 🔧 Installation & Usage
 
+Create a new conda environment:
+
+```bash
+conda create -n experiment_replication python=3.10.8
+conda activate experiment_replication
+```
+
 Clone the repository and install dependencies:
 
 ```bash
